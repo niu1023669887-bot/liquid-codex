@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vol. VIII · Garnish & Zero Waste · Liquid Architect</title>
+  <link rel="stylesheet" href="../css/theme.css?v=5">
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="../home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.vol8">VOL. VIII · GARNISH & ZERO WASTE</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="../settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="../ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <nav class="page-nav">
+    <a href="../home.html" class="nav-home" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">›</span>
+    <a href="vol8.html"><span data-i18n="vol8.breadcrumb">Vol. VIII · Garnish & Zero Waste</span></a>
+  </nav>
+
+  <div class="vol-hero">
+    <div class="vol-hero-inner">
+      <div class="vol-number">08</div>
+      <div class="eyebrow" data-i18n="vol8.hero.eyebrow">Vol. VIII · Sensory Engineering</div>
+      <h2 class="split-hero vol-split">
+        <span class="split-line"><span class="split-inner" data-i18n="vol8.hero.title">Garnish & Zero Waste</span></span>
+      </h2>
+      <div class="codex-quote" style="max-width:680px;margin-top:1.2rem;">
+        <span data-i18n="vol8.hero.quote">The garnish is not decoration — it is the opening argument of your sensory narrative. It frames the nose before the first sip.</span>
+        <div style="margin-top:0.8rem;font-size:0.7rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="common.author">— Darien · Liquid Architect</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <div data-tabs>
+      <div class="tabs">
+        <button class="tab-btn" data-i18n="vol8.tab1">Dehydration</button>
+        <button class="tab-btn" data-i18n="vol8.tab2">Isomalt Sugar Art</button>
+        <button class="tab-btn" data-i18n="vol8.tab3">Fruit Leather</button>
+        <button class="tab-btn" data-i18n="vol8.tab4">Zero Waste Yield</button>
+      </div>
+
+      <!-- Tab 1: Dehydration -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol8.t1.label">Dehydration Calculator</div>
+        <div class="codex-quote" data-i18n="vol8.t1.quote">
+          Target water activity (aW) ≤ 0.60 for shelf-stable garnishes. Most fruits start at aW 0.95–0.99. Dehydrator at 55 °C achieves equilibrium in 6–18 h depending on slice thickness and sugar content.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t1.p1">Fresh Material Weight (g)</label>
+              <input type="number" id="deh-weight" value="200" min="10" max="5000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t1.p2">Material Type</label>
+              <select id="deh-type">
+                <option value="citrus" data-i18n="vol8.t1.opt.citrus">Citrus wheels (88% water)</option>
+                <option value="apple" data-i18n="vol8.t1.opt.apple">Apple slices (86% water)</option>
+                <option value="pineapple" data-i18n="vol8.t1.opt.pineapple">Pineapple (86% water)</option>
+                <option value="strawberry" data-i18n="vol8.t1.opt.strawberry">Strawberry (92% water)</option>
+                <option value="herb" data-i18n="vol8.t1.opt.herb">Herbs (85% water)</option>
+                <option value="root" data-i18n="vol8.t1.opt.root">Root slices — ginger, turmeric (78% water)</option>
+                <option value="chilli" data-i18n="vol8.t1.opt.chilli">Chilli / peppers (92% water)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t1.p3">Slice Thickness (mm)</label>
+              <div class="range-row">
+                <input type="range" id="deh-thick" min="1" max="10" step="0.5" value="3">
+                <span class="range-val">3</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t1.p4">Dehydrator Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="deh-temp" min="40" max="75" step="5" value="55">
+                <span class="range-val">55</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t1.p5">Target Moisture (%)</label>
+              <div class="range-row">
+                <input type="range" id="deh-moisture" min="3" max="20" step="1" value="8">
+                <span class="range-val">8</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcDehydration()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol8.t1.r1">Final Weight</span><span class="value" id="deh-final">—</span><span class="delta">grams</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t1.r2">Weight Loss</span><span class="value" id="deh-loss">—</span><span class="delta" data-i18n="vol8.t1.r2u">% reduction</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t1.r3">Dehydrator Time</span><span class="value" id="deh-time">—</span><span class="delta" data-i18n="vol8.t1.r3u">hours</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t1.r4">Water Activity</span><span class="value" id="deh-aw">—</span><span class="delta" data-i18n="vol8.t1.r4u">aW target</span></div>
+            </div>
+            <div id="deh-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="expander" style="margin-top:1.5rem;">
+              <div class="expander-header"><span data-i18n="vol8.t1.tips">Dehydration Tips</span> <span class="expander-arrow">▾</span></div>
+              <div class="expander-body">
+                <ol class="sop">
+                  <li data-i18n="vol8.t1.sop.1">Slice uniformly — thickness variation causes uneven drying</li>
+                  <li data-i18n="vol8.t1.sop.2">Blanch fruit 30s for brighter colour retention</li>
+                  <li data-i18n="vol8.t1.sop.3">Pre-treat with lemon juice to prevent oxidation browning</li>
+                  <li data-i18n="vol8.t1.sop.4">Rotate trays every 2–3 h for even airflow</li>
+                  <li data-i18n="vol8.t1.sop.5">Cool to room temp before checking — test bend/snap</li>
+                  <li data-i18n="vol8.t1.sop.6">Store in airtight container with silica gel sachet</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Isomalt -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol8.t2.label">Isomalt Sugar Art Temperature Guide</div>
+        <div class="codex-quote" data-i18n="vol8.t2.quote">
+          Isomalt: 1:1 D-glucitol + mannitol. Non-hygroscopic (resists moisture uptake). Pulled/blown at 155–160 °C; cast/poured at 165–175 °C; pulled tuiles and cages at 145–155 °C. Caramelises at 160 °C (slower than sucrose at 165 °C).
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t2.p1">Isomalt Weight (g)</label>
+              <input type="number" id="iso-weight" value="100" min="10" max="2000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t2.p2">Application</label>
+              <select id="iso-app">
+                <option value="cast" data-i18n="vol8.t2.opt.cast">Cast / Mould (poured shapes)</option>
+                <option value="pull" data-i18n="vol8.t2.opt.pull">Pulled (glossy ribbons, stems)</option>
+                <option value="blow" data-i18n="vol8.t2.opt.blow">Blown (hollow spheres)</option>
+                <option value="tuile" data-i18n="vol8.t2.opt.tuile">Tuile / Cage / Lace</option>
+                <option value="disc" data-i18n="vol8.t2.opt.disc">Flat Disc / Tablet garnish</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t2.p3">Colour / Flavour Additions</label>
+              <select id="iso-colour">
+                <option value="none" data-i18n="vol8.t2.opt.none">None (clear)</option>
+                <option value="fat_soluble" data-i18n="vol8.t2.opt.fat_soluble">Fat-soluble powder colour</option>
+                <option value="water_soluble" data-i18n="vol8.t2.opt.water_soluble">Water-soluble gel colour</option>
+                <option value="citric" data-i18n="vol8.t2.opt.citric">Citric acid (sour, clouding)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t2.p4">Ambient Humidity (%)</label>
+              <div class="range-row">
+                <input type="range" id="iso-hum" min="30" max="80" value="50">
+                <span class="range-val">50</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcIsomalt()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol8.t2.r1">Cook Temp</span><span class="value" id="iso-temp">—</span><span class="delta" data-i18n="vol8.t2.r1u">°C target</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t2.r2">Work Temp</span><span class="value" id="iso-work">—</span><span class="delta" data-i18n="vol8.t2.r2u">°C (malleable)</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t2.r3">Set Time</span><span class="value" id="iso-set">—</span><span class="delta" data-i18n="vol8.t2.r3u">seconds to hard</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t2.r4">Shelf Life</span><span class="value" id="iso-shelf">—</span><span class="delta" data-i18n="vol8.t2.r4u">hours at humidity</span></div>
+            </div>
+            <div id="iso-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+        <div class="panel-gold reveal" style="margin-top:1.5rem;">
+          <div style="font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.8rem;" data-i18n="vol8.t2.ref">Isomalt Temperature Reference</div>
+          <table class="data-table" style="margin:0;">
+            <thead><tr><th data-i18n="vol8.t2.th1">Stage</th><th data-i18n="vol8.t2.th2">Temp (°C)</th><th data-i18n="vol8.t2.th3">Application</th></tr></thead>
+            <tbody>
+              <tr><td>Soft Ball</td><td>115–120</td><td>Fondant, fudge fillings</td></tr>
+              <tr><td>Hard Ball</td><td>121–130</td><td>Caramels, nougat</td></tr>
+              <tr><td>Soft Crack</td><td>132–143</td><td>Butterscotch, toffee</td></tr>
+              <tr><td>Hard Crack / Tuile</td><td>146–154</td><td>Lace, tuile, cage</td></tr>
+              <tr><td>Pull / Blow</td><td>155–162</td><td>Pulled sugar, blown spheres</td></tr>
+              <tr><td>Cast / Pour</td><td>163–175</td><td>Moulded shapes, tablets</td></tr>
+              <tr><td>Caramel onset</td><td>160+</td><td>Amber colour develops</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Fruit Leather -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol8.t3.label">Fruit Leather / Pâte de Fruit Calculator</div>
+        <div class="codex-quote" data-i18n="vol8.t3.quote">
+          Fruit leather is dehydrated purée on a non-stick surface. For cocktail use, add lactic acid (1–2 g/L) for brightness and pectin (0.5–1%) for structure. Optimal spread thickness: 3–5 mm for flexible leathers; 8–10 mm for firm pâte de fruit.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t3.p1">Purée Weight (g)</label>
+              <input type="number" id="fl-weight" value="300" min="50" max="3000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t3.p2">Fruit Type</label>
+              <select id="fl-fruit">
+                <option value="berry" data-i18n="vol8.t3.opt.berry">Berry purée (high pectin)</option>
+                <option value="citrus" data-i18n="vol8.t3.opt.citrus">Citrus (medium pectin)</option>
+                <option value="tropical" data-i18n="vol8.t3.opt.tropical">Tropical fruit (low pectin)</option>
+                <option value="stone" data-i18n="vol8.t3.opt.stone">Stone fruit — peach, apricot</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t3.p3">Added Sugar (%)</label>
+              <div class="range-row">
+                <input type="range" id="fl-sugar" min="0" max="40" step="1" value="15">
+                <span class="range-val">15</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t3.p4">Target Thickness (mm)</label>
+              <div class="range-row">
+                <input type="range" id="fl-thick" min="2" max="10" step="0.5" value="4">
+                <span class="range-val">4</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol8.t3.p5">Dehydrator Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="fl-temp" min="50" max="70" step="5" value="60">
+                <span class="range-val">60</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcFruitLeather()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol8.t3.r1">Pectin Required</span><span class="value" id="fl-pectin">—</span><span class="delta">grams</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t3.r2">Spread Area</span><span class="value" id="fl-area">—</span><span class="delta" data-i18n="vol8.t3.r2u">cm² (3–4 mm spread)</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t3.r3">Drying Time</span><span class="value" id="fl-time">—</span><span class="delta" data-i18n="vol8.t3.r3u">hours</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t3.r4">Final Yield</span><span class="value" id="fl-yield">—</span><span class="delta" data-i18n="vol8.t3.r4u">grams leathers</span></div>
+            </div>
+            <div id="fl-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Zero Waste -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol8.t4.label">Zero Waste Yield & Repurposing Calculator</div>
+        <div class="codex-quote" data-i18n="vol8.t4.quote">
+          Every peel, seed, and spent botanical is a raw material. The spent citrus from Oleo-Saccharum becomes a dehydrated garnish. The maceration pomace becomes a smoking chip. Nothing leaves the bar without extraction.
+        </div>
+        <div class="reveal">
+          <div class="calc-grid">
+            <div class="calc-col">
+              <h3 style="margin-bottom:1.2rem;" data-i18n="vol8.t4.head1">Waste Input</h3>
+              <div class="field-group">
+                <label class="field-label" data-i18n="vol8.t4.p1">Waste Material</label>
+                <select id="zw-type">
+                  <option value="citrus_peel" data-i18n="vol8.t4.opt.citrus_peel">Citrus peel (post-juice)</option>
+                  <option value="citrus_oleo" data-i18n="vol8.t4.opt.citrus_oleo">Citrus peel (post-Oleo)</option>
+                  <option value="botanical_spent" data-i18n="vol8.t4.opt.botanical_spent">Spent botanicals / herbs</option>
+                  <option value="fruit_pulp" data-i18n="vol8.t4.opt.fruit_pulp">Fruit pulp (post-press)</option>
+                  <option value="coffee_grounds" data-i18n="vol8.t4.opt.coffee_grounds">Coffee grounds</option>
+                  <option value="egg_shells" data-i18n="vol8.t4.opt.egg_shells">Eggshells</option>
+                  <option value="vanilla_spent" data-i18n="vol8.t4.opt.vanilla_spent">Spent vanilla pods</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" data-i18n="vol8.t4.p2">Weight Available (g)</label>
+                <input type="number" id="zw-weight" value="100" min="5" max="5000">
+              </div>
+              <button class="btn btn-primary btn-full" onclick="calcZeroWaste()" data-i18n="calc.analyse">Analyse</button>
+            </div>
+            <div class="calc-col">
+              <h3 style="margin-bottom:1.2rem;" data-i18n="vol8.t4.head2">Repurposing Options</h3>
+              <div id="zw-options">
+                <p style="color:var(--text-dim);font-size:0.85rem;" data-i18n="vol8.t4.empty-hint">Select a waste material and click Analyse.</p>
+              </div>
+            </div>
+          </div>
+
+            <div style="margin-top:2rem;">
+            <div class="section-label" data-i18n="vol8.t4.track">Waste Tracking Log</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:0.8rem;margin-bottom:1rem;align-items:end;">
+              <div class="field-group" style="margin:0;">
+                <label class="field-label" data-i18n="vol8.t4.track.p1">Material</label>
+                <input type="text" id="wt-material" placeholder="e.g. Lemon peel" data-i18n-placeholder="vol8.t4.track.ph">
+              </div>
+              <div class="field-group" style="margin:0;">
+                <label class="field-label" data-i18n="vol8.t4.track.p2">Weight (g)</label>
+                <input type="number" id="wt-weight" value="50" min="1">
+              </div>
+              <button class="btn btn-ghost" onclick="logWaste()" data-i18n="vol8.t4.add">Add</button>
+            </div>
+            <div class="panel" style="padding:0;overflow-x:auto;">
+              <table class="data-table" id="wt-table">
+                <thead><tr><th data-i18n="vol8.t4.th1">Material</th><th data-i18n="vol8.t4.th2">Weight (g)</th><th data-i18n="vol8.t4.th3">CO₂ Saved (g)</th><th data-i18n="vol8.t4.th4">Value Index</th></tr></thead>
+                <tbody id="wt-body"><tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:1.5rem;" data-i18n="vol8.t4.log.empty">No entries.</td></tr></tbody>
+              </table>
+            </div>
+            <div class="metric-grid" style="margin-top:1rem;">
+              <div class="metric-card"><span class="label" data-i18n="vol8.t4.r1">Total Diverted</span><span class="value" id="wt-total">0</span><span class="delta">grams</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol8.t4.r2">CO₂ Saved (est.)</span><span class="value" id="wt-co2">0</span><span class="delta">grams</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;"><span data-i18n="vol8.footer">Liquid Architect · Vol. VIII · Garnish & Zero Waste</span></div>
+  </div>
+
+  <!-- ── Per-vol QA Panel ── -->
+  <div style="border-top:1px solid var(--border);margin-top:3.5rem;padding-top:2.5rem;padding-bottom:2rem;" class="reveal">
+    <div class="page-container" style="max-width:820px;">
+      <div class="panel-gold">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">
+          <span data-i18n="qa.eyebrow.prefix">Volume Q&A ·</span> Vol. VIII · Garnish & Zero Waste
+        </div>
+        <div class="section-label" style="margin-bottom:1rem;" data-i18n="qa.section.label">Ask the Codex</div>
+        <div style="display:flex;gap:0.6rem;align-items:flex-end;">
+          <textarea id="qa-input" rows="2"
+            data-i18n-placeholder="qa.placeholder"
+            placeholder="Ask anything about this volume — answers must include numeric evidence…"
+            style="flex:1;resize:none;"></textarea>
+          <button id="qa-btn" onclick="askCodex()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.7rem 1.2rem;" data-i18n="qa.btn.ask">Ask →</button>
+        </div>
+        <div id="qa-output" style="margin-top:1rem;min-height:0;"></div>
+        <div style="margin-top:0.8rem;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;" data-i18n="qa.disclaimer">
+          Answers generated by AI from the Codex — verify safety parameters before practical use.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js?v=14"></script>
+<script src="../js/auth.js?v=14"></script>
+<script src="../js/ui.js"></script>
+<script>
+requireAuth();
+
+function calcDehydration() {
+  const weight = parseFloat(document.getElementById('deh-weight').value) || 200;
+  const type = document.getElementById('deh-type').value;
+  const thick = parseFloat(document.getElementById('deh-thick').value) || 3;
+  const temp = parseFloat(document.getElementById('deh-temp').value) || 55;
+  const moisture = parseFloat(document.getElementById('deh-moisture').value) || 8;
+
+  const waterPct = { citrus: 88, apple: 86, pineapple: 86, strawberry: 92, herb: 85, root: 78, chilli: 92 };
+  const wPct = waterPct[type];
+  const dryMatter = weight * (1 - wPct / 100);
+  const finalWeight = Math.round(dryMatter / (1 - moisture / 100));
+  const lossP = (((weight - finalWeight) / weight) * 100).toFixed(0);
+  const aw = (moisture / 100 * 0.9 + 0.05).toFixed(2);
+  const tempFactor = temp >= 65 ? 0.7 : temp >= 55 ? 1.0 : 1.4;
+  const thickFactor = (thick / 3);
+  const time = (8 * tempFactor * thickFactor * (wPct / 88)).toFixed(1);
+
+  document.getElementById('deh-final').textContent = finalWeight;
+  flashResult(document.getElementById('deh-final'));
+  document.getElementById('deh-loss').textContent = lossP + '%';
+  flashResult(document.getElementById('deh-loss'));
+  document.getElementById('deh-time').textContent = time;
+  flashResult(document.getElementById('deh-time'));
+  document.getElementById('deh-aw').textContent = aw;
+  flashResult(document.getElementById('deh-aw'));
+
+  const adv = document.getElementById('deh-advice');
+  adv.textContent = parseFloat(aw) > 0.65
+    ? (t('vol8.t1.advice.aw') || 'Water activity above 0.65 — not shelf stable. Extend drying or increase temperature.')
+    : temp > 70
+    ? (t('vol8.t1.advice.hot') || 'High temperature risks browning and chlorophyll degradation in herbs. Reduce to 55–60 °C.')
+    : (tr('vol8.t1.advice.ok', { finalWeight, lossP, time, temp, aw }) || `${finalWeight} g final yield (~${lossP}% reduction). Estimated ${time} h at ${temp} °C. Target aW: ${aw}.`);
+  adv.style.display = 'block';
+}
+
+function calcIsomalt() {
+  const weight = parseFloat(document.getElementById('iso-weight').value) || 100;
+  const app = document.getElementById('iso-app').value;
+  const colour = document.getElementById('iso-colour').value;
+  const hum = parseFloat(document.getElementById('iso-hum').value) || 50;
+
+  const temps = {
+    cast: { cook: 170, work: '155–165', set: 60 },
+    pull: { cook: 160, work: '120–140', set: 30 },
+    blow: { cook: 162, work: '130–145', set: 20 },
+    tuile: { cook: 150, work: '100–120', set: 45 },
+    disc: { cook: 165, work: '150–160', set: 90 }
+  };
+  const t = temps[app];
+  const shelfHours = hum > 65 ? 2 : hum > 50 ? 6 : 24;
+
+  document.getElementById('iso-temp').textContent = t.cook + '°C';
+  flashResult(document.getElementById('iso-temp'));
+  document.getElementById('iso-work').textContent = t.work + '°C';
+  flashResult(document.getElementById('iso-work'));
+  document.getElementById('iso-set').textContent = t.set + 's';
+  flashResult(document.getElementById('iso-set'));
+  document.getElementById('iso-shelf').textContent = shelfHours + 'h';
+  flashResult(document.getElementById('iso-shelf'));
+
+  const adv = document.getElementById('iso-advice');
+  adv.textContent = hum > 65
+    ? (tr('vol8.t2.advice.hum', { hum }) || `High humidity (${hum}%) — isomalt will absorb moisture and become sticky within 1–2 h. Add 1–2 g Isomalt ST9 (sugar alcohol sealer) per 100 g.`)
+    : colour === 'water_soluble'
+    ? (t('vol8.t2.advice.colour') || 'Water-soluble colours may cause steam/bubbling at high temperatures. Add colour when cooling to 120 °C.')
+    : (tr('vol8.t2.advice.ok', { cook: t.cook, work: t.work, shelfHours, hum }) || `Cook to ${t.cook}°C, work at ${t.work}°C. Shelf life ~${shelfHours} h at ${hum}% humidity.`);
+  adv.style.display = 'block';
+}
+
+function calcFruitLeather() {
+  const weight = parseFloat(document.getElementById('fl-weight').value) || 300;
+  const fruit = document.getElementById('fl-fruit').value;
+  const sugar = parseFloat(document.getElementById('fl-sugar').value) || 15;
+  const thick = parseFloat(document.getElementById('fl-thick').value) || 4;
+  const temp = parseFloat(document.getElementById('fl-temp').value) || 60;
+
+  const pectinNeeded = { berry: 0.3, citrus: 0.5, tropical: 0.8, stone: 0.6 };
+  const pectinG = (weight * pectinNeeded[fruit] / 100).toFixed(1);
+  const totalWeight = weight * (1 + sugar / 100);
+  const density = 1.1;
+  const areamm2 = (totalWeight / density) / thick * 100;
+  const areaCm2 = (areamm2 / 100).toFixed(0);
+  const tempFactor = temp >= 65 ? 0.75 : 1.0;
+  const time = (6 * (thick / 4) * tempFactor).toFixed(1);
+  const yield_ = Math.round(totalWeight * 0.25);
+
+  document.getElementById('fl-pectin').textContent = pectinG;
+  flashResult(document.getElementById('fl-pectin'));
+  document.getElementById('fl-area').textContent = areaCm2;
+  flashResult(document.getElementById('fl-area'));
+  document.getElementById('fl-time').textContent = time;
+  flashResult(document.getElementById('fl-time'));
+  document.getElementById('fl-yield').textContent = yield_;
+  flashResult(document.getElementById('fl-yield'));
+
+  const adv = document.getElementById('fl-advice');
+  adv.textContent = thick > 7
+    ? (t('vol8.t3.advice.thick') || 'For pâte de fruit (thick format): use full pectin dosage and cool in mould before cutting. 24 h resting at room temp improves set.')
+    : (tr('vol8.t3.advice.ok', { pectinG, totalWeight: Math.round(totalWeight), areaCm2, time, temp }) || `${pectinG} g pectin in ${Math.round(totalWeight)} g purée+sugar. Spread on silicone mat to ${areaCm2} cm². Dry ${time} h at ${temp}°C.`);
+  adv.style.display = 'block';
+}
+
+const zwYields = {"citrus_peel": ["12%", "12%", "30%", "100%"], "citrus_oleo": ["12%", "12%", "100%"], "botanical_spent": ["90%", "90%", "30%"], "fruit_pulp": ["25%", "80%", "100%"], "coffee_grounds": ["50%", "80%", "100%"], "egg_shells": ["90%", "5%"], "vanilla_spent": ["90%", "90%", "80%"]};
+
+function calcZeroWaste() {
+  const type = document.getElementById('zw-type').value;
+  const weight = parseFloat(document.getElementById('zw-weight').value) || 100;
+  const yields = zwYields[type];
+  if (!yields) return;
+
+  let html = '<div style="display:flex;flex-direction:column;gap:0.8rem;">';
+  yields.forEach((yld, i) => {
+    const use = t(`vol8.t4.zw.${type}.${i}.use`) || '';
+    const desc = t(`vol8.t4.zw.${type}.${i}.desc`) || '';
+    const yieldG = (weight * parseFloat(yld) / 100).toFixed(0);
+    const yieldLabel = tr('vol8.t4.zw.yield', { yieldG }) || `~${yieldG} g yield`;
+    html += `
+      <div class="panel-gold">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.3rem;">
+          <strong style="font-size:0.88rem;">${use}</strong>
+          <span style="font-size:0.7rem;color:var(--gold);">${yieldLabel}</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin:0;">${desc}</p>
+      </div>
+    `;
+  });
+  html += '</div>';
+  document.getElementById('zw-options').innerHTML = html;
+}
+
+const wasteLog = [];
+function logWaste() {
+  const material = document.getElementById('wt-material').value;
+  const weight = parseFloat(document.getElementById('wt-weight').value) || 0;
+  if (!material || !weight) return;
+  wasteLog.push({ material, weight });
+  renderWasteLog();
+}
+function renderWasteLog() {
+  const tbody = document.getElementById('wt-body');
+  if (!wasteLog.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:1.5rem;">' + (t('vol8.t4.log.empty') || 'No entries.') + '</td></tr>';
+    return;
+  }
+  let total = 0, co2 = 0;
+  tbody.innerHTML = wasteLog.map(e => {
+    total += e.weight;
+    const co2saved = e.weight * 2.5; // approx CO2 per g food waste
+    co2 += co2saved;
+    const val = e.weight > 100 ? (t('vol8.t4.log.high') || 'High') : e.weight > 50 ? (t('vol8.t4.log.medium') || 'Medium') : (t('vol8.t4.log.low') || 'Low');
+    return `<tr><td>${e.material}</td><td>${e.weight}</td><td>${co2saved.toFixed(0)}</td><td>${val}</td></tr>`;
+  }).join('');
+  document.getElementById('wt-total').textContent = total.toFixed(0);
+  flashResult(document.getElementById('wt-total'));
+  document.getElementById('wt-co2').textContent = co2.toFixed(0);
+  flashResult(document.getElementById('wt-co2'));
+}
+
+document.addEventListener('langchange', () => {
+  ['deh-advice','iso-advice','fl-advice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.style.display !== 'none') {
+      if (id === 'deh-advice') calcDehydration();
+      else if (id === 'iso-advice') calcIsomalt();
+      else calcFruitLeather();
+    }
+  });
+  const zw = document.getElementById('zw-options');
+  if (zw && zw.innerHTML.trim()) calcZeroWaste();
+  if (wasteLog.length) renderWasteLog();
+});
+</script>
+<script src="../js/i18n.js?v=7"></script>
+<script>
+// ── QA Panel · vol8 ──
+(function () {
+  var _vol = 'vol8';
+
+  window.askCodex = function () {
+    var q = document.getElementById('qa-input').value.trim();
+    var out = document.getElementById('qa-output');
+    if (!q) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.empty') || 'Please enter a question.') + '</div>';
+      return;
+    }
+    var key = (localStorage.getItem('deepseek_api_key') || '').trim();
+    if (!key) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.no-key') || 'API Key not configured.') + '</div>';
+      return;
+    }
+    var btn = document.getElementById('qa-btn');
+    btn.disabled = true;
+    btn.textContent = t('qa.btn.asking') || 'Thinking…';
+    out.innerHTML = '<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">'
+      + '<span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>'
+      + (t('qa.btn.asking') || 'Thinking…') + '</div>';
+    var token = (typeof getToken === 'function') ? getToken() : '';
+    var lang = localStorage.getItem('lc_lang') || 'en';
+    fetch(STREAM_API_BASE + '/api/qa/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Api-Key': key },
+      body: JSON.stringify({ volume: _vol, question: q, language: lang })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (err) {
+          out.innerHTML = '<div class="alert alert-error">' + (err.detail || 'Error ' + res.status) + '</div>';
+          _resetQaBtn();
+        });
+      }
+      var reader = res.body.getReader(), decoder = new TextDecoder(), md = '';
+      out.innerHTML = '<div class="ai-stream-text" id="qa-stream"></div>';
+      (function read() {
+        reader.read().then(function (r) {
+          if (r.done) { _resetQaBtn(); return; }
+          decoder.decode(r.value, { stream: true }).split('\n').forEach(function (line) {
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6);
+            if (data === '[DONE]') { _resetQaBtn(); return; }
+            try {
+              var p = JSON.parse(data);
+              if (p.error) { out.innerHTML = '<div class="alert alert-error">' + p.error + '</div>'; _resetQaBtn(); return; }
+              if (p.text) { md += p.text; var el = document.getElementById('qa-stream'); if (el) el.innerHTML = _qaMd(md); }
+            } catch (e) {}
+          });
+          read();
+        });
+      })();
+    }).catch(function (err) {
+      out.innerHTML = '<div class="alert alert-error">Connection error: ' + err.message + '</div>';
+      _resetQaBtn();
+    });
+  };
+
+  function _resetQaBtn() {
+    var btn = document.getElementById('qa-btn');
+    if (!btn) return;
+    btn.disabled = false;
+    btn.textContent = t('qa.btn.ask') || 'Ask →';
+  }
+
+  function _qaMd(md) {
+    return md
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function (m) { return '<ul>' + m + '</ul>'; })
+      .split(/\n{2,}/).map(function (b) {
+        if (b.startsWith('<h') || b.startsWith('<ul')) return b;
+        if (b.trim()) return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+        return '';
+      }).join('\n');
+  }
+
+  document.addEventListener('langchange', function () {
+    var btn = document.getElementById('qa-btn');
+    if (btn && !btn.disabled) btn.textContent = t('qa.btn.ask') || 'Ask →';
+    var inp = document.getElementById('qa-input');
+    if (inp) inp.placeholder = t('qa.placeholder') || inp.placeholder;
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vol. III · Ice & Kinetics · Liquid Architect</title>
+  <link rel="stylesheet" href="../css/theme.css?v=5">
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="../home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.vol3">VOL. III · ICE & KINETICS</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="../settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="../ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <nav class="page-nav">
+    <a href="../home.html" class="nav-home" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">›</span>
+    <a href="vol3.html"><span data-i18n="vol3.breadcrumb">Vol. III · Ice & Kinetics</span></a>
+  </nav>
+
+  <div class="vol-hero">
+    <div class="vol-hero-inner">
+      <div class="vol-number">03</div>
+      <div class="eyebrow" data-i18n="vol3.hero.eyebrow">Vol. III · Epoch II · Thermodynamics</div>
+      <h2 class="split-hero vol-split">
+        <span class="split-line"><span class="split-inner" data-i18n="vol3.hero.title">Ice & Kinetics</span></span>
+      </h2>
+      <div class="codex-quote" style="max-width:680px;margin-top:1.2rem;">
+        <span data-i18n="vol3.hero.quote">Ice is not a garnish — it is your primary engineering component. Its crystalline structure determines dilution, texture, and temperature trajectory.</span>
+        <div style="margin-top:0.8rem;font-size:0.7rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="common.author">— Darien · Liquid Architect</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <div data-tabs>
+      <div class="tabs">
+        <button class="tab-btn" data-i18n="vol3.tab1">Dilution Calculator</button>
+        <button class="tab-btn" data-i18n="vol3.tab2">Shake vs. Stir</button>
+        <button class="tab-btn" data-i18n="vol3.tab3">Ice Engineering</button>
+        <button class="tab-btn" data-i18n="vol3.tab4">Supercool & Freeze</button>
+      </div>
+
+      <!-- Tab 1: Dilution -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol3.t1.label">Dilution & Chilling Calculator</div>
+        <div class="codex-quote" data-i18n="vol3.t1.quote">
+          A properly built cocktail dilutes 20–30% by volume. Shaking introduces 5–10% additional water from melted ice and aeration; stirring stays drier. Final temperature target: −5 to −7 °C.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t1.p1">Spirit Volume (ml)</label>
+              <input type="number" id="dil-vol" value="60" min="15" max="500">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t1.p2">Spirit ABV (%)</label>
+              <div class="range-row">
+                <input type="range" id="dil-abv" min="10" max="65" value="40">
+                <span class="range-val">40</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t1.p3">Target Dilution (%)</label>
+              <div class="range-row">
+                <input type="range" id="dil-target" min="10" max="40" value="25">
+                <span class="range-val">25</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t1.p4">Method</label>
+              <select id="dil-method">
+                <option value="stir" data-i18n="vol3.t1.opt.stir">Stirred (dilution ×0.85)</option>
+                <option value="shake" data-i18n="vol3.t1.opt.shake">Shaken (dilution ×1.0)</option>
+                <option value="roll" data-i18n="vol3.t1.opt.roll">Rolled (dilution ×0.60)</option>
+                <option value="build" data-i18n="vol3.t1.opt.build">Built on Ice (dilution ×0.70)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t1.p5">Technique Time (seconds)</label>
+              <div class="range-row">
+                <input type="range" id="dil-time" min="5" max="60" value="20">
+                <span class="range-val">20</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcDilution()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol3.t1.r1">Water Added</span><span class="value" id="dil-water">—</span><span class="delta">ml</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t1.r2">Final Volume</span><span class="value" id="dil-final-vol">—</span><span class="delta" data-i18n="vol3.t1.r2u">ml in glass</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t1.r3">Final ABV</span><span class="value" id="dil-final-abv">—</span><span class="delta">%</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t1.r4">Final Temp</span><span class="value" id="dil-final-temp">—</span><span class="delta" data-i18n="vol3.t1.r4u">°C estimated</span></div>
+            </div>
+            <div id="dil-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Shake vs Stir -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol3.t2.label">Shake vs. Stir Comparison</div>
+        <div class="codex-quote" data-i18n="vol3.t2.quote">
+          Shaking fractures ice, aerates, and emulsifies — creating texture and micro-bubbles that carry volatile aromatics. Stirring preserves clarity, controls dilution, and maintains surface tension. Neither is universally superior.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.input">Input</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t2.p1">Liquid Volume (ml)</label>
+              <input type="number" id="ss-vol" value="90" min="20" max="500">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t2.p2">Initial ABV (%)</label>
+              <div class="range-row">
+                <input type="range" id="ss-abv" min="10" max="65" value="40">
+                <span class="range-val">40</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t2.p3">Initial Temperature (°C)</label>
+              <div class="range-row">
+                <input type="range" id="ss-temp" min="15" max="25" value="20">
+                <span class="range-val">20</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcSS()" data-i18n="calc.compare">Compare</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.comparison">Comparison</h3>
+            <table class="data-table" id="ss-table">
+              <thead><tr><th data-i18n="vol3.t2.th1">Parameter</th><th data-i18n="vol3.t2.th2">Shake 15s</th><th data-i18n="vol3.t2.th3">Stir 30s</th></tr></thead>
+              <tbody>
+                <tr><td data-i18n="vol3.t2.row1">Dilution</td><td id="ss-s-dil">—</td><td id="ss-r-dil">—</td></tr>
+                <tr><td data-i18n="vol3.t2.row2">Final ABV</td><td id="ss-s-abv">—</td><td id="ss-r-abv">—</td></tr>
+                <tr><td data-i18n="vol3.t2.row3">Final Temp (°C)</td><td id="ss-s-temp">—</td><td id="ss-r-temp">—</td></tr>
+                <tr><td data-i18n="vol3.t2.row4">Aeration</td><td id="ss-s-aer">—</td><td id="ss-r-aer">—</td></tr>
+                <tr><td data-i18n="vol3.t2.row5">Clarity</td><td id="ss-s-clar">—</td><td id="ss-r-clar">—</td></tr>
+                <tr><td data-i18n="vol3.t2.row6">Best For</td><td id="ss-s-best">—</td><td id="ss-r-best">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Ice Engineering -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol3.t3.label">Ice Format Guide & Melt Rate</div>
+        <div class="codex-quote" data-i18n="vol3.t3.quote">
+          A 5 cm clear cube has 1/6th the surface area of the equivalent crushed ice. Less surface = slower melt = less dilution in glass. Directional freezing eliminates trapped air and mineral haze.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t3.p1">Ice Format</label>
+              <select id="ice-format">
+                <option value="large_cube" data-i18n="vol3.t3.opt.large_cube">Large Cube (5 cm)</option>
+                <option value="sphere" data-i18n="vol3.t3.opt.sphere">Sphere (6 cm ø)</option>
+                <option value="small_cube" data-i18n="vol3.t3.opt.small_cube">Small Cube (2.5 cm)</option>
+                <option value="spear" data-i18n="vol3.t3.opt.spear">Collins Spear</option>
+                <option value="cracked" data-i18n="vol3.t3.opt.cracked">Cracked Ice</option>
+                <option value="crushed" data-i18n="vol3.t3.opt.crushed">Crushed Ice</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t3.p2">Glass Volume (ml)</label>
+              <input type="number" id="ice-glass" value="240" min="60" max="600">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t3.p3">Ambient Temperature (°C)</label>
+              <div class="range-row">
+                <input type="range" id="ice-ambient" min="18" max="35" value="22">
+                <span class="range-val">22</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t3.p4">Drink Serving Time (minutes)</label>
+              <div class="range-row">
+                <input type="range" id="ice-serve-time" min="5" max="60" value="20">
+                <span class="range-val">20</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcIce()" data-i18n="vol3.t3.calc">Calculate Melt</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol3.t3.r1">SA / Volume</span><span class="value" id="ice-sav">—</span><span class="delta" data-i18n="vol3.t3.r1u">relative index</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t3.r2">Melt Rate</span><span class="value" id="ice-melt-rate">—</span><span class="delta" data-i18n="vol3.t3.r2u">ml / min</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t3.r3">Total Melt</span><span class="value" id="ice-melt-total">—</span><span class="delta" data-i18n="vol3.t3.r3u">ml after serve time</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t3.r4">Dilution %</span><span class="value" id="ice-dilution">—</span><span class="delta" data-i18n="vol3.t3.r4u">of initial volume</span></div>
+            </div>
+            <div id="ice-rec" class="panel-gold" style="margin-top:1rem;">
+              <span id="ice-rec-text" style="font-size:0.83rem;color:var(--text-muted);"><span data-i18n="vol3.t3.rec.empty">Run calculation to see ice recommendation.</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Supercool -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol3.t4.label">Supercooled Liquid & Freezing Point</div>
+        <div class="codex-quote" data-i18n="vol3.t4.quote">
+          Ethanol depresses water's freezing point. At 20% ABV, solution freezes at −8 °C. At 40% ABV, −16 °C. Supercooling below freezing without nucleation creates dramatic tableside crystallisation effects.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="vol3.t4.head">Freezing Point Calculation</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t4.p1">ABV (%)</label>
+              <div class="range-row">
+                <input type="range" id="sc-abv" min="0" max="65" value="20">
+                <span class="range-val">20</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t4.p2">Sugar Content (g/L)</label>
+              <div class="range-row">
+                <input type="range" id="sc-sugar" min="0" max="300" step="5" value="100">
+                <span class="range-val">100</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol3.t4.p3">Acid Content (g/L citric eq.)</label>
+              <div class="range-row">
+                <input type="range" id="sc-acid" min="0" max="20" step="0.5" value="5">
+                <span class="range-val">5</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcFreeze()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol3.t4.r1">Freezing Point</span><span class="value" id="sc-fp">—</span><span class="delta">°C</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t4.r2">Supercool Window</span><span class="value" id="sc-window">—</span><span class="delta" data-i18n="vol3.t4.r2u">°C below FP</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t4.r3">Crystallisation Temp</span><span class="value" id="sc-cryst">—</span><span class="delta" data-i18n="vol3.t4.r3u">°C trigger</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol3.t4.r4">Storage Temp</span><span class="value" id="sc-storage">—</span><span class="delta" data-i18n="vol3.t4.r4u">°C recommended</span></div>
+            </div>
+            <div id="sc-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;"><span data-i18n="vol3.footer">Liquid Architect · Vol. III · Ice & Kinetics</span></div>
+  </div>
+
+  <!-- ── Per-vol QA Panel ── -->
+  <div style="border-top:1px solid var(--border);margin-top:3.5rem;padding-top:2.5rem;padding-bottom:2rem;" class="reveal">
+    <div class="page-container" style="max-width:820px;">
+      <div class="panel-gold">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">
+          <span data-i18n="qa.eyebrow.prefix">Volume Q&A ·</span> Vol. III · Ice & Kinetics
+        </div>
+        <div class="section-label" style="margin-bottom:1rem;" data-i18n="qa.section.label">Ask the Codex</div>
+        <div style="display:flex;gap:0.6rem;align-items:flex-end;">
+          <textarea id="qa-input" rows="2"
+            data-i18n-placeholder="qa.placeholder"
+            placeholder="Ask anything about this volume — answers must include numeric evidence…"
+            style="flex:1;resize:none;"></textarea>
+          <button id="qa-btn" onclick="askCodex()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.7rem 1.2rem;" data-i18n="qa.btn.ask">Ask →</button>
+        </div>
+        <div id="qa-output" style="margin-top:1rem;min-height:0;"></div>
+        <div style="margin-top:0.8rem;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;" data-i18n="qa.disclaimer">
+          Answers generated by AI from the Codex — verify safety parameters before practical use.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js?v=14"></script>
+<script src="../js/auth.js?v=14"></script>
+<script src="../js/ui.js"></script>
+<script>
+requireAuth();
+
+function calcDilution() {
+  const vol = parseFloat(document.getElementById('dil-vol').value) || 60;
+  const abv = parseFloat(document.getElementById('dil-abv').value) || 40;
+  const target = parseFloat(document.getElementById('dil-target').value) || 25;
+  const method = document.getElementById('dil-method').value;
+  const time = parseFloat(document.getElementById('dil-time').value) || 20;
+
+  const methodMult = { stir: 0.85, shake: 1.0, roll: 0.60, build: 0.70 };
+  const mult = methodMult[method];
+  const water = vol * (target / 100) * mult * (time / 20);
+  const finalVol = vol + water;
+  const finalAbv = (vol * abv / 100 / finalVol * 100).toFixed(1);
+  const finalTemp = method === 'shake' ? -6 : method === 'stir' ? -5 : -4;
+
+  document.getElementById('dil-water').textContent = water.toFixed(1);
+  flashResult(document.getElementById('dil-water'));
+  document.getElementById('dil-final-vol').textContent = finalVol.toFixed(0);
+  flashResult(document.getElementById('dil-final-vol'));
+  document.getElementById('dil-final-abv').textContent = finalAbv + '%';
+  flashResult(document.getElementById('dil-final-abv'));
+  document.getElementById('dil-final-temp').textContent = finalTemp;
+  flashResult(document.getElementById('dil-final-temp'));
+
+  const adv = document.getElementById('dil-advice');
+  adv.textContent = finalAbv > 25
+    ? (t('vol3.t1.advice.under') || 'Under-diluted. Extend technique time or add more ice.')
+    : finalAbv < 12
+    ? (t('vol3.t1.advice.over') || 'Over-diluted. Reduce technique time or use less ice.')
+    : (tr('vol3.t1.advice.ontarget', { abv: finalAbv, temp: finalTemp }) || `On target. Final ABV ${finalAbv}% at ${finalTemp} °C.`);
+  adv.style.display = 'block';
+}
+
+function calcSS() {
+  const vol = parseFloat(document.getElementById('ss-vol').value) || 90;
+  const abv = parseFloat(document.getElementById('ss-abv').value) || 40;
+
+  const shakeDil = vol * 0.28;
+  const stirDil = vol * 0.18;
+  const shakeAbv = (vol * abv / 100 / (vol + shakeDil) * 100).toFixed(1);
+  const stirAbv = (vol * abv / 100 / (vol + stirDil) * 100).toFixed(1);
+
+  document.getElementById('ss-s-dil').textContent = shakeDil.toFixed(0) + ' ml';
+  flashResult(document.getElementById('ss-s-dil'));
+  document.getElementById('ss-r-dil').textContent = stirDil.toFixed(0) + ' ml';
+  flashResult(document.getElementById('ss-r-dil'));
+  document.getElementById('ss-s-abv').textContent = shakeAbv + '%';
+  flashResult(document.getElementById('ss-s-abv'));
+  document.getElementById('ss-r-abv').textContent = stirAbv + '%';
+  flashResult(document.getElementById('ss-r-abv'));
+  document.getElementById('ss-s-temp').textContent = '−6';
+  flashResult(document.getElementById('ss-s-temp'));
+  document.getElementById('ss-r-temp').textContent = '−5';
+  flashResult(document.getElementById('ss-r-temp'));
+  document.getElementById('ss-s-aer').textContent = t('vol3.t2.aer.shake') || 'High (micro-bubbles)';
+  flashResult(document.getElementById('ss-s-aer'));
+  document.getElementById('ss-r-aer').textContent = t('vol3.t2.aer.stir') || 'None';
+  flashResult(document.getElementById('ss-r-aer'));
+  document.getElementById('ss-s-clar').textContent = t('vol3.t2.clar.shake') || 'Hazy / frothy';
+  flashResult(document.getElementById('ss-s-clar'));
+  document.getElementById('ss-r-clar').textContent = t('vol3.t2.clar.stir') || 'Crystal clear';
+  flashResult(document.getElementById('ss-r-clar'));
+  document.getElementById('ss-s-best').textContent = t('vol3.t2.best.shake') || 'Sours, Daisies, Fizzes';
+  flashResult(document.getElementById('ss-s-best'));
+  document.getElementById('ss-r-best').textContent = t('vol3.t2.best.stir') || 'Martinis, Manhattans, Negronis';
+  flashResult(document.getElementById('ss-r-best'));
+}
+
+function calcIce() {
+  const format = document.getElementById('ice-format').value;
+  const glass = parseFloat(document.getElementById('ice-glass').value) || 240;
+  const ambient = parseFloat(document.getElementById('ice-ambient').value) || 22;
+  const serveTime = parseFloat(document.getElementById('ice-serve-time').value) || 20;
+
+  const savIndex = { large_cube: 1.0, sphere: 0.85, small_cube: 2.8, spear: 1.4, cracked: 5.0, crushed: 12.0 };
+  const baseRate = 1.5; // ml/min for large cube at 22°C
+  const sav = savIndex[format];
+  const tempFactor = 1 + (ambient - 22) * 0.04;
+  const meltRate = (baseRate * sav * tempFactor).toFixed(2);
+  const totalMelt = (meltRate * serveTime).toFixed(0);
+  const dilPct = ((totalMelt / glass) * 100).toFixed(1);
+
+  document.getElementById('ice-sav').textContent = sav.toFixed(1) + '×';
+  flashResult(document.getElementById('ice-sav'));
+  document.getElementById('ice-melt-rate').textContent = meltRate;
+  flashResult(document.getElementById('ice-melt-rate'));
+  document.getElementById('ice-melt-total').textContent = totalMelt;
+  flashResult(document.getElementById('ice-melt-total'));
+  document.getElementById('ice-dilution').textContent = dilPct + '%';
+  flashResult(document.getElementById('ice-dilution'));
+
+  document.getElementById('ice-rec-text').textContent = t('vol3.t3.rec.' + format) || format;
+}
+
+function calcFreeze() {
+  const abv = parseFloat(document.getElementById('sc-abv').value) || 20;
+  const sugar = parseFloat(document.getElementById('sc-sugar').value) || 100;
+  const acid = parseFloat(document.getElementById('sc-acid').value) || 5;
+
+  // Freezing point depression: ethanol ~−0.4°C per 1% ABV, sugar ~−0.058°C per g/L, acid minor
+  const fp = -(abv * 0.40 + sugar * 0.058 + acid * 0.12).toFixed(1);
+  const window = 2.5;
+  const crystallisationTemp = (parseFloat(fp) - window).toFixed(1);
+  const storageTemp = (parseFloat(fp) - 1).toFixed(1);
+
+  document.getElementById('sc-fp').textContent = fp + '°C';
+  flashResult(document.getElementById('sc-fp'));
+  document.getElementById('sc-window').textContent = window + '°C';
+  flashResult(document.getElementById('sc-window'));
+  document.getElementById('sc-cryst').textContent = crystallisationTemp + '°C';
+  flashResult(document.getElementById('sc-cryst'));
+  document.getElementById('sc-storage').textContent = storageTemp + '°C';
+  flashResult(document.getElementById('sc-storage'));
+
+  const adv = document.getElementById('sc-advice');
+  adv.textContent = abv < 15
+    ? (tr('vol3.t4.advice.low', { fp }) || `Warning: low ABV — freezing point is ${fp} °C.`)
+    : (tr('vol3.t4.advice.store', { temp: storageTemp }) || `Store at ${storageTemp} °C.`);
+  adv.style.display = 'block';
+}
+
+document.addEventListener('langchange', () => {
+  if (document.getElementById('dil-advice').style.display !== 'none') calcDilution();
+  if (document.getElementById('ss-s-dil').textContent !== '—') calcSS();
+  if (document.getElementById('sc-advice').style.display !== 'none') calcFreeze();
+  const rec = document.getElementById('ice-rec-text');
+  if (rec && rec.textContent && rec.textContent !== (t('vol3.t3.rec.empty') || '')) calcIce();
+});
+</script>
+<script src="../js/i18n.js?v=7"></script>
+<script>
+// ── QA Panel · vol3 ──
+(function () {
+  var _vol = 'vol3';
+
+  window.askCodex = function () {
+    var q = document.getElementById('qa-input').value.trim();
+    var out = document.getElementById('qa-output');
+    if (!q) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.empty') || 'Please enter a question.') + '</div>';
+      return;
+    }
+    var key = (localStorage.getItem('deepseek_api_key') || '').trim();
+    if (!key) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.no-key') || 'API Key not configured.') + '</div>';
+      return;
+    }
+    var btn = document.getElementById('qa-btn');
+    btn.disabled = true;
+    btn.textContent = t('qa.btn.asking') || 'Thinking…';
+    out.innerHTML = '<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">'
+      + '<span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>'
+      + (t('qa.btn.asking') || 'Thinking…') + '</div>';
+    var token = (typeof getToken === 'function') ? getToken() : '';
+    var lang = localStorage.getItem('lc_lang') || 'en';
+    fetch(STREAM_API_BASE + '/api/qa/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Api-Key': key },
+      body: JSON.stringify({ volume: _vol, question: q, language: lang })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (err) {
+          out.innerHTML = '<div class="alert alert-error">' + (err.detail || 'Error ' + res.status) + '</div>';
+          _resetQaBtn();
+        });
+      }
+      var reader = res.body.getReader(), decoder = new TextDecoder(), md = '';
+      out.innerHTML = '<div class="ai-stream-text" id="qa-stream"></div>';
+      (function read() {
+        reader.read().then(function (r) {
+          if (r.done) { _resetQaBtn(); return; }
+          decoder.decode(r.value, { stream: true }).split('\n').forEach(function (line) {
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6);
+            if (data === '[DONE]') { _resetQaBtn(); return; }
+            try {
+              var p = JSON.parse(data);
+              if (p.error) { out.innerHTML = '<div class="alert alert-error">' + p.error + '</div>'; _resetQaBtn(); return; }
+              if (p.text) { md += p.text; var el = document.getElementById('qa-stream'); if (el) el.innerHTML = _qaMd(md); }
+            } catch (e) {}
+          });
+          read();
+        });
+      })();
+    }).catch(function (err) {
+      out.innerHTML = '<div class="alert alert-error">Connection error: ' + err.message + '</div>';
+      _resetQaBtn();
+    });
+  };
+
+  function _resetQaBtn() {
+    var btn = document.getElementById('qa-btn');
+    if (!btn) return;
+    btn.disabled = false;
+    btn.textContent = t('qa.btn.ask') || 'Ask →';
+  }
+
+  function _qaMd(md) {
+    return md
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function (m) { return '<ul>' + m + '</ul>'; })
+      .split(/\n{2,}/).map(function (b) {
+        if (b.startsWith('<h') || b.startsWith('<ul')) return b;
+        if (b.trim()) return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+        return '';
+      }).join('\n');
+  }
+
+  document.addEventListener('langchange', function () {
+    var btn = document.getElementById('qa-btn');
+    if (btn && !btn.disabled) btn.textContent = t('qa.btn.ask') || 'Ask →';
+    var inp = document.getElementById('qa-input');
+    if (inp) inp.placeholder = t('qa.placeholder') || inp.placeholder;
+  });
+})();
+</script>
+</body>
+</html>

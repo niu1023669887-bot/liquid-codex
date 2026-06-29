@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Architect · The Codex</title>
+  <link rel="stylesheet" href="css/theme.css?v=5">
+</head>
+<body>
+
+<!-- Status bar -->
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <span class="brand-link" data-i18n="nav.brand">LIQUID ARCHITECT</span>
+    <span data-i18n="status.compound">COMPOUND: DARIEN</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<!-- Attractor canvas -->
+<canvas id="attractor-canvas"></canvas>
+
+<div class="app-wrapper">
+
+  <!-- ── Hero ── -->
+  <div class="home-hero">
+
+    <!-- Meta line: eyebrow left, version right -->
+    <div class="hero-meta-line">
+      <div class="eyebrow" data-i18n="home.eyebrow">The Liquid Codex · v2.0 · Darien</div>
+      <div class="hero-meta-right">v2.0 &nbsp;·&nbsp; <span class="gold-text">DARIEN</span></div>
+    </div>
+
+    <!-- Giant split-title (lang handled by inline script, not data-i18n) -->
+    <div class="hero-title-wrap">
+      <h1 class="split-hero" id="hero-title">
+        <span class="split-line split-line--italic"><span class="split-inner" id="hero-line-1">Liquid</span></span>
+        <span class="split-line"><span class="split-inner" id="hero-line-2">Architect</span></span>
+      </h1>
+      <!-- Decorative ghost echo (aria-hidden, purely visual) -->
+      <div class="hero-echo" aria-hidden="true">CODEX</div>
+    </div>
+
+    <!-- Description -->
+    <p class="reveal" style="max-width:540px;color:var(--text-muted);margin-top:2rem;font-size:0.95rem;line-height:1.8;" data-i18n="home.hero-desc">
+      A professional flavor laboratory embedded with eight volumes of knowledge — from ancient maceration to extreme physics. Science as the instrument of absolute creative freedom.
+    </p>
+
+    <!-- Stats -->
+    <div class="home-stats reveal">
+      <div>
+        <span class="home-stat-num" id="stat-mat" data-odometer="416">416</span>
+        <span class="home-stat-label" data-i18n="home.stat.materials">Materials</span>
+      </div>
+      <div>
+        <span class="home-stat-num">VIII</span>
+        <span class="home-stat-label" data-i18n="home.stat.volumes">Volumes</span>
+      </div>
+      <div>
+        <span class="home-stat-num">0.01<span style="font-size:1rem">g</span></span>
+        <span class="home-stat-label" data-i18n="home.stat.precision">Precision</span>
+      </div>
+      <div>
+        <span class="home-stat-num">AI</span>
+        <span class="home-stat-label" data-i18n="home.stat.engine">Recipe Engine</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Ticker strip ── -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track" id="ticker-track">
+      <span class="ticker-item">
+        <span>THE LIQUID CODEX</span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-accent">VIII VOLUMES</span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-mat-count">416 MATERIALS</span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-accent">DARIEN</span>
+        <span class="ticker-dot"></span>
+        <span>FLAVOR SCIENCE</span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-accent">AI RECIPE ENGINE</span>
+        <span class="ticker-dot"></span>
+        <span>MACERATION TO PHYSICS</span>
+        <span class="ticker-dot"></span>
+        <span>PRECISION 0.01g</span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-accent">v2.0</span>
+        <span class="ticker-dot"></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Codex quote ── -->
+  <div class="page-container" style="padding-top:3.5rem;padding-bottom:1rem;">
+    <div class="codex-quote reveal">
+      <span data-i18n="home.codex-quote">When you open this codex, forget rigid formulas. Bartending is, at its core, a visual and sensory experiment in material transformation. What happens in the glass is the beautiful, complex encounter between solvent, solute, and suspended matter. I prefer to define you not as an executor of recipes — but as a <em>Liquid Architect</em>.</span>
+      <div style="margin-top:0.8rem;font-size:0.72rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="home.codex-quote-attr">— Darien · Liquid Architect</div>
+    </div>
+  </div>
+
+  <!-- ── Eight volumes grid ── -->
+  <div class="page-container" style="padding-top:1rem;">
+    <div class="section-label reveal" data-i18n="home.section.modules">System Modules — Eight Volumes</div>
+
+    <div class="vol-grid">
+
+      <a class="vol-card reveal" href="pages/vol1.html">
+        <div class="vol-card-num" data-i18n="vol1.num">Vol. I</div>
+        <div class="vol-card-title" data-i18n="vol1.title">Material Atlas</div>
+        <div class="vol-card-epoch" data-i18n="vol1.epoch">The Eternal Foundation</div>
+        <div class="vol-card-desc" data-i18n="vol1.desc">Complete natural palette: {n} materials across citrus, berries, botanicals, acids, salts, and clarifiers.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol2.html">
+        <div class="vol-card-num" data-i18n="vol2.num">Vol. II</div>
+        <div class="vol-card-title" data-i18n="vol2.title">Classical Era</div>
+        <div class="vol-card-epoch" data-i18n="vol2.epoch">Epoch I · Hearth &amp; Vessel</div>
+        <div class="vol-card-desc" data-i18n="vol2.desc">Cold maceration, Oleo-Saccharum, Fat-Washing, milk clarification, barrel aging.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol3.html">
+        <div class="vol-card-num" data-i18n="vol3.num">Vol. III</div>
+        <div class="vol-card-title" data-i18n="vol3.title">Ice &amp; Kinetics</div>
+        <div class="vol-card-epoch" data-i18n="vol3.epoch">Epoch II · Thermodynamics</div>
+        <div class="vol-card-desc" data-i18n="vol3.desc">Ice engineering, directional freezing, supercooled liquid, shake vs. stir dilution curves.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol4.html">
+        <div class="vol-card-num" data-i18n="vol4.num">Vol. IV</div>
+        <div class="vol-card-title" data-i18n="vol4.title">Living Alchemy</div>
+        <div class="vol-card-epoch" data-i18n="vol4.epoch">Epoch III · Fermentation</div>
+        <div class="vol-card-desc" data-i18n="vol4.desc">Lacto-fermentation 2% salt barrier, pH 4.6 threshold, Koji 60°C enzyme gate, SCOBY kombucha.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol5.html">
+        <div class="vol-card-num" data-i18n="vol5.num">Vol. V</div>
+        <div class="vol-card-title" data-i18n="vol5.title">Culinary Science</div>
+        <div class="vol-card-epoch" data-i18n="vol5.epoch">Epoch IV · Everyday Tools</div>
+        <div class="vol-card-desc" data-i18n="vol5.desc">Sous-vide critical extraction, iSi rapid infusion, Espumas foam engineering, carbonation.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol6.html">
+        <div class="vol-card-num" data-i18n="vol6.num">Vol. VI</div>
+        <div class="vol-card-title" data-i18n="vol6.title">Modern Laboratory</div>
+        <div class="vol-card-epoch" data-i18n="vol6.epoch">Epoch V · Molecular Deconstruction</div>
+        <div class="vol-card-desc" data-i18n="vol6.desc">Acid adjustment calculator, Brix refractometer, Pectinex titration, centrifuge balance.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol7.html">
+        <div class="vol-card-num" data-i18n="vol7.num">Vol. VII</div>
+        <div class="vol-card-title" data-i18n="vol7.title">Extreme Physics</div>
+        <div class="vol-card-epoch" data-i18n="vol7.epoch">Epoch VI · Frontier Technology</div>
+        <div class="vol-card-desc" data-i18n="vol7.desc">Rotovap cold boiling, Pacojet freezing point, spherification pearls, electro-aging.</div>
+      </a>
+
+      <a class="vol-card reveal" href="pages/vol8.html">
+        <div class="vol-card-num" data-i18n="vol8.num">Vol. VIII</div>
+        <div class="vol-card-title" data-i18n="vol8.title">Garnish &amp; Zero Waste</div>
+        <div class="vol-card-epoch" data-i18n="vol8.epoch">Sensory Engineering</div>
+        <div class="vol-card-desc" data-i18n="vol8.desc">Dehydration specimens, fruit leather, Isomalt sugar art, sustainable zero-waste systems.</div>
+      </a>
+
+    </div>
+
+    <!-- AI engine link -->
+    <div style="margin-top:3rem;padding:2.2rem;border:1px solid var(--border-gold);border-radius:var(--r);background:var(--gold-glow2);text-align:center;" class="reveal">
+      <div class="eyebrow" style="margin-bottom:0.5rem;" data-i18n="home.ai.eyebrow">Codex Intelligence</div>
+      <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:0.6rem;" data-i18n="home.ai.title">AI Liquid Architect</div>
+      <p style="color:var(--text-muted);font-size:0.85rem;max-width:480px;margin:0 auto 1.5rem;" data-i18n="home.ai.desc">
+        Describe your flavor intent and available ingredients. The Codex engine will construct a scientifically grounded, emotionally resonant recipe from eight volumes of knowledge.
+      </p>
+      <a href="ai.html" class="btn btn-primary" data-i18n="home.ai.cta">Open AI Engine →</a>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;" data-i18n="home.footer">
+      Liquid Architect · Darien · The Liquid Codex · v2.0
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.min.js"></script>
+<script src="js/config.js?v=14"></script>
+<script src="js/auth.js?v=14"></script>
+<script src="js/attractor.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/i18n.js?v=7"></script>
+<script>
+  requireAuth();
+
+  // ── Hero title language (bypass data-i18n to preserve split-line DOM) ──
+  function applyHeroLang(lang) {
+    const l1 = document.getElementById('hero-line-1');
+    const l2 = document.getElementById('hero-line-2');
+    if (!l1 || !l2) return;
+    if (lang === 'zh') {
+      l1.textContent = '液态';
+      l2.textContent = '建筑师';
+    } else {
+      l1.textContent = 'Liquid';
+      l2.textContent = 'Architect';
+    }
+  }
+  applyHeroLang(localStorage.getItem('lc_lang') || 'en');
+  window.addEventListener('langchange', e => applyHeroLang((e.detail && e.detail.lang) || 'en'));
+
+  // Live material count from API (lightweight)
+  fetch(`${API_BASE}/api/materials/count?t=${Date.now()}`)
+    .then(r => r.json())
+    .then(data => {
+      const n = data.count;
+      const stat = document.getElementById('stat-mat');
+      if (stat) {
+        stat.dataset.odometer = n;
+        stat.textContent = n;
+      }
+      document.querySelectorAll('.ticker-mat-count').forEach(el => {
+        const lang = localStorage.getItem('lc_lang') || 'en';
+        el.textContent = lang === 'zh' ? `${n} 种材料` : `${n} MATERIALS`;
+      });
+      document.querySelectorAll('[data-i18n="vol1.desc"]').forEach(el => {
+        const tpl = t('vol1.desc') || el.textContent;
+        if (tpl && tpl.includes('{n}')) el.textContent = tpl.replace('{n}', n);
+      });
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>

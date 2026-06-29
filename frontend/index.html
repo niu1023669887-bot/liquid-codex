@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Architect · Darien</title>
+  <link rel="stylesheet" href="css/theme.css?v=5">
+  <style>
+    .login-screen { min-height: 100vh; }
+    body { overflow: hidden; }
+    @media (max-height: 600px) { body { overflow: auto; } }
+  </style>
+</head>
+<body>
+
+<!-- Status bar -->
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <span class="brand-link" data-i18n="nav.brand">LIQUID ARCHITECT</span>
+    <span data-i18n="status.compound">LAB-FIELD / COMPOUND: DARIEN</span>
+    <span data-i18n="status.observation">OBSERVATION: ACTIVE</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <span id="status-time">--:--:--</span>
+  </div>
+</div>
+
+<!-- Lorenz attractor background -->
+<canvas id="attractor-canvas"></canvas>
+
+<!-- Login form -->
+<div class="app-wrapper">
+  <div class="login-screen">
+    <div class="login-box">
+
+      <!-- Wordmark -->
+      <div class="login-wordmark">Liquid<br>Architect</div>
+      <div class="login-sub">Darien · The Liquid Codex · v2.0</div>
+
+      <!-- Rule -->
+      <div style="border-top:1px solid rgba(201,169,98,0.2);margin-bottom:2.5rem;"></div>
+
+      <!-- Form -->
+      <div class="field-group">
+        <label class="field-label" for="pwd-input" data-i18n="login.label">Access Key</label>
+        <input
+          type="password"
+          id="pwd-input"
+          data-i18n-placeholder="login.placeholder"
+          placeholder="Enter authorization code…"
+          autocomplete="current-password"
+        >
+      </div>
+
+      <button class="btn btn-primary btn-full" id="login-btn" type="button" data-i18n="login.btn">
+        Unlock the Codex
+      </button>
+
+      <div class="login-error" id="login-error"></div>
+
+      <!-- Footer note -->
+      <div style="margin-top:3rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,224,212,0.15);" data-i18n="login.footer">
+        The Liquid Codex · 8 Volumes · {n} Materials · AI Engine
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.min.js"></script>
+<script src="js/config.js?v=14"></script>
+<script src="js/auth.js?v=14"></script>
+<script src="js/attractor.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/i18n.js?v=7"></script>
+<script>
+  // If already authenticated, skip login
+  (async () => {
+    const ok = await verifyAuth();
+    if (ok) window.location.href = 'home.html';
+  })();
+
+  const btn = document.getElementById('login-btn');
+  const input = document.getElementById('pwd-input');
+  const errEl = document.getElementById('login-error');
+
+  async function doLogin() {
+    const pwd = input.value.trim();
+    if (!pwd) { errEl.textContent = t('login.error.empty'); return; }
+
+    btn.disabled = true;
+    btn.textContent = t('login.btn.verifying');
+    errEl.textContent = '';
+
+    try {
+      await login(pwd);
+      btn.textContent = t('login.btn.granted');
+      setTimeout(() => { window.location.href = 'home.html'; }, 400);
+    } catch {
+      errEl.textContent = t('login.error.denied');
+      btn.disabled = false;
+      btn.textContent = t('login.btn');
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', doLogin);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>

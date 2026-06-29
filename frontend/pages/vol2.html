@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vol. II · Classical Era · Liquid Architect</title>
+  <link rel="stylesheet" href="../css/theme.css?v=5">
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="../home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.vol2">VOL. II · CLASSICAL ERA</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="../settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="../ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <nav class="page-nav">
+    <a href="../home.html" class="nav-home" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">›</span>
+    <a href="vol2.html"><span data-i18n="vol2.breadcrumb">Vol. II · Classical Era</span></a>
+  </nav>
+
+  <div class="vol-hero">
+    <div class="vol-hero-inner">
+      <div class="vol-number">02</div>
+      <div class="eyebrow" data-i18n="vol2.hero.eyebrow">Vol. II · Epoch I · Hearth & Vessel</div>
+      <h2 class="split-hero vol-split">
+        <span class="split-line"><span class="split-inner" data-i18n="vol2.hero.title">Classical Era</span></span>
+      </h2>
+      <div class="codex-quote" style="max-width:680px;margin-top:1.2rem;">
+        <span data-i18n="vol2.hero.quote">Every extraction is a thermodynamic negotiation — temperature, time, and surface area as your three levers of control.</span>
+        <div style="margin-top:0.8rem;font-size:0.7rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="common.author">— Darien · Liquid Architect</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <div data-tabs>
+      <div class="tabs">
+        <button class="tab-btn" data-i18n="vol2.tab1">Cold Maceration</button>
+        <button class="tab-btn" data-i18n="vol2.tab2">Oleo-Saccharum</button>
+        <button class="tab-btn" data-i18n="vol2.tab3">Fat-Wash</button>
+        <button class="tab-btn" data-i18n="vol2.tab4">Milk Wash</button>
+        <button class="tab-btn" data-i18n="vol2.tab5">Barrel Aging</button>
+      </div>
+
+      <!-- ── Tab 1: Cold Maceration ── -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol2.t1.label">Cold Maceration Calculator</div>
+        <div class="codex-quote" data-i18n="vol2.t1.quote">
+          Cold maceration preserves volatile aromatics lost at heat. Optimal extraction window: 24–72 h at 4 °C. Alcohol acts as solvent; higher ABV extracts faster but risks bitterness from cellulose breakdown.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t1.p1">Base Spirit Volume (ml)</label>
+              <input type="number" id="mac-vol" value="500" min="50" max="5000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t1.p2">Spirit ABV (%)</label>
+              <div class="range-row">
+                <input type="range" id="mac-abv" min="20" max="96" value="40">
+                <span class="range-val">40</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t1.p3">Botanical / Fruit Weight (g)</label>
+              <input type="number" id="mac-weight" value="100" min="5" max="2000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t1.p4">Maceration Time (hours)</label>
+              <div class="range-row">
+                <input type="range" id="mac-time" min="1" max="168" value="48">
+                <span class="range-val">48</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t1.p5">Temperature (°C)</label>
+              <div class="range-row">
+                <input type="range" id="mac-temp" min="-5" max="20" value="4">
+                <span class="range-val">4</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcMaceration()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div id="mac-result">
+              <div class="metric-grid">
+                <div class="metric-card"><span class="label" data-i18n="vol2.t1.r1">Solvent Strength</span><span class="value" id="mac-solvent">—</span><span class="delta" data-i18n="vol2.t1.r1u">ethanol g/L</span></div>
+                <div class="metric-card"><span class="label" data-i18n="vol2.t1.r2">Ratio</span><span class="value" id="mac-ratio">—</span><span class="delta" data-i18n="vol2.t1.r2u">ml spirit / g botanical</span></div>
+                <div class="metric-card"><span class="label" data-i18n="vol2.t1.r3">Extraction Est.</span><span class="value" id="mac-extract">—</span><span class="delta" data-i18n="vol2.t1.r3u">% of aromatics</span></div>
+                <div class="metric-card"><span class="label" data-i18n="vol2.t1.r4">Yield</span><span class="value" id="mac-yield">—</span><span class="delta" data-i18n="vol2.t1.r4u">ml final</span></div>
+              </div>
+              <div id="mac-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            </div>
+            <div class="expander" style="margin-top:1.5rem;">
+              <div class="expander-header"><span data-i18n="calc.sop">SOP Protocol</span> <span class="expander-arrow">▾</span></div>
+              <div class="expander-body">
+                <ol class="sop">
+                  <li data-i18n="vol2.t1.sop.1">Weigh botanical to ±0.1 g precision</li>
+                  <li data-i18n="vol2.t1.sop.2">Combine with spirit in sealed glass vessel</li>
+                  <li data-i18n="vol2.t1.sop.3">Store at target temperature (refrigerator for 4 °C)</li>
+                  <li data-i18n="vol2.t1.sop.4">Taste every 12 h; log Brix and flavor notes</li>
+                  <li data-i18n="vol2.t1.sop.5">Fine-strain through muslin + Superbag 100 µm</li>
+                  <li data-i18n="vol2.t1.sop.6">Rest 24 h before serving to allow volatile redistribution</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab 2: Oleo-Saccharum ── -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol2.t2.label">Oleo-Saccharum Calculator</div>
+        <div class="codex-quote" data-i18n="vol2.t2.quote">
+          Osmotic pressure forces essential oils out of citrus peel into sugar crystals. The ratio of sugar to peel determines oil yield. Target: 10–15 ml oil per 100 g peel.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t2.p1">Citrus Peel Weight (g)</label>
+              <input type="number" id="oleo-peel" value="100" min="10" max="1000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t2.p2">Sugar Ratio (g sugar / g peel)</label>
+              <div class="range-row">
+                <input type="range" id="oleo-ratio" min="0.5" max="3" step="0.1" value="1">
+                <span class="range-val">1</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t2.p3">Resting Time (hours)</label>
+              <div class="range-row">
+                <input type="range" id="oleo-time" min="1" max="24" value="4">
+                <span class="range-val">4</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t2.p4">Citrus Type</label>
+              <select id="oleo-citrus">
+                <option value="lemon" data-i18n="vol2.t2.opt.lemon">Lemon (3.5% oil in peel)</option>
+                <option value="lime" data-i18n="vol2.t2.opt.lime">Lime (4.2% oil in peel)</option>
+                <option value="orange" data-i18n="vol2.t2.opt.orange">Orange (2.5% oil in peel)</option>
+                <option value="grapefruit" data-i18n="vol2.t2.opt.grapefruit">Grapefruit (1.8% oil in peel)</option>
+                <option value="yuzu" data-i18n="vol2.t2.opt.yuzu">Yuzu (5.0% oil in peel)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcOleo()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol2.t2.r1">Sugar Needed</span><span class="value" id="oleo-sugar">—</span><span class="delta">grams</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t2.r2">Est. Oil Yield</span><span class="value" id="oleo-oil">—</span><span class="delta" data-i18n="vol2.t2.r2u">ml essential oil</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t2.r3">Oleo Volume</span><span class="value" id="oleo-vol">—</span><span class="delta" data-i18n="vol2.t2.r3u">ml total syrup</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t2.r4">Brix Est.</span><span class="value" id="oleo-brix">—</span><span class="delta">°Bx</span></div>
+            </div>
+            <div id="oleo-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="expander" style="margin-top:1.5rem;">
+              <div class="expander-header"><span data-i18n="calc.sop">SOP Protocol</span> <span class="expander-arrow">▾</span></div>
+              <div class="expander-body">
+                <ol class="sop">
+                  <li data-i18n="vol2.t2.sop.1">Zest citrus using microplane — no white pith</li>
+                  <li data-i18n="vol2.t2.sop.2">Combine peel and sugar in bowl; toss to coat</li>
+                  <li data-i18n="vol2.t2.sop.3">Cover loosely; rest at room temp</li>
+                  <li data-i18n="vol2.t2.sop.4">Stir every 30 min to redistribute sugar</li>
+                  <li data-i18n="vol2.t2.sop.5">Strain; press peel firmly to extract final oils</li>
+                  <li data-i18n="vol2.t2.sop.6">Add a squeeze of fresh juice to dissolve remaining sugar</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab 3: Fat-Wash ── -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol2.t3.label">Fat-Wash Calculator</div>
+        <div class="codex-quote" data-i18n="vol2.t3.quote">
+          Fat-washing dissolves lipophilic flavour compounds into spirits. The fat must be liquid at room temperature (infusion phase) and solid at 0 °C (separation phase). Optimal fat-to-spirit ratio: 50–150 ml fat per 750 ml spirit.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t3.p1">Spirit Volume (ml)</label>
+              <input type="number" id="fat-vol" value="750" min="100" max="5000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t3.p2">Fat Amount (ml or g)</label>
+              <input type="number" id="fat-amt" value="60" min="10" max="1000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t3.p3">Fat Type</label>
+              <select id="fat-type">
+                <option value="butter" data-i18n="vol2.t3.opt.butter">Brown Butter (density 0.91 g/ml)</option>
+                <option value="bacon" data-i18n="vol2.t3.opt.bacon">Bacon Fat (density 0.88 g/ml)</option>
+                <option value="coconut" data-i18n="vol2.t3.opt.coconut">Coconut Oil (density 0.92 g/ml)</option>
+                <option value="sesame" data-i18n="vol2.t3.opt.sesame">Sesame Oil (density 0.92 g/ml)</option>
+                <option value="olive" data-i18n="vol2.t3.opt.olive">Olive Oil (density 0.91 g/ml)</option>
+                <option value="lard" data-i18n="vol2.t3.opt.lard">Lard (density 0.90 g/ml)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t3.p4">Infusion Time (hours)</label>
+              <div class="range-row">
+                <input type="range" id="fat-time" min="0.5" max="6" step="0.5" value="2">
+                <span class="range-val">2</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t3.p5">Spirit ABV (%)</label>
+              <div class="range-row">
+                <input type="range" id="fat-abv" min="20" max="65" value="40">
+                <span class="range-val">40</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcFatWash()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol2.t3.r1">Fat Ratio</span><span class="value" id="fat-ratio">—</span><span class="delta" data-i18n="vol2.t3.r1u">ml fat / 750 ml spirit</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t3.r2">ABV After Wash</span><span class="value" id="fat-abv-after">—</span><span class="delta" data-i18n="vol2.t3.r2u">% (est. loss ~1–2%)</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t3.r3">Freeze Time</span><span class="value" id="fat-freeze">—</span><span class="delta" data-i18n="vol2.t3.r3u">hours in freezer</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t3.r4">Yield</span><span class="value" id="fat-yield">—</span><span class="delta" data-i18n="vol2.t3.r4u">ml recovered</span></div>
+            </div>
+            <div id="fat-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="expander" style="margin-top:1.5rem;">
+              <div class="expander-header"><span data-i18n="calc.sop">SOP Protocol</span> <span class="expander-arrow">▾</span></div>
+              <div class="expander-body">
+                <ol class="sop">
+                  <li data-i18n="vol2.t3.sop.1">Melt / heat fat to liquid state</li>
+                  <li data-i18n="vol2.t3.sop.2">Combine with spirit in sealed container; shake to emulsify</li>
+                  <li data-i18n="vol2.t3.sop.3">Rest at room temperature for infusion time</li>
+                  <li data-i18n="vol2.t3.sop.4">Transfer to freezer (−18 °C) until fat solidifies (4–6 h)</li>
+                  <li data-i18n="vol2.t3.sop.5">Puncture fat cap; pour spirit through fine-mesh strainer</li>
+                  <li data-i18n="vol2.t3.sop.6">Fine-strain through coffee filter to remove haze</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab 4: Milk Wash ── -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol2.t4.label">Milk Clarification Calculator</div>
+        <div class="codex-quote" data-i18n="vol2.t4.quote">
+          Casein proteins precipitate tannins, pigments, and bitter phenolics when milk acidifies to pH 4.6. The resulting clarified spirit is silky, shelf-stable, and luminously clear.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t4.p1">Total Liquid Volume (ml)</label>
+              <input type="number" id="milk-vol" value="1000" min="100" max="10000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t4.p2">Whole Milk Amount (ml)</label>
+              <input type="number" id="milk-milk" value="200" min="50" max="3000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t4.p3">Acid Source</label>
+              <select id="milk-acid">
+                <option value="citrus" data-i18n="vol2.t4.opt.citrus">Fresh Citrus Juice</option>
+                <option value="tartaric" data-i18n="vol2.t4.opt.tartaric">Tartaric Acid Solution</option>
+                <option value="lactic" data-i18n="vol2.t4.opt.lactic">Lactic Acid (80%)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t4.p4">Resting Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="milk-temp" min="18" max="40" value="25">
+                <span class="range-val">25</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcMilkWash()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol2.t4.r1">Milk Ratio</span><span class="value" id="milk-ratio">—</span><span class="delta" data-i18n="vol2.t4.r1u">% of total volume</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t4.r2">Casein Protein</span><span class="value" id="milk-casein">—</span><span class="delta" data-i18n="vol2.t4.r2u">g available</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t4.r3">Curd Time</span><span class="value" id="milk-curd">—</span><span class="delta" data-i18n="vol2.t4.r3u">minutes at target temp</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t4.r4">Yield Est.</span><span class="value" id="milk-yield">—</span><span class="delta" data-i18n="vol2.t4.r4u">ml clarified spirit</span></div>
+            </div>
+            <div id="milk-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="expander" style="margin-top:1.5rem;">
+              <div class="expander-header"><span data-i18n="calc.sop">SOP Protocol</span> <span class="expander-arrow">▾</span></div>
+              <div class="expander-body">
+                <ol class="sop">
+                  <li data-i18n="vol2.t4.sop.1">Mix all non-milk ingredients; add citrus/acid first</li>
+                  <li data-i18n="vol2.t4.sop.2">Slowly pour warm milk (35–40 °C) into acidic liquid</li>
+                  <li data-i18n="vol2.t4.sop.3">Stir gently once; do not agitate further</li>
+                  <li data-i18n="vol2.t4.sop.4">Rest 1–3 h until large curds form and settle</li>
+                  <li data-i18n="vol2.t4.sop.5">Ladle clear liquid over muslin-lined funnel</li>
+                  <li data-i18n="vol2.t4.sop.6">Final pass through Superbag or coffee filter</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab 5: Barrel Aging ── -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol2.t5.label">Barrel Aging Estimator</div>
+        <div class="codex-quote" data-i18n="vol2.t5.quote">
+          Surface-area-to-volume ratio is the master variable. A 1-litre barrel ages 10× faster than a 10-litre barrel. Oak contact extracts vanillin, lactones, and tannins in that order.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t5.p1">Barrel / Vessel Volume (litres)</label>
+              <input type="number" id="bar-vol" value="5" min="0.25" max="200" step="0.25">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t5.p2">Oak Type</label>
+              <select id="bar-oak">
+                <option value="american" data-i18n="vol2.t5.opt.american">American White Oak (fast extraction)</option>
+                <option value="french" data-i18n="vol2.t5.opt.french">French Oak (medium extraction)</option>
+                <option value="hungarian" data-i18n="vol2.t5.opt.hungarian">Hungarian Oak (slow extraction)</option>
+                <option value="chips" data-i18n="vol2.t5.opt.chips">Oak Chips / Sticks (ultra-fast)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t5.p3">Target Flavor Profile</label>
+              <select id="bar-target">
+                <option value="light" data-i18n="vol2.t5.opt.light">Light — vanilla, mild oak</option>
+                <option value="medium" data-i18n="vol2.t5.opt.medium">Medium — caramel, toasty notes</option>
+                <option value="heavy" data-i18n="vol2.t5.opt.heavy">Heavy — tannin-forward, spice</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol2.t5.p4">Spirit ABV (%)</label>
+              <div class="range-row">
+                <input type="range" id="bar-abv" min="20" max="65" value="40">
+                <span class="range-val">40</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcBarrel()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol2.t5.r1">Est. Aging Time</span><span class="value" id="bar-time">—</span><span class="delta" data-i18n="vol2.t5.r1u">days</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t5.r2">SA/V Ratio</span><span class="value" id="bar-sav">—</span><span class="delta" data-i18n="vol2.t5.r2u">cm²/L (relative)</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t5.r3">ABV Effect</span><span class="value" id="bar-abv-eff">—</span><span class="delta" data-i18n="vol2.t5.r3u">extraction modifier</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol2.t5.r4">Check Interval</span><span class="value" id="bar-check">—</span><span class="delta" data-i18n="vol2.t5.r4u">days between tastings</span></div>
+            </div>
+            <div id="bar-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /data-tabs -->
+
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;"><span data-i18n="vol2.footer">Liquid Architect · Vol. II · Classical Era</span></div>
+  </div>
+
+  <!-- ── Per-vol QA Panel ── -->
+  <div style="border-top:1px solid var(--border);margin-top:3.5rem;padding-top:2.5rem;padding-bottom:2rem;" class="reveal">
+    <div class="page-container" style="max-width:820px;">
+      <div class="panel-gold">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">
+          <span data-i18n="qa.eyebrow.prefix">Volume Q&A ·</span> Vol. II · Classical Era
+        </div>
+        <div class="section-label" style="margin-bottom:1rem;" data-i18n="qa.section.label">Ask the Codex</div>
+        <div style="display:flex;gap:0.6rem;align-items:flex-end;">
+          <textarea id="qa-input" rows="2"
+            data-i18n-placeholder="qa.placeholder"
+            placeholder="Ask anything about this volume — answers must include numeric evidence…"
+            style="flex:1;resize:none;"></textarea>
+          <button id="qa-btn" onclick="askCodex()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.7rem 1.2rem;" data-i18n="qa.btn.ask">Ask →</button>
+        </div>
+        <div id="qa-output" style="margin-top:1rem;min-height:0;"></div>
+        <div style="margin-top:0.8rem;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;" data-i18n="qa.disclaimer">
+          Answers generated by AI from the Codex — verify safety parameters before practical use.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js?v=14"></script>
+<script src="../js/auth.js?v=14"></script>
+<script src="../js/ui.js"></script>
+<script>
+requireAuth();
+
+function calcMaceration() {
+  const vol = parseFloat(document.getElementById('mac-vol').value) || 500;
+  const abv = parseFloat(document.getElementById('mac-abv').value) || 40;
+  const weight = parseFloat(document.getElementById('mac-weight').value) || 100;
+  const time = parseFloat(document.getElementById('mac-time').value) || 48;
+  const temp = parseFloat(document.getElementById('mac-temp').value) || 4;
+
+  const ethanolgL = abv * 7.89;
+  const ratio = (vol / weight).toFixed(1);
+  // Extraction model: base 60% at 40 ABV, 48 h, 4°C; scaled by ABV and time
+  const abvFactor = Math.min(abv / 40, 1.8);
+  const timeFactor = Math.min(time / 48, 2.0);
+  const tempFactor = temp <= 4 ? 1.0 : temp <= 10 ? 0.92 : 0.80;
+  let extract = Math.min(60 * abvFactor * Math.sqrt(timeFactor) * tempFactor, 95).toFixed(0);
+  const yield_ = Math.round(vol * 0.97);
+
+  document.getElementById('mac-solvent').textContent = Math.round(ethanolgL);
+  flashResult(document.getElementById('mac-solvent'));
+  document.getElementById('mac-ratio').textContent = ratio;
+  flashResult(document.getElementById('mac-ratio'));
+  document.getElementById('mac-extract').textContent = extract + '%';
+  flashResult(document.getElementById('mac-extract'));
+  document.getElementById('mac-yield').textContent = yield_;
+  flashResult(document.getElementById('mac-yield'));
+
+  const adv = document.getElementById('mac-advice');
+  if (abv < 30) adv.textContent = t('vol2.t1.advice.low-abv') || 'Low ABV limits lipophilic extraction. Consider a second pass or higher-proof spirit.';
+  else if (time < 12) adv.textContent = t('vol2.t1.advice.short') || 'Very short maceration. Expect delicate, top-note-dominant flavour.';
+  else if (time > 96) adv.textContent = t('vol2.t1.advice.long') || 'Extended maceration risk: cellulose bitterness and green tannin extraction. Taste every 12 h.';
+  else if (temp > 10) adv.textContent = t('vol2.t1.advice.warm') || 'Above 10 °C accelerates oxidation. Refrigerate for better stability.';
+  else adv.textContent = tr('vol2.t1.advice.ok', { pct: extract }) || `Optimal parameters. Expect ~${extract}% flavour extraction.`;
+  adv.style.display = 'block';
+}
+
+function calcOleo() {
+  const peel = parseFloat(document.getElementById('oleo-peel').value) || 100;
+  const ratio = parseFloat(document.getElementById('oleo-ratio').value) || 1;
+  const time = parseFloat(document.getElementById('oleo-time').value) || 4;
+  const citrus = document.getElementById('oleo-citrus').value;
+  const oilPct = { lemon: 3.5, lime: 4.2, orange: 2.5, grapefruit: 1.8, yuzu: 5.0 };
+  const oilYield = parseFloat((peel * (oilPct[citrus] / 100) * Math.min(time / 4, 1.0) * 0.85).toFixed(1));
+  const sugar = Math.round(peel * ratio);
+  const totalVol = Math.round((oilYield + sugar * 1.15) * 0.85);
+  const brix = Math.min(Math.round((sugar / (totalVol * 1.33)) * 100), 72);
+
+  document.getElementById('oleo-sugar').textContent = sugar + ' g';
+  flashResult(document.getElementById('oleo-sugar'));
+  document.getElementById('oleo-oil').textContent = oilYield;
+  flashResult(document.getElementById('oleo-oil'));
+  document.getElementById('oleo-vol').textContent = totalVol;
+  flashResult(document.getElementById('oleo-vol'));
+  document.getElementById('oleo-brix').textContent = brix + '°';
+  flashResult(document.getElementById('oleo-brix'));
+
+  const adv = document.getElementById('oleo-advice');
+  adv.textContent = time < 2
+    ? (t('vol2.t2.advice.short') || 'Increase resting time to 4+ hours for full oil extraction.')
+    : ratio < 0.8
+    ? (t('vol2.t2.advice.low-ratio') || 'Low sugar ratio may not generate sufficient osmotic pressure.')
+    : (tr('vol2.t2.advice.ok', { juice: Math.round(peel * 0.1) }) || `Extraction on track. Add ${Math.round(peel * 0.1)} ml fresh juice to dissolve residual sugar.`);
+  adv.style.display = 'block';
+}
+
+function calcFatWash() {
+  const vol = parseFloat(document.getElementById('fat-vol').value) || 750;
+  const amt = parseFloat(document.getElementById('fat-amt').value) || 60;
+  const abv = parseFloat(document.getElementById('fat-abv').value) || 40;
+  const time = parseFloat(document.getElementById('fat-time').value) || 2;
+
+  const fatRatio = ((amt / vol) * 750).toFixed(0);
+  const abvAfter = (abv - abv * 0.012).toFixed(1);
+  const freezeTime = abv >= 50 ? 6 : 4;
+  const yield_ = Math.round(vol * 0.95);
+
+  document.getElementById('fat-ratio').textContent = fatRatio;
+  flashResult(document.getElementById('fat-ratio'));
+  document.getElementById('fat-abv-after').textContent = abvAfter + '%';
+  flashResult(document.getElementById('fat-abv-after'));
+  document.getElementById('fat-freeze').textContent = freezeTime;
+  flashResult(document.getElementById('fat-freeze'));
+  document.getElementById('fat-yield').textContent = yield_;
+  flashResult(document.getElementById('fat-yield'));
+
+  const adv = document.getElementById('fat-advice');
+  adv.textContent = amt > vol * 0.2
+    ? (t('vol2.t3.advice.haze') || 'High fat ratio may cause haze. Use coffee filter for final polish.')
+    : abv < 35
+    ? (t('vol2.t3.advice.low-abv') || 'Lower ABV spirits may not fully re-separate. Ensure freezer is at −18 °C.')
+    : (tr('vol2.t3.advice.ok', { h: freezeTime }) || `Freeze for ${freezeTime} h minimum. Use ABV > 35% for clean separation.`);
+  adv.style.display = 'block';
+}
+
+function calcMilkWash() {
+  const vol = parseFloat(document.getElementById('milk-vol').value) || 1000;
+  const milk = parseFloat(document.getElementById('milk-milk').value) || 200;
+  const temp = parseFloat(document.getElementById('milk-temp').value) || 25;
+
+  const milkRatio = ((milk / vol) * 100).toFixed(1);
+  const casein = (milk * 0.028).toFixed(1);
+  const curdTime = temp >= 35 ? 20 : temp >= 25 ? 45 : 90;
+  const yield_ = Math.round((vol + milk) * 0.82);
+
+  document.getElementById('milk-ratio').textContent = milkRatio + '%';
+  flashResult(document.getElementById('milk-ratio'));
+  document.getElementById('milk-casein').textContent = casein;
+  flashResult(document.getElementById('milk-casein'));
+  document.getElementById('milk-curd').textContent = curdTime;
+  flashResult(document.getElementById('milk-curd'));
+  document.getElementById('milk-yield').textContent = yield_;
+  flashResult(document.getElementById('milk-yield'));
+
+  const adv = document.getElementById('milk-advice');
+  adv.textContent = milkRatio < 10
+    ? (t('vol2.t4.advice.low-milk') || 'Low milk ratio reduces tannin-binding capacity. Consider increasing to 15–20%.')
+    : milkRatio > 30
+    ? (t('vol2.t4.advice.high-milk') || 'High milk ratio may over-strip flavour. Target 15–25% for balanced result.')
+    : (tr('vol2.t4.advice.ok', { casein, vol: Math.round(vol) }) || `Casein available (${casein} g) is sufficient for ${Math.round(vol)} ml liquid.`);
+  adv.style.display = 'block';
+}
+
+function calcBarrel() {
+  const vol = parseFloat(document.getElementById('bar-vol').value) || 5;
+  const oak = document.getElementById('bar-oak').value;
+  const target = document.getElementById('bar-target').value;
+  const abv = parseFloat(document.getElementById('bar-abv').value) || 40;
+
+  const oakFactor = { american: 1.0, french: 0.75, hungarian: 0.6, chips: 5.0 };
+  const targetDays = { light: 14, medium: 30, heavy: 60 };
+  const baseDays = targetDays[target];
+  // SA/V ratio: sphere approximation; smaller barrels age faster
+  const savBase = 500 / Math.pow(vol, 0.75);
+  const estDays = Math.round((baseDays / oakFactor[oak]) * (vol / 5) * (40 / abv));
+  const sav = savBase.toFixed(0);
+  const abvEff = abv >= 55
+    ? (t('vol2.t5.val.abv-fast') || '1.3× (faster)')
+    : abv >= 45
+    ? (t('vol2.t5.val.abv-normal') || '1.1× (normal)')
+    : (t('vol2.t5.val.abv-slow') || '0.9× (slower)');
+  const checkInterval = Math.max(2, Math.round(estDays / 8));
+
+  document.getElementById('bar-time').textContent = estDays;
+  flashResult(document.getElementById('bar-time'));
+  document.getElementById('bar-sav').textContent = sav;
+  flashResult(document.getElementById('bar-sav'));
+  document.getElementById('bar-abv-eff').textContent = abvEff;
+  flashResult(document.getElementById('bar-abv-eff'));
+  document.getElementById('bar-check').textContent = checkInterval;
+  flashResult(document.getElementById('bar-check'));
+
+  const adv = document.getElementById('bar-advice');
+  adv.textContent = oak === 'chips'
+    ? (t('vol2.t5.advice.chips') || 'Oak chips/sticks: reduce liquid contact by 50% compared to barrel. Start tasting at day 3.')
+    : vol <= 1
+    ? (t('vol2.t5.advice.micro') || 'Micro-barrel warning: extremely fast extraction. Taste daily to avoid over-oaking.')
+    : (tr('vol2.t5.advice.ok', { days: estDays, target, interval: checkInterval }) || `Estimated ${estDays} days for ${target} profile. Taste every ${checkInterval} days.`);
+  adv.style.display = 'block';
+}
+
+document.addEventListener('langchange', () => {
+  ['mac-advice','oleo-advice','fat-advice','milk-advice','bar-advice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.style.display !== 'none') {
+      if (id === 'mac-advice') calcMaceration();
+      else if (id === 'oleo-advice') calcOleo();
+      else if (id === 'fat-advice') calcFatWash();
+      else if (id === 'milk-advice') calcMilkWash();
+      else if (id === 'bar-advice') calcBarrel();
+    }
+  });
+});
+</script>
+<script src="../js/i18n.js?v=7"></script>
+<script>
+// ── QA Panel · vol2 ──
+(function () {
+  var _vol = 'vol2';
+
+  window.askCodex = function () {
+    var q = document.getElementById('qa-input').value.trim();
+    var out = document.getElementById('qa-output');
+    if (!q) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.empty') || 'Please enter a question.') + '</div>';
+      return;
+    }
+    var key = (localStorage.getItem('deepseek_api_key') || '').trim();
+    if (!key) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.no-key') || 'API Key not configured.') + '</div>';
+      return;
+    }
+    var btn = document.getElementById('qa-btn');
+    btn.disabled = true;
+    btn.textContent = t('qa.btn.asking') || 'Thinking…';
+    out.innerHTML = '<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">'
+      + '<span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>'
+      + (t('qa.btn.asking') || 'Thinking…') + '</div>';
+    var token = (typeof getToken === 'function') ? getToken() : '';
+    var lang = localStorage.getItem('lc_lang') || 'en';
+    fetch(STREAM_API_BASE + '/api/qa/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Api-Key': key },
+      body: JSON.stringify({ volume: _vol, question: q, language: lang })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (err) {
+          out.innerHTML = '<div class="alert alert-error">' + (err.detail || 'Error ' + res.status) + '</div>';
+          _resetQaBtn();
+        });
+      }
+      var reader = res.body.getReader(), decoder = new TextDecoder(), md = '';
+      out.innerHTML = '<div class="ai-stream-text" id="qa-stream"></div>';
+      (function read() {
+        reader.read().then(function (r) {
+          if (r.done) { _resetQaBtn(); return; }
+          decoder.decode(r.value, { stream: true }).split('\n').forEach(function (line) {
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6);
+            if (data === '[DONE]') { _resetQaBtn(); return; }
+            try {
+              var p = JSON.parse(data);
+              if (p.error) { out.innerHTML = '<div class="alert alert-error">' + p.error + '</div>'; _resetQaBtn(); return; }
+              if (p.text) { md += p.text; var el = document.getElementById('qa-stream'); if (el) el.innerHTML = _qaMd(md); }
+            } catch (e) {}
+          });
+          read();
+        });
+      })();
+    }).catch(function (err) {
+      out.innerHTML = '<div class="alert alert-error">Connection error: ' + err.message + '</div>';
+      _resetQaBtn();
+    });
+  };
+
+  function _resetQaBtn() {
+    var btn = document.getElementById('qa-btn');
+    if (!btn) return;
+    btn.disabled = false;
+    btn.textContent = t('qa.btn.ask') || 'Ask →';
+  }
+
+  function _qaMd(md) {
+    return md
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function (m) { return '<ul>' + m + '</ul>'; })
+      .split(/\n{2,}/).map(function (b) {
+        if (b.startsWith('<h') || b.startsWith('<ul')) return b;
+        if (b.trim()) return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+        return '';
+      }).join('\n');
+  }
+
+  document.addEventListener('langchange', function () {
+    var btn = document.getElementById('qa-btn');
+    if (btn && !btn.disabled) btn.textContent = t('qa.btn.ask') || 'Ask →';
+    var inp = document.getElementById('qa-input');
+    if (inp) inp.placeholder = t('qa.placeholder') || inp.placeholder;
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vol. VII · Extreme Physics · Liquid Architect</title>
+  <link rel="stylesheet" href="../css/theme.css?v=5">
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="../home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.vol7">VOL. VII · EXTREME PHYSICS</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="../settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="../ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <nav class="page-nav">
+    <a href="../home.html" class="nav-home" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">›</span>
+    <a href="vol7.html"><span data-i18n="vol7.breadcrumb">Vol. VII · Extreme Physics</span></a>
+  </nav>
+
+  <div class="vol-hero">
+    <div class="vol-hero-inner">
+      <div class="vol-number">07</div>
+      <div class="eyebrow" data-i18n="vol7.hero.eyebrow">Vol. VII · Epoch VI · Frontier Technology</div>
+      <h2 class="split-hero vol-split">
+        <span class="split-line"><span class="split-inner" data-i18n="vol7.hero.title">Extreme Physics</span></span>
+      </h2>
+      <div class="codex-quote" style="max-width:680px;margin-top:1.2rem;">
+        <span data-i18n="vol7.hero.quote">The rotovap is not science fiction — it is the logical endpoint of flavor extraction philosophy taken to its absolute conclusion.</span>
+        <div style="margin-top:0.8rem;font-size:0.7rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="common.author">— Darien · Liquid Architect</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <div data-tabs>
+      <div class="tabs">
+        <button class="tab-btn" data-i18n="vol7.tab1">Rotovap</button>
+        <button class="tab-btn" data-i18n="vol7.tab2">Spherification</button>
+        <button class="tab-btn" data-i18n="vol7.tab3">Liquid Nitrogen</button>
+        <button class="tab-btn" data-i18n="vol7.tab4">Freezing Point</button>
+      </div>
+
+      <!-- Tab 1: Rotovap -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol7.t1.label">Rotary Evaporator Calculator</div>
+        <div class="codex-quote" data-i18n="vol7.t1.quote">
+          Vacuum lowers boiling point. At 50 mbar, water boils at ~33 °C, ethanol at ~10 °C. This enables distillation of delicate aromatics that survive at room temperature but degrade above 40 °C at ambient pressure.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t1.p1">Vacuum Level (mbar)</label>
+              <div class="range-row">
+                <input type="range" id="rv-vac" min="10" max="200" step="5" value="50">
+                <span class="range-val">50</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t1.p2">Bath Temperature (°C)</label>
+              <div class="range-row">
+                <input type="range" id="rv-bath" min="20" max="60" value="35">
+                <span class="range-val">35</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t1.p3">Flask Volume (ml)</label>
+              <input type="number" id="rv-vol" value="1000" min="100" max="10000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t1.p4">Fill Ratio (%)</label>
+              <div class="range-row">
+                <input type="range" id="rv-fill" min="20" max="60" step="5" value="40">
+                <span class="range-val">40</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t1.p5">Condenser Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="rv-cond" min="-20" max="0" step="1" value="-10">
+                <span class="range-val">-10</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcRotovap()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol7.t1.r1">Water Boiling Pt.</span><span class="value" id="rv-water-bp">—</span><span class="delta" data-i18n="vol7.t1.r1u">°C at vacuum</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t1.r2">Ethanol Boiling Pt.</span><span class="value" id="rv-eth-bp">—</span><span class="delta" data-i18n="vol7.t1.r2u">°C at vacuum</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t1.r3">Distillate Volume</span><span class="value" id="rv-distillate">—</span><span class="delta" data-i18n="vol7.t1.r3u">ml estimated</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t1.r4">Run Time</span><span class="value" id="rv-time">—</span><span class="delta" data-i18n="vol7.t1.r4u">minutes (est.)</span></div>
+            </div>
+            <div id="rv-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="safety-panel" style="margin-top:1.2rem;">
+              <div class="safety-title" data-i18n="vol7.t1.safety">⚠ Rotovap Safety</div>
+              <ul>
+                <li data-i18n="vol7.t1.safety.1">Never leave rotovap unattended at high vacuum</li>
+                <li data-i18n="vol7.t1.safety.2">Glassware must be rated for vacuum — check for cracks</li>
+                <li data-i18n="vol7.t1.safety.3">Release vacuum slowly before opening flask</li>
+                <li data-i18n="vol7.t1.safety.4">Keep distillate receiver in ice bath during collection</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Spherification -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol7.t2.label">Spherification Calculator</div>
+        <div class="codex-quote" data-i18n="vol7.t2.quote">
+          Basic spherification: sodium alginate in the flavoured liquid + calcium chloride bath. Reverse: calcium lactate in liquid + sodium alginate bath. Reverse produces a permanent gel skin; basic produces a thin, fragile membrane that must be served immediately.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t2.p1">Method</label>
+              <select id="sph-method">
+                <option value="basic" data-i18n="vol7.t2.opt.basic">Basic (alginate in juice, CaCl₂ bath)</option>
+                <option value="reverse" data-i18n="vol7.t2.opt.reverse">Reverse (CaLactate in juice, alginate bath)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t2.p2">Liquid Volume (ml)</label>
+              <input type="number" id="sph-vol" value="200" min="50" max="3000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t2.p3">Target Sphere Diameter (mm)</label>
+              <div class="range-row">
+                <input type="range" id="sph-diam" min="5" max="30" step="1" value="15">
+                <span class="range-val">15</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t2.p4">Liquid pH</label>
+              <div class="range-row">
+                <input type="range" id="sph-ph" min="2.5" max="7.0" step="0.1" value="4.0">
+                <span class="range-val">4.0</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t2.p5">Bath Volume (ml)</label>
+              <input type="number" id="sph-bath" value="500" min="200" max="5000">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcSpher()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol7.t2.r1">Alginate / CaLact.</span><span class="value" id="sph-main">—</span><span class="delta">grams</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t2.r2">Bath Compound</span><span class="value" id="sph-bath-comp">—</span><span class="delta" data-i18n="vol7.t2.r2u">grams for bath</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t2.r3">Gel Time</span><span class="value" id="sph-gel">—</span><span class="delta" data-i18n="vol7.t2.r3u">seconds</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t2.r4">Spheres per Batch</span><span class="value" id="sph-count">—</span><span class="delta" data-i18n="vol7.t2.r4u">approx.</span></div>
+            </div>
+            <div id="sph-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Liquid Nitrogen -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol7.t3.label">Liquid Nitrogen Dosage Calculator</div>
+        <div class="codex-quote" data-i18n="vol7.t3.quote">
+          LN₂ boils at −196 °C. 1 litre of LN₂ produces ~680 litres of N₂ gas. In a small enclosed space, oxygen displacement becomes a serious asphyxiation risk. Always work in a well-ventilated environment.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t3.p1">Application</label>
+              <select id="ln-app">
+                <option value="instant_freeze" data-i18n="vol7.t3.opt.instant_freeze">Instant freeze (powder / granita)</option>
+                <option value="tableside" data-i18n="vol7.t3.opt.tableside">Tableside mist effect</option>
+                <option value="glass_chill" data-i18n="vol7.t3.opt.glass_chill">Glass pre-chill</option>
+                <option value="ice_cream" data-i18n="vol7.t3.opt.ice_cream">Instant ice cream</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t3.p2">Liquid / Food Volume (ml)</label>
+              <input type="number" id="ln-vol" value="200" min="10" max="2000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t3.p3">Initial Temperature (°C)</label>
+              <div class="range-row">
+                <input type="range" id="ln-temp" min="-5" max="80" value="20">
+                <span class="range-val">20</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t3.p4">ABV % (if applicable)</label>
+              <div class="range-row">
+                <input type="range" id="ln-abv" min="0" max="50" value="0">
+                <span class="range-val">0</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcLN()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol7.t3.r1">LN₂ Required</span><span class="value" id="ln-dose">—</span><span class="delta">ml</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t3.r2">N₂ Gas Produced</span><span class="value" id="ln-gas">—</span><span class="delta" data-i18n="vol7.t3.r2u">litres</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t3.r3">Contact Time</span><span class="value" id="ln-time">—</span><span class="delta" data-i18n="vol7.t3.r3u">seconds</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t3.r4">Final Texture</span><span class="value" id="ln-texture">—</span><span class="delta" data-i18n="vol7.t3.r4u">expected result</span></div>
+            </div>
+            <div id="ln-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="safety-panel" style="margin-top:1.2rem;">
+              <div class="safety-title" data-i18n="vol7.t3.safety">⚠ LN₂ Safety — Critical</div>
+              <ul>
+                <li data-i18n="vol7.t3.safety.1">Cryogenic gloves and face shield mandatory</li>
+                <li data-i18n="vol7.t3.safety.2">Open dewar valves slowly — pressure builds</li>
+                <li data-i18n="vol7.t3.safety.3">Never seal LN₂ in a closed container — explosion risk</li>
+                <li data-i18n="vol7.t3.safety.4">Do NOT serve food with visible boiling LN₂ — cryogenic burns</li>
+                <li data-i18n="vol7.t3.safety.5">Ensure all N₂ has evaporated before serving (30–60 s wait)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Freezing Point -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol7.t4.label">Pacojet & Freezing Point Depression</div>
+        <div class="codex-quote" data-i18n="vol7.t4.quote">
+          Pacojet spins a frozen block at 2000 rpm, shaving 2 mm per revolution — creating 5–10 µm ice crystals invisible to the tongue. The lower the freezing point, the softer the frozen texture at serving temperature.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="vol7.t4.head">Recipe Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t4.p1">Water Content (ml or g)</label>
+              <input type="number" id="fp-water" value="500" min="50" max="2000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t4.p2">Sugar (g)</label>
+              <input type="number" id="fp-sugar" value="100" min="0" max="1000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t4.p3">ABV Ingredient (ml × % ABV)</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+                <input type="number" id="fp-spirit-vol" placeholder="ml spirit" value="0" min="0">
+                <input type="number" id="fp-spirit-abv" placeholder="ABV %" value="40" min="0" max="96">
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t4.p4">Total Acids (g/L)</label>
+              <div class="range-row">
+                <input type="range" id="fp-acid" min="0" max="30" step="0.5" value="5">
+                <span class="range-val">5</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol7.t4.p5">Serving Temperature (°C)</label>
+              <div class="range-row">
+                <input type="range" id="fp-serve" min="-25" max="0" step="1" value="-10">
+                <span class="range-val">-10</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcFP()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol7.t4.r1">Freezing Point</span><span class="value" id="fp-result">—</span><span class="delta">°C</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t4.r2">Texture at Serve</span><span class="value" id="fp-texture">—</span><span class="delta" data-i18n="vol7.t4.r2u">hardness index</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t4.r3">Storage Temp</span><span class="value" id="fp-storage">—</span><span class="delta" data-i18n="vol7.t4.r3u">°C for Pacojet</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol7.t4.r4">Adjustment</span><span class="value" id="fp-adjust">—</span><span class="delta" data-i18n="vol7.t4.r4u">to reach ideal texture</span></div>
+            </div>
+            <div id="fp-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;"><span data-i18n="vol7.footer">Liquid Architect · Vol. VII · Extreme Physics</span></div>
+  </div>
+
+  <!-- ── Per-vol QA Panel ── -->
+  <div style="border-top:1px solid var(--border);margin-top:3.5rem;padding-top:2.5rem;padding-bottom:2rem;" class="reveal">
+    <div class="page-container" style="max-width:820px;">
+      <div class="panel-gold">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">
+          <span data-i18n="qa.eyebrow.prefix">Volume Q&A ·</span> Vol. VII · Extreme Physics
+        </div>
+        <div class="section-label" style="margin-bottom:1rem;" data-i18n="qa.section.label">Ask the Codex</div>
+        <div style="display:flex;gap:0.6rem;align-items:flex-end;">
+          <textarea id="qa-input" rows="2"
+            data-i18n-placeholder="qa.placeholder"
+            placeholder="Ask anything about this volume — answers must include numeric evidence…"
+            style="flex:1;resize:none;"></textarea>
+          <button id="qa-btn" onclick="askCodex()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.7rem 1.2rem;" data-i18n="qa.btn.ask">Ask →</button>
+        </div>
+        <div id="qa-output" style="margin-top:1rem;min-height:0;"></div>
+        <div style="margin-top:0.8rem;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;" data-i18n="qa.disclaimer">
+          Answers generated by AI from the Codex — verify safety parameters before practical use.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js?v=14"></script>
+<script src="../js/auth.js?v=14"></script>
+<script src="../js/ui.js"></script>
+<script>
+requireAuth();
+
+function calcRotovap() {
+  const vac = parseFloat(document.getElementById('rv-vac').value) || 50;
+  const bath = parseFloat(document.getElementById('rv-bath').value) || 35;
+  const vol = parseFloat(document.getElementById('rv-vol').value) || 1000;
+  const fill = parseFloat(document.getElementById('rv-fill').value) || 40;
+
+  // Antoine equation approximation for water: BP(°C) = 100 - 28.5 × log10(1013/vac)
+  const waterBP = Math.round(100 - 28.5 * Math.log10(1013 / vac));
+  const ethBP = Math.round(78.4 - 28.5 * Math.log10(1013 / vac));
+  const liquidVol = vol * fill / 100;
+  const distillate = Math.round(liquidVol * 0.35);
+  const time = Math.round(liquidVol / 8 * (bath < waterBP ? 1.5 : 1.0));
+
+  document.getElementById('rv-water-bp').textContent = waterBP + '°C';
+  flashResult(document.getElementById('rv-water-bp'));
+  document.getElementById('rv-eth-bp').textContent = ethBP + '°C';
+  flashResult(document.getElementById('rv-eth-bp'));
+  document.getElementById('rv-distillate').textContent = distillate;
+  flashResult(document.getElementById('rv-distillate'));
+  document.getElementById('rv-time').textContent = time;
+  flashResult(document.getElementById('rv-time'));
+
+  const adv = document.getElementById('rv-advice');
+  adv.textContent = bath > waterBP
+    ? (tr('vol7.t1.advice.bath-high', { bath, vac, waterBP }) || `Bath temp (${bath}°C) exceeds water boiling point at ${vac} mbar (${waterBP}°C). Reduce bath temp to stay below water BP for aromatic-only distillation.`)
+    : bath < ethBP
+    ? (tr('vol7.t1.advice.bath-low', { ethBP }) || `Bath temp below ethanol BP (${ethBP}°C) — alcohol distillation will be slow. Increase bath temp or lower vacuum.`)
+    : (tr('vol7.t1.advice.ok', { bath, waterBP, ethBP, distillate, time }) || `Optimal: bath ${bath}°C, water BP ${waterBP}°C, ethanol BP ${ethBP}°C. Estimated ${distillate} ml distillate in ~${time} min.`);
+  adv.style.display = 'block';
+}
+
+function calcSpher() {
+  const method = document.getElementById('sph-method').value;
+  const vol = parseFloat(document.getElementById('sph-vol').value) || 200;
+  const diam = parseFloat(document.getElementById('sph-diam').value) || 15;
+  const ph = parseFloat(document.getElementById('sph-ph').value) || 4.0;
+  const bathVol = parseFloat(document.getElementById('sph-bath').value) || 500;
+
+  const isBasic = method === 'basic';
+  // Alginate dose: 0.5% basic, 0.5% reverse (higher for acidic)
+  const phPenalty = ph < 4 ? 1.3 : 1.0;
+  const alginatePct = isBasic ? 0.5 * phPenalty : 0.3;
+  const mainG = (vol * alginatePct / 100).toFixed(2);
+  const bathCompound = isBasic ? (t('vol7.t2.comp.cacl') || 'CaCl₂ (0.5%)') : (t('vol7.t2.comp.alg') || 'Na Alginate (0.5%)');
+  const bathG = (bathVol * 0.5 / 100).toFixed(2);
+  const gelTime = isBasic ? Math.round(diam * 2.5) : Math.round(diam * 1.8);
+  const sphereVolMl = Math.PI * Math.pow(diam / 20, 3) * 4 / 3;
+  const count = Math.floor(vol / sphereVolMl);
+
+  document.getElementById('sph-main').textContent = mainG + 'g ' + (isBasic ? (t('vol7.t2.main.alg') || 'Na Alginate') : (t('vol7.t2.main.ca') || 'Ca Lactate'));
+  flashResult(document.getElementById('sph-main'));
+  document.getElementById('sph-bath-comp').textContent = bathG + 'g ' + bathCompound;
+  flashResult(document.getElementById('sph-bath-comp'));
+  document.getElementById('sph-gel').textContent = gelTime + 's';
+  flashResult(document.getElementById('sph-gel'));
+  document.getElementById('sph-count').textContent = '~' + count;
+  flashResult(document.getElementById('sph-count'));
+
+  const adv = document.getElementById('sph-advice');
+  adv.textContent = ph < 3.5 && isBasic
+    ? (tr('vol7.t2.advice.ph', { ph }) || `⚠ pH ${ph} inhibits alginate gelation. Consider reverse spherification or add 0.5% sodium citrate to neutralise.`)
+    : isBasic
+    ? (t('vol7.t2.advice.basic') || 'Serve immediately — basic spherification membrane continues to gel. Rinse in water bath before plating.')
+    : (t('vol7.t2.advice.reverse') || 'Reverse spherification: stable membrane. Can be prepared 2 h ahead and stored in flavoured liquid.');
+  adv.style.display = 'block';
+}
+
+function calcLN() {
+  const app = document.getElementById('ln-app').value;
+  const vol = parseFloat(document.getElementById('ln-vol').value) || 200;
+  const temp = parseFloat(document.getElementById('ln-temp').value) || 20;
+  const abv = parseFloat(document.getElementById('ln-abv').value) || 0;
+
+  // Energy to chill: mass × Cp × ΔT + latent heat of fusion
+  const Cp = 4.18 - abv * 0.015;
+  const targetTemp = abv > 0 ? -(abv * 0.4) : 0;
+  const deltaT = temp - targetTemp;
+  const energyKJ = vol * Cp * deltaT / 1000;
+  const LN2Latent = 0.199; // kJ/ml
+  const lnDose = Math.round(energyKJ / LN2Latent * 1.5); // 1.5× waste factor
+  const gasL = (lnDose * 0.682).toFixed(1);
+  const contactTime = Math.round(vol / 20);
+
+  const textureKeys = {
+    instant_freeze: 'vol7.t3.texture.instant_freeze',
+    tableside: 'vol7.t3.texture.tableside',
+    glass_chill: 'vol7.t3.texture.glass_chill',
+    ice_cream: 'vol7.t3.texture.ice_cream'
+  };
+
+  document.getElementById('ln-dose').textContent = lnDose;
+  flashResult(document.getElementById('ln-dose'));
+  document.getElementById('ln-gas').textContent = gasL;
+  flashResult(document.getElementById('ln-gas'));
+  document.getElementById('ln-time').textContent = contactTime;
+  flashResult(document.getElementById('ln-time'));
+  document.getElementById('ln-texture').textContent = t(textureKeys[app]) || textureKeys[app];
+  flashResult(document.getElementById('ln-texture'));
+
+  const adv = document.getElementById('ln-advice');
+  adv.textContent = lnDose > 500
+    ? (t('vol7.t3.advice.large') || 'Large LN₂ quantity — ensure excellent ventilation. Over 500 ml produces significant N₂ gas displacement.')
+    : (tr('vol7.t3.advice.ok', { lnDose, contactTime }) || `Pour ~${lnDose} ml LN₂ gradually while stirring. Wait ${contactTime} s after boiling stops before serving.`);
+  adv.style.display = 'block';
+}
+
+function calcFP() {
+  const water = parseFloat(document.getElementById('fp-water').value) || 500;
+  const sugar = parseFloat(document.getElementById('fp-sugar').value) || 100;
+  const spiritVol = parseFloat(document.getElementById('fp-spirit-vol').value) || 0;
+  const spiritAbv = parseFloat(document.getElementById('fp-spirit-abv').value) || 40;
+  const acid = parseFloat(document.getElementById('fp-acid').value) || 5;
+  const serve = parseFloat(document.getElementById('fp-serve').value) || -10;
+
+  const totalVol = water + spiritVol;
+  const sugarConc = (sugar / totalVol) * 1000;
+  const abvEff = (spiritVol * spiritAbv / 100) / totalVol * 100;
+  const fp = -(abvEff * 0.40 + sugarConc * 0.058 + acid * 0.12);
+  const hardness = serve < fp
+    ? (t('vol7.t4.hard.too-soft') || 'Too soft — will not freeze')
+    : serve < fp - 5
+    ? (t('vol7.t4.hard.soft') || 'Soft / Sorbet')
+    : serve < fp - 10
+    ? (t('vol7.t4.hard.ideal') || 'Ideal scoopable')
+    : serve < fp - 15
+    ? (t('vol7.t4.hard.firm') || 'Firm')
+    : (t('vol7.t4.hard.very-hard') || 'Very hard');
+  const storagePct = fp - 22;
+
+  document.getElementById('fp-result').textContent = fp.toFixed(1) + '°C';
+  flashResult(document.getElementById('fp-result'));
+  document.getElementById('fp-texture').textContent = hardness;
+  flashResult(document.getElementById('fp-texture'));
+  document.getElementById('fp-storage').textContent = storagePct.toFixed(0) + '°C';
+  flashResult(document.getElementById('fp-storage'));
+
+  const idealServe = fp - 8;
+  const idealServeR = idealServe.toFixed(0);
+  const adjustment = serve > idealServe
+    ? (tr('vol7.t4.adjust.warm', { idealServe: idealServeR }) || `Too warm. Serve at ${idealServeR}°C for ideal scoopable texture.`)
+    : serve < idealServe - 5
+    ? (tr('vol7.t4.adjust.cold', { idealServe: idealServeR }) || `Too cold. Temper 5 min before service to reach ${idealServeR}°C.`)
+    : (t('vol7.t4.adjust.ok') || 'Serving temperature optimal.');
+  document.getElementById('fp-adjust').textContent = adjustment.split('.')[0];
+  flashResult(document.getElementById('fp-adjust'));
+
+  const adv = document.getElementById('fp-advice');
+  const fpStr = fp.toFixed(1);
+  const storageStr = storagePct.toFixed(0);
+  adv.textContent = fp > -3
+    ? (tr('vol7.t4.advice.high-fp', { fp: fpStr }) || `Freezing point ${fpStr}°C is too high — mixture will barely freeze. Add more sugar or spirit.`)
+    : (tr('vol7.t4.advice.ok', { fp: fpStr, storagePct: storageStr, adjustment }) || `FP: ${fpStr}°C. Store at ${storageStr}°C (Pacojet standard: −22°C). ${adjustment}`);
+  adv.style.display = 'block';
+}
+
+document.addEventListener('langchange', () => {
+  ['rv-advice','sph-advice','ln-advice','fp-advice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.style.display !== 'none') {
+      if (id === 'rv-advice') calcRotovap();
+      else if (id === 'sph-advice') calcSpher();
+      else if (id === 'ln-advice') calcLN();
+      else calcFP();
+    }
+  });
+});
+</script>
+<script src="../js/i18n.js?v=7"></script>
+<script>
+// ── QA Panel · vol7 ──
+(function () {
+  var _vol = 'vol7';
+
+  window.askCodex = function () {
+    var q = document.getElementById('qa-input').value.trim();
+    var out = document.getElementById('qa-output');
+    if (!q) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.empty') || 'Please enter a question.') + '</div>';
+      return;
+    }
+    var key = (localStorage.getItem('deepseek_api_key') || '').trim();
+    if (!key) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.no-key') || 'API Key not configured.') + '</div>';
+      return;
+    }
+    var btn = document.getElementById('qa-btn');
+    btn.disabled = true;
+    btn.textContent = t('qa.btn.asking') || 'Thinking…';
+    out.innerHTML = '<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">'
+      + '<span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>'
+      + (t('qa.btn.asking') || 'Thinking…') + '</div>';
+    var token = (typeof getToken === 'function') ? getToken() : '';
+    var lang = localStorage.getItem('lc_lang') || 'en';
+    fetch(STREAM_API_BASE + '/api/qa/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Api-Key': key },
+      body: JSON.stringify({ volume: _vol, question: q, language: lang })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (err) {
+          out.innerHTML = '<div class="alert alert-error">' + (err.detail || 'Error ' + res.status) + '</div>';
+          _resetQaBtn();
+        });
+      }
+      var reader = res.body.getReader(), decoder = new TextDecoder(), md = '';
+      out.innerHTML = '<div class="ai-stream-text" id="qa-stream"></div>';
+      (function read() {
+        reader.read().then(function (r) {
+          if (r.done) { _resetQaBtn(); return; }
+          decoder.decode(r.value, { stream: true }).split('\n').forEach(function (line) {
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6);
+            if (data === '[DONE]') { _resetQaBtn(); return; }
+            try {
+              var p = JSON.parse(data);
+              if (p.error) { out.innerHTML = '<div class="alert alert-error">' + p.error + '</div>'; _resetQaBtn(); return; }
+              if (p.text) { md += p.text; var el = document.getElementById('qa-stream'); if (el) el.innerHTML = _qaMd(md); }
+            } catch (e) {}
+          });
+          read();
+        });
+      })();
+    }).catch(function (err) {
+      out.innerHTML = '<div class="alert alert-error">Connection error: ' + err.message + '</div>';
+      _resetQaBtn();
+    });
+  };
+
+  function _resetQaBtn() {
+    var btn = document.getElementById('qa-btn');
+    if (!btn) return;
+    btn.disabled = false;
+    btn.textContent = t('qa.btn.ask') || 'Ask →';
+  }
+
+  function _qaMd(md) {
+    return md
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function (m) { return '<ul>' + m + '</ul>'; })
+      .split(/\n{2,}/).map(function (b) {
+        if (b.startsWith('<h') || b.startsWith('<ul')) return b;
+        if (b.trim()) return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+        return '';
+      }).join('\n');
+  }
+
+  document.addEventListener('langchange', function () {
+    var btn = document.getElementById('qa-btn');
+    if (btn && !btn.disabled) btn.textContent = t('qa.btn.ask') || 'Ask →';
+    var inp = document.getElementById('qa-input');
+    if (inp) inp.placeholder = t('qa.placeholder') || inp.placeholder;
+  });
+})();
+</script>
+</body>
+</html>

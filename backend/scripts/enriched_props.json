@@ -1,0 +1,1206 @@
+{
+  "yellow lemon": {
+    "abv_pct": 0.0,
+    "ta_pct": 5.0,
+    "brix": 9.0,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "lime": {
+    "abv_pct": 0.0,
+    "ta_pct": 5.0,
+    "brix": 8.0,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "yuzu": {
+    "abv_pct": 0.0,
+    "ta_pct": 4.5,
+    "brix": 10.0,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "sudachi": {
+    "abv_pct": 0.0,
+    "ta_pct": 4.5,
+    "brix": 9.0,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "finger lime": {
+    "abv_pct": 0.0,
+    "ta_pct": 5.0,
+    "brix": 10.0,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "calamansi": {
+    "abv_pct": 0.0,
+    "ta_pct": 4.5,
+    "brix": 9.0,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "grapefruit": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.5,
+    "brix": 10.0,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "blood orange": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.0,
+    "brix": 11.0,
+    "density": 1.05,
+    "category": "acid"
+  },
+  "bergamot": {
+    "abv_pct": 0.0,
+    "ta_pct": 5.8,
+    "brix": 8.2,
+    "density": 0.98,
+    "category": "acid"
+  },
+  "strawberry": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.7,
+    "brix": 6.5,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "blueberry": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 10.5,
+    "density": 1.02,
+    "category": "acid"
+  },
+  "raspberry": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.8,
+    "brix": 7.8,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "blackberry": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.9,
+    "brix": 10.2,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "cranberry": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.0,
+    "brix": 8.5,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "black currant": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.2,
+    "brix": 13.5,
+    "density": 1.05,
+    "category": "acid"
+  },
+  "fig": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 17.5,
+    "density": 1.06,
+    "category": "acid"
+  },
+  "wolfberry/goji": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.1,
+    "brix": 14.5,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "mulberry": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.6,
+    "brix": 12.0,
+    "density": 1.02,
+    "category": "acid"
+  },
+  "roselle/hibiscus": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.4,
+    "brix": 5.5,
+    "density": 1.01,
+    "category": "acid"
+  },
+  "maqui berry": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.8,
+    "brix": 10.0,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "white peach": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.7,
+    "brix": 12.5,
+    "density": 1.01,
+    "category": "modifier"
+  },
+  "apricot": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.9,
+    "brix": 14.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "sweet cherry": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.8,
+    "brix": 18.0,
+    "density": 1.03,
+    "category": "modifier"
+  },
+  "plum": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.0,
+    "brix": 16.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "green plum/ume": {
+    "abv_pct": 0.0,
+    "ta_pct": 4.5,
+    "brix": 8.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "green apple": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.6,
+    "brix": 14.0,
+    "density": 1.04,
+    "category": "modifier"
+  },
+  "fuji apple": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 16.5,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "asian pear": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 12.5,
+    "density": 1.04,
+    "category": "modifier"
+  },
+  "pineapple": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.8,
+    "brix": 13.5,
+    "density": 1.04,
+    "category": "modifier"
+  },
+  "mango": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 22.0,
+    "density": 1.06,
+    "category": "modifier"
+  },
+  "lychee": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 18.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "watermelon": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 8.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "cucumber": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 2.5,
+    "density": 0.96,
+    "category": "modifier"
+  },
+  "peppermint": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 0.5,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "spearmint": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 0.5,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "rosemary": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 0.6,
+    "density": 0.99,
+    "category": "modifier"
+  },
+  "sweet basil": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 0.5,
+    "density": 0.97,
+    "category": "modifier"
+  },
+  "kaffir lime leaf": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 0.4,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "pandan": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 1.0,
+    "density": 0.99,
+    "category": "modifier"
+  },
+  "red rose": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 0.3,
+    "density": 0.97,
+    "category": "modifier"
+  },
+  "osmanthus": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.5,
+    "brix": 15.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "jasmine": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.8,
+    "brix": 12.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "elderflower": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.0,
+    "brix": 14.0,
+    "density": 1.04,
+    "category": "modifier"
+  },
+  "lavender": {
+    "abv_pct": 0.0,
+    "ta_pct": 3.2,
+    "brix": 10.0,
+    "density": 1.01,
+    "category": "modifier"
+  },
+  "lapsang souchong": {
+    "abv_pct": 0.0,
+    "ta_pct": 4.5,
+    "brix": 8.0,
+    "density": 0.99,
+    "category": "modifier"
+  },
+  "assam": {
+    "abv_pct": 0.0,
+    "ta_pct": 3.8,
+    "brix": 9.0,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "longjing green tea": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.2,
+    "brix": 7.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "tieguanyin oolong": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.8,
+    "brix": 11.0,
+    "density": 1.03,
+    "category": "modifier"
+  },
+  "pu-erh": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.2,
+    "brix": 0.0,
+    "density": 1.01,
+    "category": "modifier"
+  },
+  "rooibos": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.8,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "yerba mate": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.5,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "cinnamon": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "clove": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 0.0,
+    "density": 1.01,
+    "category": "modifier"
+  },
+  "star anise": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "vanilla bean": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.6,
+    "brix": 0.0,
+    "density": 1.01,
+    "category": "modifier"
+  },
+  "tonka bean": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "juniper berry": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.8,
+    "brix": 0.0,
+    "density": 0.95,
+    "category": "modifier"
+  },
+  "grains of paradise": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.6,
+    "brix": 0.0,
+    "density": 0.92,
+    "category": "modifier"
+  },
+  "saffron": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 0.0,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "cinchona bark": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.2,
+    "brix": 0.0,
+    "density": 0.88,
+    "category": "modifier"
+  },
+  "gentian root": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.9,
+    "brix": 0.0,
+    "density": 0.9,
+    "category": "modifier"
+  },
+  "wormwood": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.7,
+    "brix": 0.0,
+    "density": 0.89,
+    "category": "modifier"
+  },
+  "orris root": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 0.0,
+    "density": 0.93,
+    "category": "modifier"
+  },
+  "angelica root": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.85,
+    "brix": 0.0,
+    "density": 0.91,
+    "category": "modifier"
+  },
+  "white sugar": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.85,
+    "category": "modifier"
+  },
+  "demerara sugar": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.86,
+    "category": "modifier"
+  },
+  "muscovado/dark brown sugar": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.87,
+    "category": "modifier"
+  },
+  "gula melaka": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.88,
+    "category": "modifier"
+  },
+  "agave nectar": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.89,
+    "category": "modifier"
+  },
+  "glucose powder": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.9,
+    "category": "modifier"
+  },
+  "pectinex": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.91,
+    "category": "modifier"
+  },
+  "agar-agar": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 0.92,
+    "category": "modifier"
+  },
+  "gelatin": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.35,
+    "category": "modifier"
+  },
+  "xanthan gum": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.35,
+    "category": "modifier"
+  },
+  "gum arabic": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.35,
+    "category": "modifier"
+  },
+  "citric acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 8.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "malic acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 7.5,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "tartaric acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 7.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "lactic acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 6.5,
+    "brix": 0.0,
+    "density": 1.2,
+    "category": "modifier"
+  },
+  "succinic acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 6.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "phosphoric acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.33,
+    "category": "modifier"
+  },
+  "acetic acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "ascorbic acid": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "sea salt": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "himalayan pink salt": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "black salt": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "20% saline solution": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.15,
+    "category": "modifier"
+  },
+  "epsom salt": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "modifier"
+  },
+  "ginger": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 5.0,
+    "density": 0.95,
+    "category": "modifier"
+  },
+  "green cardamom": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 2.0,
+    "density": 0.92,
+    "category": "modifier"
+  },
+  "black pepper": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 1.0,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "fennel seed": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 3.0,
+    "density": 0.94,
+    "category": "modifier"
+  },
+  "coriander seed": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 2.5,
+    "density": 0.93,
+    "category": "modifier"
+  },
+  "bay leaf": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 1.5,
+    "density": 0.91,
+    "category": "modifier"
+  },
+  "galangal": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.6,
+    "brix": 6.0,
+    "density": 0.96,
+    "category": "modifier"
+  },
+  "nutmeg": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 12.0,
+    "density": 0.9,
+    "category": "modifier"
+  },
+  "bitter almond": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 8.0,
+    "density": 0.95,
+    "category": "modifier"
+  },
+  "licorice root": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.8,
+    "brix": 25.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "aloe vera": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 6.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "calamus / sweet flag": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 10.0,
+    "density": 0.92,
+    "category": "modifier"
+  },
+  "pennyroyal mint": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 7.0,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "quassia wood": {
+    "abv_pct": 0.0,
+    "ta_pct": 2.5,
+    "brix": 15.0,
+    "density": 1.1,
+    "category": "modifier"
+  },
+  "st. john's wort": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.6,
+    "brix": 11.0,
+    "density": 0.96,
+    "category": "modifier"
+  },
+  "hyssop": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.8,
+    "brix": 2.5,
+    "density": 0.99,
+    "category": "modifier"
+  },
+  "tarragon": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.7,
+    "brix": 2.3,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "sassafras bark": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.2,
+    "brix": 3.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "chamomile": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.6,
+    "brix": 2.0,
+    "density": 0.97,
+    "category": "modifier"
+  },
+  "butterfly pea flower": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.9,
+    "brix": 2.8,
+    "density": 0.99,
+    "category": "modifier"
+  },
+  "lemongrass": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 1.5,
+    "density": 0.96,
+    "category": "modifier"
+  },
+  "lemon verbena": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 1.8,
+    "density": 0.97,
+    "category": "modifier"
+  },
+  "hops": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.5,
+    "brix": 3.5,
+    "density": 1.03,
+    "category": "modifier"
+  },
+  "sodium alginate": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "calcium chloride": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "calcium lactate": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "lecithin": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "carrageenan": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "glycerol": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.26,
+    "category": "modifier"
+  },
+  "sorbitol": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "steviol glycosides": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "invert sugar syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.05,
+    "brix": 70.0,
+    "density": 1.31,
+    "category": "modifier"
+  },
+  "prosecco": {
+    "abv_pct": 0.11,
+    "ta_pct": 0.6,
+    "brix": 1.8,
+    "density": 0.99,
+    "category": "spirit"
+  },
+  "champagne": {
+    "abv_pct": 0.12,
+    "ta_pct": 0.7,
+    "brix": 1.5,
+    "density": 0.99,
+    "category": "spirit"
+  },
+  "cava": {
+    "abv_pct": 0.11,
+    "ta_pct": 0.65,
+    "brix": 1.6,
+    "density": 0.99,
+    "category": "spirit"
+  },
+  "beer": {
+    "abv_pct": 0.05,
+    "ta_pct": 0.2,
+    "brix": 3.5,
+    "density": 1.01,
+    "category": "dilutant"
+  },
+  "stout": {
+    "abv_pct": 0.055,
+    "ta_pct": 0.25,
+    "brix": 5.2,
+    "density": 1.02,
+    "category": "dilutant"
+  },
+  "sake nigori": {
+    "abv_pct": 0.155,
+    "ta_pct": 0.4,
+    "brix": 12.0,
+    "density": 1.01,
+    "category": "spirit"
+  },
+  "umeshu": {
+    "abv_pct": 0.14,
+    "ta_pct": 0.8,
+    "brix": 35.0,
+    "density": 1.08,
+    "category": "modifier"
+  },
+  "baijiu sauce aroma": {
+    "abv_pct": 0.54,
+    "ta_pct": 0.2,
+    "brix": 2.0,
+    "density": 0.94,
+    "category": "spirit"
+  },
+  "cynar": {
+    "abv_pct": 0.165,
+    "ta_pct": 0.6,
+    "brix": 28.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "suze": {
+    "abv_pct": 0.15,
+    "ta_pct": 0.3,
+    "brix": 18.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "benedictine": {
+    "abv_pct": 0.4,
+    "ta_pct": 0.1,
+    "brix": 32.0,
+    "density": 1.1,
+    "category": "modifier"
+  },
+  "drambuie": {
+    "abv_pct": 0.4,
+    "ta_pct": 0.2,
+    "brix": 38.0,
+    "density": 1.12,
+    "category": "modifier"
+  },
+  "frangelico": {
+    "abv_pct": 0.2,
+    "ta_pct": 0.1,
+    "brix": 40.0,
+    "density": 1.13,
+    "category": "modifier"
+  },
+  "chambord": {
+    "abv_pct": 0.165,
+    "ta_pct": 2.5,
+    "brix": 45.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "midori": {
+    "abv_pct": 0.2,
+    "ta_pct": 1.5,
+    "brix": 50.0,
+    "density": 1.07,
+    "category": "modifier"
+  },
+  "blue curacao": {
+    "abv_pct": 0.2,
+    "ta_pct": 1.0,
+    "brix": 40.0,
+    "density": 1.04,
+    "category": "modifier"
+  },
+  "passoã": {
+    "abv_pct": 0.15,
+    "ta_pct": 2.0,
+    "brix": 48.0,
+    "density": 1.06,
+    "category": "modifier"
+  },
+  "pimms": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "dilutant"
+  },
+  "malibu": {
+    "abv_pct": 0.13,
+    "ta_pct": 0.5,
+    "brix": 35.0,
+    "density": 1.03,
+    "category": "modifier"
+  },
+  "disaronno": {
+    "abv_pct": 0.28,
+    "ta_pct": 1.2,
+    "brix": 42.0,
+    "density": 1.05,
+    "category": "modifier"
+  },
+  "italicus": {
+    "abv_pct": 0.2,
+    "ta_pct": 1.8,
+    "brix": 38.0,
+    "density": 1.04,
+    "category": "modifier"
+  },
+  "strega": {
+    "abv_pct": 0.4,
+    "ta_pct": 0.0,
+    "brix": 35.0,
+    "density": 0.95,
+    "category": "modifier"
+  },
+  "galliano": {
+    "abv_pct": 0.3,
+    "ta_pct": 0.0,
+    "brix": 40.0,
+    "density": 0.98,
+    "category": "modifier"
+  },
+  "licor 43": {
+    "abv_pct": 0.27,
+    "ta_pct": 0.0,
+    "brix": 45.0,
+    "density": 1.02,
+    "category": "modifier"
+  },
+  "tia maria": {
+    "abv_pct": 0.2,
+    "ta_pct": 0.0,
+    "brix": 38.0,
+    "density": 1.01,
+    "category": "modifier"
+  },
+  "montenegro": {
+    "abv_pct": 0.23,
+    "ta_pct": 0.0,
+    "brix": 36.0,
+    "density": 0.96,
+    "category": "modifier"
+  },
+  "carpano antica": {
+    "abv_pct": 0.2,
+    "ta_pct": 0.0,
+    "brix": 50.0,
+    "density": 1.08,
+    "category": "modifier"
+  },
+  "cocchi americano": {
+    "abv_pct": 0.16,
+    "ta_pct": 0.0,
+    "brix": 48.0,
+    "density": 1.06,
+    "category": "modifier"
+  },
+  "lavender syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 65.0,
+    "density": 1.25,
+    "category": "sweetener"
+  },
+  "rose syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 65.0,
+    "density": 1.28,
+    "category": "sweetener"
+  },
+  "elderflower syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.4,
+    "brix": 64.0,
+    "density": 1.27,
+    "category": "sweetener"
+  },
+  "passion fruit syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.2,
+    "brix": 62.0,
+    "density": 1.26,
+    "category": "sweetener"
+  },
+  "ginger syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.3,
+    "brix": 66.0,
+    "density": 1.29,
+    "category": "sweetener"
+  },
+  "cinnamon syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.2,
+    "brix": 65.0,
+    "density": 1.28,
+    "category": "sweetener"
+  },
+  "hibiscus syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.5,
+    "brix": 63.0,
+    "density": 1.26,
+    "category": "sweetener"
+  },
+  "raspberry syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.0,
+    "brix": 64.0,
+    "density": 1.27,
+    "category": "sweetener"
+  },
+  "blackberry syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.9,
+    "brix": 64.0,
+    "density": 1.27,
+    "category": "sweetener"
+  },
+  "thai basil syrup": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.1,
+    "brix": 48.5,
+    "density": 1.2,
+    "category": "sweetener"
+  },
+  "citric acid solution": {
+    "abv_pct": 0.0,
+    "ta_pct": 8.5,
+    "brix": 0.0,
+    "density": 1.05,
+    "category": "acid"
+  },
+  "malic acid solution": {
+    "abv_pct": 0.0,
+    "ta_pct": 7.2,
+    "brix": 0.0,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "tartaric acid solution": {
+    "abv_pct": 0.0,
+    "ta_pct": 9.0,
+    "brix": 0.0,
+    "density": 1.06,
+    "category": "acid"
+  },
+  "lactic acid solution": {
+    "abv_pct": 0.0,
+    "ta_pct": 6.5,
+    "brix": 0.0,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "mango juice": {
+    "abv_pct": 0.0,
+    "ta_pct": 1.2,
+    "brix": 14.5,
+    "density": 1.04,
+    "category": "acid"
+  },
+  "watermelon juice": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.15,
+    "brix": 5.8,
+    "density": 1.02,
+    "category": "dilutant"
+  },
+  "tomato juice": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.85,
+    "brix": 4.2,
+    "density": 1.03,
+    "category": "acid"
+  },
+  "beet juice": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 7.7,
+    "density": 1.05,
+    "category": "dilutant"
+  },
+  "carrot juice": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 6.5,
+    "density": 1.04,
+    "category": "dilutant"
+  },
+  "tonic water": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 0.0,
+    "density": 1.0,
+    "category": "dilutant"
+  },
+  "ginger beer": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.0,
+    "brix": 10.0,
+    "density": 1.04,
+    "category": "dilutant"
+  },
+  "kombucha": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.5,
+    "brix": 3.0,
+    "density": 1.01,
+    "category": "dilutant"
+  },
+  "oat milk": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.1,
+    "brix": 4.5,
+    "density": 1.03,
+    "category": "modifier"
+  },
+  "almond milk": {
+    "abv_pct": 0.0,
+    "ta_pct": 0.1,
+    "brix": 2.5,
+    "density": 1.02,
+    "category": "modifier"
+  }
+}

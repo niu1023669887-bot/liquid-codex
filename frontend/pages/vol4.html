@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vol. IV · Living Alchemy · Liquid Architect</title>
+  <link rel="stylesheet" href="../css/theme.css?v=5">
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="../home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.vol4">VOL. IV · LIVING ALCHEMY</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="../settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="../ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <nav class="page-nav">
+    <a href="../home.html" class="nav-home" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">›</span>
+    <a href="vol4.html"><span data-i18n="vol4.breadcrumb">Vol. IV · Living Alchemy</span></a>
+  </nav>
+
+  <div class="vol-hero">
+    <div class="vol-hero-inner">
+      <div class="vol-number">04</div>
+      <div class="eyebrow" data-i18n="vol4.hero.eyebrow">Vol. IV · Epoch III · Fermentation</div>
+      <h2 class="split-hero vol-split">
+        <span class="split-line"><span class="split-inner" data-i18n="vol4.hero.title">Living Alchemy</span></span>
+      </h2>
+      <div class="codex-quote" style="max-width:680px;margin-top:1.2rem;">
+        <span data-i18n="vol4.hero.quote">Fermentation is not chaos — it is the oldest and most precise biotechnology we possess. Learn to speak its language.</span>
+        <div style="margin-top:0.8rem;font-size:0.7rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="common.author">— Darien · Liquid Architect</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <div data-tabs>
+      <div class="tabs">
+        <button class="tab-btn" data-i18n="vol4.tab1">Lacto-Fermentation</button>
+        <button class="tab-btn" data-i18n="vol4.tab2">Koji Incubation</button>
+        <button class="tab-btn" data-i18n="vol4.tab3">SCOBY Kombucha</button>
+        <button class="tab-btn" data-i18n="vol4.tab4">pH Tracker</button>
+      </div>
+
+      <!-- Tab 1: Lacto -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol4.t1.label">Lacto-Fermentation Salt Calculator</div>
+        <div class="codex-quote" data-i18n="vol4.t1.quote">
+          The 2% salt threshold: below 2% invites Gram-negative pathogens; above 3.5% suppresses lactic acid bacteria. Sweet spot: 2.0–2.5% NaCl by total weight. pH 4.6 = safety threshold — below this, listeria cannot survive.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t1.p1">Total Liquid Weight (g)</label>
+              <input type="number" id="lac-weight" value="1000" min="100" max="20000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t1.p2">Target Salt Concentration (%)</label>
+              <div class="range-row">
+                <input type="range" id="lac-salt" min="1.5" max="4.0" step="0.1" value="2.0">
+                <span class="range-val">2.0</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t1.p3">Fermentation Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="lac-temp" min="18" max="35" value="24">
+                <span class="range-val">24</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t1.p4">Initial pH (ingredient)</label>
+              <div class="range-row">
+                <input type="range" id="lac-initph" min="3.0" max="7.0" step="0.1" value="5.5">
+                <span class="range-val">5.5</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcLacto()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol4.t1.r1">Salt Required</span><span class="value" id="lac-salt-g">—</span><span class="delta" data-i18n="vol4.t1.r1u">grams NaCl</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t1.r2">Est. Duration</span><span class="value" id="lac-days">—</span><span class="delta" data-i18n="vol4.t1.r2u">days to pH 4.6</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t1.r3">Target pH</span><span class="value" id="lac-target-ph">4.6</span><span class="delta" data-i18n="vol4.t1.r3u">safety threshold</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t1.r4">Lactic Acid</span><span class="value" id="lac-la">—</span><span class="delta" data-i18n="vol4.t1.r4u">g/L produced (est.)</span></div>
+            </div>
+            <div id="lac-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+            <div class="safety-panel" style="margin-top:1.2rem;">
+              <div class="safety-title" data-i18n="vol4.t1.safety">⚠ Safety Checkpoints</div>
+              <ul>
+                <li data-i18n="vol4.t1.safety.1">Smell: sour/funky = good; putrid/sulfur = discard</li>
+                <li data-i18n="vol4.t1.safety.2">Visual: white film (kahm yeast) = skim; pink/orange = discard</li>
+                <li data-i18n="vol4.t1.safety.3">Check pH daily after day 3; stop at pH ≤ 4.0 for maximum preservation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Koji -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol4.t2.label">Koji Incubation Calculator</div>
+        <div class="codex-quote" data-i18n="vol4.t2.quote">
+          Aspergillus oryzae produces amylase and protease enzymes at 28–32 °C. The 60 °C enzyme deactivation gate: heat above this temperature kills both the mold and its enzymes. The koji ratio (2–10% by weight) determines umami intensity.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t2.p1">Substrate Weight (g)</label>
+              <input type="number" id="koji-sub" value="500" min="50" max="10000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t2.p2">Koji Ratio (% of substrate)</label>
+              <div class="range-row">
+                <input type="range" id="koji-ratio" min="2" max="30" step="0.5" value="5">
+                <span class="range-val">5</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t2.p3">Incubation Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="koji-temp" min="26" max="40" value="30">
+                <span class="range-val">30</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t2.p4">Humidity (%)</label>
+              <div class="range-row">
+                <input type="range" id="koji-hum" min="60" max="95" value="85">
+                <span class="range-val">85</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t2.p5">Substrate Type</label>
+              <select id="koji-type">
+                <option value="rice" data-i18n="vol4.t2.opt.rice">White Rice (fast, neutral)</option>
+                <option value="barley" data-i18n="vol4.t2.opt.barley">Barley (medium, earthy)</option>
+                <option value="soy" data-i18n="vol4.t2.opt.soy">Soybean (slow, intense umami)</option>
+                <option value="chickpea" data-i18n="vol4.t2.opt.chickpea">Chickpea (novel, nutty)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcKoji()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol4.t2.r1">Koji Spore Dose</span><span class="value" id="koji-dose">—</span><span class="delta">grams</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t2.r2">Incubation Time</span><span class="value" id="koji-time">—</span><span class="delta" data-i18n="vol4.t2.r2u">hours</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t2.r3">Enzyme Activity</span><span class="value" id="koji-enz">—</span><span class="delta" data-i18n="vol4.t2.r3u">relative index</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t2.r4">Flip Interval</span><span class="value" id="koji-flip">—</span><span class="delta" data-i18n="vol4.t2.r4u">hours between turns</span></div>
+            </div>
+            <div id="koji-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: SCOBY -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol4.t3.label">Kombucha / SCOBY Calculator</div>
+        <div class="codex-quote" data-i18n="vol4.t3.quote">
+          SCOBY (Symbiotic Culture of Bacteria and Yeast) produces acetic acid, gluconic acid, and trace B-vitamins. Sugar consumption rate: 80–90% in primary fermentation at 24–26 °C over 7–14 days. Target: pH 2.8–3.5 at service.
+        </div>
+        <div class="calc-grid reveal">
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.params">Parameters</h3>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t3.p1">Brew Volume (ml)</label>
+              <input type="number" id="sco-vol" value="2000" min="250" max="20000">
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t3.p2">Sugar Added (g/L)</label>
+              <div class="range-row">
+                <input type="range" id="sco-sugar" min="50" max="150" step="5" value="80">
+                <span class="range-val">80</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t3.p3">Starter Culture (% of volume)</label>
+              <div class="range-row">
+                <input type="range" id="sco-starter" min="5" max="30" step="1" value="10">
+                <span class="range-val">10</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t3.p4">Fermentation Temp (°C)</label>
+              <div class="range-row">
+                <input type="range" id="sco-temp" min="18" max="32" value="25">
+                <span class="range-val">25</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" data-i18n="vol4.t3.p5">Target pH</label>
+              <div class="range-row">
+                <input type="range" id="sco-target" min="2.5" max="4.0" step="0.1" value="3.2">
+                <span class="range-val">3.2</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="calcSCOBY()" data-i18n="calc.calculate">Calculate</button>
+          </div>
+          <div class="calc-col">
+            <h3 style="margin-bottom:1.2rem;" data-i18n="calc.results">Results</h3>
+            <div class="metric-grid">
+              <div class="metric-card"><span class="label" data-i18n="vol4.t3.r1">Sugar Total</span><span class="value" id="sco-sugar-g">—</span><span class="delta" data-i18n="vol4.t3.r1u">grams for batch</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t3.r2">Est. Duration</span><span class="value" id="sco-days">—</span><span class="delta" data-i18n="vol4.t3.r2u">days primary ferment</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t3.r3">Residual Sugar</span><span class="value" id="sco-res">—</span><span class="delta" data-i18n="vol4.t3.r3u">g/L remaining</span></div>
+              <div class="metric-card"><span class="label" data-i18n="vol4.t3.r4">Acidity</span><span class="value" id="sco-acid">—</span><span class="delta" data-i18n="vol4.t3.r4u">g/L acetic acid (est.)</span></div>
+            </div>
+            <div id="sco-advice" class="alert alert-info" style="display:none;margin-top:1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: pH Tracker -->
+      <div class="tab-panel">
+        <div class="section-label" data-i18n="vol4.t4.label">Fermentation pH Log & Safety Window</div>
+        <div class="codex-quote" data-i18n="vol4.t4.quote">
+          pH is your single most important safety and quality indicator in fermentation. Log daily readings to catch problems before they become contamination events.
+        </div>
+        <div class="reveal">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;">
+            <div class="panel">
+              <h3 style="margin-bottom:1rem;" data-i18n="vol4.t4.log">Log Entry</h3>
+              <div class="field-group">
+                <label class="field-label" data-i18n="vol4.t4.day">Day</label>
+                <input type="number" id="ph-day" value="1" min="0" max="60">
+              </div>
+              <div class="field-group">
+                <label class="field-label" data-i18n="vol4.t4.ph">pH Reading</label>
+                <input type="number" id="ph-val" value="6.0" min="2.0" max="8.0" step="0.1">
+              </div>
+              <div class="field-group">
+                <label class="field-label" data-i18n="vol4.t4.notes">Notes (optional)</label>
+                <input type="text" id="ph-note" placeholder="Aroma, colour, activity…" data-i18n-placeholder="vol4.t4.notes-ph">
+              </div>
+              <button class="btn btn-primary" onclick="logPH()" style="margin-right:0.5rem;" data-i18n="vol4.t4.add">Add Entry</button>
+              <button class="btn btn-ghost" onclick="clearPHLog()" data-i18n="vol4.t4.clear">Clear Log</button>
+            </div>
+            <div class="panel">
+              <h3 style="margin-bottom:1rem;" data-i18n="vol4.t4.zones">Safety Zones</h3>
+              <table class="data-table">
+                <thead><tr><th data-i18n="vol4.t4.th.range">pH Range</th><th data-i18n="vol4.t4.th.status">Status</th></tr></thead>
+                <tbody>
+                  <tr><td>≥ 6.0</td><td style="color:var(--text-muted);">Initial — no fermentation yet</td></tr>
+                  <tr><td>5.0–5.9</td><td style="color:#e67e22;">Early acidification — monitor daily</td></tr>
+                  <tr><td>4.6–4.9</td><td style="color:#f39c12;">Approaching safety threshold</td></tr>
+                  <tr><td>4.0–4.5</td><td style="color:#2ecc71;">✓ Safe zone — Listeria inhibited</td></tr>
+                  <tr><td>3.0–3.9</td><td style="color:#27ae60;">✓ Excellent — shelf stable</td></tr>
+                  <tr><td>≤ 2.9</td><td style="color:var(--gold);">Very sour — check flavour balance</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel" style="overflow-x:auto;">
+            <h3 style="margin-bottom:1rem;" data-i18n="vol4.t4.log-title">pH Log</h3>
+            <table class="data-table" id="ph-log-table">
+              <thead><tr><th data-i18n="vol4.t4.th.day">Day</th><th data-i18n="vol4.t4.th.ph">pH</th><th data-i18n="vol4.t4.th.status">Status</th><th data-i18n="vol4.t4.th.notes">Notes</th></tr></thead>
+              <tbody id="ph-log-body"><tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:1.5rem;">No entries yet.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;"><span data-i18n="vol4.footer">Liquid Architect · Vol. IV · Living Alchemy</span></div>
+  </div>
+
+  <!-- ── Per-vol QA Panel ── -->
+  <div style="border-top:1px solid var(--border);margin-top:3.5rem;padding-top:2.5rem;padding-bottom:2rem;" class="reveal">
+    <div class="page-container" style="max-width:820px;">
+      <div class="panel-gold">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">
+          <span data-i18n="qa.eyebrow.prefix">Volume Q&A ·</span> Vol. IV · Living Alchemy
+        </div>
+        <div class="section-label" style="margin-bottom:1rem;" data-i18n="qa.section.label">Ask the Codex</div>
+        <div style="display:flex;gap:0.6rem;align-items:flex-end;">
+          <textarea id="qa-input" rows="2"
+            data-i18n-placeholder="qa.placeholder"
+            placeholder="Ask anything about this volume — answers must include numeric evidence…"
+            style="flex:1;resize:none;"></textarea>
+          <button id="qa-btn" onclick="askCodex()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.7rem 1.2rem;" data-i18n="qa.btn.ask">Ask →</button>
+        </div>
+        <div id="qa-output" style="margin-top:1rem;min-height:0;"></div>
+        <div style="margin-top:0.8rem;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;" data-i18n="qa.disclaimer">
+          Answers generated by AI from the Codex — verify safety parameters before practical use.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js?v=14"></script>
+<script src="../js/auth.js?v=14"></script>
+<script src="../js/ui.js"></script>
+<script>
+requireAuth();
+
+function calcLacto() {
+  const weight = parseFloat(document.getElementById('lac-weight').value) || 1000;
+  const salt = parseFloat(document.getElementById('lac-salt').value) || 2.0;
+  const temp = parseFloat(document.getElementById('lac-temp').value) || 24;
+  const initPh = parseFloat(document.getElementById('lac-initph').value) || 5.5;
+
+  const saltG = (weight * salt / 100).toFixed(1);
+  const phDelta = initPh - 4.6;
+  const tempFactor = temp >= 28 ? 0.7 : temp >= 24 ? 1.0 : 1.5;
+  const days = Math.max(2, Math.round(phDelta * 4 * tempFactor));
+  const lacticAcid = (phDelta * 3.5).toFixed(1);
+
+  document.getElementById('lac-salt-g').textContent = saltG;
+  flashResult(document.getElementById('lac-salt-g'));
+  document.getElementById('lac-days').textContent = days;
+  flashResult(document.getElementById('lac-days'));
+  document.getElementById('lac-la').textContent = lacticAcid;
+  flashResult(document.getElementById('lac-la'));
+
+  const adv = document.getElementById('lac-advice');
+  adv.textContent = salt < 2.0
+    ? (t('vol4.t1.advice.low-salt') || 'Below 2% salt — high contamination risk. Increase to at least 2.0%.')
+    : salt > 3.5
+    ? (t('vol4.t1.advice.high-salt') || 'High salt concentration. LAB may be suppressed. Consider reducing to 2.0–2.5%.')
+    : (tr('vol4.t1.advice.ok', { saltG, days, temp }) || `Target ${saltG} g NaCl. Estimated ${days} days to reach pH 4.6 at ${temp} °C.`);
+  adv.style.display = 'block';
+}
+
+function calcKoji() {
+  const sub = parseFloat(document.getElementById('koji-sub').value) || 500;
+  const ratio = parseFloat(document.getElementById('koji-ratio').value) || 5;
+  const temp = parseFloat(document.getElementById('koji-temp').value) || 30;
+  const hum = parseFloat(document.getElementById('koji-hum').value) || 85;
+  const type = document.getElementById('koji-type').value;
+
+  const typeFactor = { rice: 1.0, barley: 1.3, soy: 1.8, chickpea: 1.5 };
+  const dose = (sub * ratio / 100).toFixed(1);
+  const baseTime = { rice: 42, barley: 52, soy: 72, chickpea: 60 };
+  const tempFactor = temp >= 32 ? 0.85 : temp >= 30 ? 1.0 : 1.2;
+  const humFactor = hum >= 85 ? 1.0 : 1.15;
+  const incTime = Math.round(baseTime[type] * tempFactor * humFactor);
+  const enzIdx = Math.min(100, Math.round(ratio * typeFactor[type] * (hum / 85) * 3));
+  const flip = temp >= 32 ? 6 : 8;
+
+  document.getElementById('koji-dose').textContent = dose;
+  flashResult(document.getElementById('koji-dose'));
+  document.getElementById('koji-time').textContent = incTime;
+  flashResult(document.getElementById('koji-time'));
+  document.getElementById('koji-enz').textContent = enzIdx + '/100';
+  flashResult(document.getElementById('koji-enz'));
+  document.getElementById('koji-flip').textContent = flip;
+  flashResult(document.getElementById('koji-flip'));
+
+  const adv = document.getElementById('koji-advice');
+  adv.textContent = temp > 34
+    ? (t('vol4.t2.advice.hot') || 'Above 34 °C risks killing the mold. Reduce to 28–32 °C.')
+    : hum < 70
+    ? (t('vol4.t2.advice.low-hum') || 'Low humidity will dry out substrate. Maintain >80% RH.')
+    : (tr('vol4.t2.advice.ok', { dose, sub, type, incTime, flip }) || `${dose} g spores on ${sub} g ${type}. Incubate ${incTime} h. Turn every ${flip} h.`);
+  adv.style.display = 'block';
+}
+
+function calcSCOBY() {
+  const vol = parseFloat(document.getElementById('sco-vol').value) || 2000;
+  const sugarPerL = parseFloat(document.getElementById('sco-sugar').value) || 80;
+  const starter = parseFloat(document.getElementById('sco-starter').value) || 10;
+  const temp = parseFloat(document.getElementById('sco-temp').value) || 25;
+  const targetPh = parseFloat(document.getElementById('sco-target').value) || 3.2;
+
+  const sugarG = (vol / 1000 * sugarPerL).toFixed(0);
+  const tempFactor = temp >= 26 ? 0.85 : temp >= 24 ? 1.0 : 1.3;
+  const starterFactor = starter >= 15 ? 0.8 : starter >= 10 ? 1.0 : 1.3;
+  const phDrop = 7.0 - targetPh;
+  const days = Math.round(phDrop * 1.2 * tempFactor * starterFactor);
+  const consumed = 0.85;
+  const residual = (sugarPerL * (1 - consumed)).toFixed(1);
+  const acetic = (phDrop * 2.1).toFixed(1);
+
+  document.getElementById('sco-sugar-g').textContent = sugarG;
+  flashResult(document.getElementById('sco-sugar-g'));
+  document.getElementById('sco-days').textContent = days;
+  flashResult(document.getElementById('sco-days'));
+  document.getElementById('sco-res').textContent = residual;
+  flashResult(document.getElementById('sco-res'));
+  document.getElementById('sco-acid').textContent = acetic;
+  flashResult(document.getElementById('sco-acid'));
+
+  const adv = document.getElementById('sco-advice');
+  adv.textContent = starter < 8
+    ? (t('vol4.t3.advice.low-starter') || 'Low starter ratio extends fermentation significantly. Consider 10–15% starter.')
+    : temp < 20
+    ? (t('vol4.t3.advice.cold') || 'Low temperature slows fermentation. Optimal range 24–26 °C.')
+    : (tr('vol4.t3.advice.ok', { days, targetPh, sugarG }) || `Estimated ${days} days to reach pH ${targetPh}. Total sugar: ${sugarG} g.`);
+  adv.style.display = 'block';
+}
+
+const phLog = [];
+function logPH() {
+  const day = parseInt(document.getElementById('ph-day').value);
+  const val = parseFloat(document.getElementById('ph-val').value);
+  const note = document.getElementById('ph-note').value;
+  if (isNaN(day) || isNaN(val)) return;
+  const status = val >= 6 ? (t('vol4.t4.ph.initial') || 'Initial')
+    : val >= 5 ? (t('vol4.t4.ph.early') || 'Early acidification')
+    : val >= 4.6 ? (t('vol4.t4.ph.threshold') || 'Approaching threshold')
+    : val >= 4 ? (t('vol4.t4.ph.safe') || 'Safe')
+    : val >= 3 ? (t('vol4.t4.ph.excellent') || 'Excellent')
+    : (t('vol4.t4.ph.sour') || 'Very sour');
+  phLog.push({ day, val, status, note });
+  phLog.sort((a, b) => a.day - b.day);
+  renderPHLog();
+}
+function clearPHLog() { phLog.length = 0; renderPHLog(); }
+function renderPHLog() {
+  const tbody = document.getElementById('ph-log-body');
+  if (!phLog.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:1.5rem;">' + (t('vol4.t4.log.empty') || 'No entries yet.') + '</td></tr>';
+    return;
+  }
+  tbody.innerHTML = phLog.map(e =>
+    `<tr><td>${e.day}</td><td style="font-family:var(--font-title);color:var(--gold);">${e.val}</td><td>${e.status}</td><td style="color:var(--text-dim);">${e.note || '—'}</td></tr>`
+  ).join('');
+}
+
+function phStatus(val) {
+  return val >= 6 ? (t('vol4.t4.ph.initial') || 'Initial')
+    : val >= 5 ? (t('vol4.t4.ph.early') || 'Early acidification')
+    : val >= 4.6 ? (t('vol4.t4.ph.threshold') || 'Approaching threshold')
+    : val >= 4 ? (t('vol4.t4.ph.safe') || 'Safe')
+    : val >= 3 ? (t('vol4.t4.ph.excellent') || 'Excellent')
+    : (t('vol4.t4.ph.sour') || 'Very sour');
+}
+document.addEventListener('langchange', () => {
+  ['lac-advice','koji-advice','sco-advice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.style.display !== 'none') {
+      if (id === 'lac-advice') calcLacto();
+      else if (id === 'koji-advice') calcKoji();
+      else calcSCOBY();
+    }
+  });
+  if (phLog.length) {
+    phLog.forEach(e => { e.status = phStatus(e.val); });
+    renderPHLog();
+  }
+});
+</script>
+<script src="../js/i18n.js?v=7"></script>
+<script>
+// ── QA Panel · vol4 ──
+(function () {
+  var _vol = 'vol4';
+
+  window.askCodex = function () {
+    var q = document.getElementById('qa-input').value.trim();
+    var out = document.getElementById('qa-output');
+    if (!q) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.empty') || 'Please enter a question.') + '</div>';
+      return;
+    }
+    var key = (localStorage.getItem('deepseek_api_key') || '').trim();
+    if (!key) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.no-key') || 'API Key not configured.') + '</div>';
+      return;
+    }
+    var btn = document.getElementById('qa-btn');
+    btn.disabled = true;
+    btn.textContent = t('qa.btn.asking') || 'Thinking…';
+    out.innerHTML = '<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">'
+      + '<span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>'
+      + (t('qa.btn.asking') || 'Thinking…') + '</div>';
+    var token = (typeof getToken === 'function') ? getToken() : '';
+    var lang = localStorage.getItem('lc_lang') || 'en';
+    fetch(STREAM_API_BASE + '/api/qa/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Api-Key': key },
+      body: JSON.stringify({ volume: _vol, question: q, language: lang })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (err) {
+          out.innerHTML = '<div class="alert alert-error">' + (err.detail || 'Error ' + res.status) + '</div>';
+          _resetQaBtn();
+        });
+      }
+      var reader = res.body.getReader(), decoder = new TextDecoder(), md = '';
+      out.innerHTML = '<div class="ai-stream-text" id="qa-stream"></div>';
+      (function read() {
+        reader.read().then(function (r) {
+          if (r.done) { _resetQaBtn(); return; }
+          decoder.decode(r.value, { stream: true }).split('\n').forEach(function (line) {
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6);
+            if (data === '[DONE]') { _resetQaBtn(); return; }
+            try {
+              var p = JSON.parse(data);
+              if (p.error) { out.innerHTML = '<div class="alert alert-error">' + p.error + '</div>'; _resetQaBtn(); return; }
+              if (p.text) { md += p.text; var el = document.getElementById('qa-stream'); if (el) el.innerHTML = _qaMd(md); }
+            } catch (e) {}
+          });
+          read();
+        });
+      })();
+    }).catch(function (err) {
+      out.innerHTML = '<div class="alert alert-error">Connection error: ' + err.message + '</div>';
+      _resetQaBtn();
+    });
+  };
+
+  function _resetQaBtn() {
+    var btn = document.getElementById('qa-btn');
+    if (!btn) return;
+    btn.disabled = false;
+    btn.textContent = t('qa.btn.ask') || 'Ask →';
+  }
+
+  function _qaMd(md) {
+    return md
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function (m) { return '<ul>' + m + '</ul>'; })
+      .split(/\n{2,}/).map(function (b) {
+        if (b.startsWith('<h') || b.startsWith('<ul')) return b;
+        if (b.trim()) return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+        return '';
+      }).join('\n');
+  }
+
+  document.addEventListener('langchange', function () {
+    var btn = document.getElementById('qa-btn');
+    if (btn && !btn.disabled) btn.textContent = t('qa.btn.ask') || 'Ask →';
+    var inp = document.getElementById('qa-input');
+    if (inp) inp.placeholder = t('qa.placeholder') || inp.placeholder;
+  });
+})();
+</script>
+</body>
+</html>

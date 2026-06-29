@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vol. I · Material Atlas · Liquid Architect</title>
+  <link rel="stylesheet" href="../css/theme.css?v=5">
+  <style>
+    /* Vol.1 materials: scroll reveal — faster + triggers before fully in view */
+    .vol1-reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.48s var(--ease, ease), transform 0.48s var(--ease, ease);
+    }
+    .vol1-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .vol1-mat-stats.vol1-reveal.visible .metric-card {
+      animation: vol1-card-in 0.45s var(--ease, ease) both;
+    }
+    .vol1-mat-stats.vol1-reveal.visible .metric-card:nth-child(1) { animation-delay: 0.04s; }
+    .vol1-mat-stats.vol1-reveal.visible .metric-card:nth-child(2) { animation-delay: 0.1s; }
+    .vol1-mat-stats.vol1-reveal.visible .metric-card:nth-child(3) { animation-delay: 0.16s; }
+    .vol1-mat-stats.vol1-reveal.visible .metric-card:nth-child(4) { animation-delay: 0.22s; }
+    @keyframes vol1-card-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="../home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.vol1">VOL. I · MATERIAL ATLAS</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="../settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="../ai.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.ai-engine">AI Engine</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <nav class="page-nav">
+    <a href="../home.html" class="nav-home" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">›</span>
+    <a href="vol1.html"><span data-i18n="vol1.breadcrumb">Vol. I · Material Atlas</span></a>
+  </nav>
+
+  <div class="vol-hero">
+    <div class="vol-hero-inner">
+      <div class="vol-number">01</div>
+      <div class="eyebrow" data-i18n="vol1.hero.eyebrow">Vol. I · The Eternal Foundation</div>
+      <h2 class="split-hero vol-split">
+        <span class="split-line"><span class="split-inner" data-i18n="vol1.hero.title">Material Atlas</span></span>
+      </h2>
+      <div class="codex-quote" style="max-width:680px;margin-top:1.2rem;">
+        <span data-i18n="vol1.hero.quote">Every flavor you will ever build begins here — in the atomic vocabulary of natural materials. Know their chemistry before you reach for a jigger.</span>
+        <div style="margin-top:0.8rem;font-size:0.7rem;font-style:normal;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);" data-i18n="common.author">— Darien · Liquid Architect</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-container">
+
+    <!-- Add custom material -->
+    <div class="reveal" style="margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem;">
+        <div class="section-label" data-i18n="vol1.section.custom">Custom Materials</div>
+        <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.35rem 0.9rem;" onclick="toggleAddForm()" data-i18n="btn.add-material">+ Add Material</button>
+      </div>
+      <div id="add-material-form" style="display:none;" class="panel">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;">
+          <div class="field-group" style="margin:0;">
+            <label class="field-label" data-i18n="vol1.form.name-local">Name (local language)</label>
+            <input type="text" id="new-name" placeholder="e.g. 青柠" data-i18n-placeholder="vol1.placeholder.name-local">
+          </div>
+          <div class="field-group" style="margin:0;">
+            <label class="field-label" data-i18n="vol1.form.name-en">English Name *</label>
+            <input type="text" id="new-name-en" placeholder="e.g. Lime" data-i18n-placeholder="vol1.placeholder.name-en">
+          </div>
+          <div class="field-group" style="margin:0;">
+            <label class="field-label" data-i18n="vol1.form.category">Category</label>
+            <input type="text" id="new-category" placeholder="e.g. Citrus" data-i18n-placeholder="vol1.placeholder.category">
+          </div>
+          <div class="field-group" style="margin:0;">
+            <label class="field-label" data-i18n="vol1.form.ph">pH</label>
+            <input type="number" id="new-ph" placeholder="2.0–7.0" step="0.1" min="0" max="14" data-i18n-placeholder="vol1.placeholder.ph">
+          </div>
+          <div class="field-group" style="margin:0;">
+            <label class="field-label" data-i18n="vol1.form.brix">Brix (°Bx)</label>
+            <input type="number" id="new-brix" placeholder="0–80" step="0.1" min="0" data-i18n-placeholder="vol1.placeholder.brix">
+          </div>
+          <div class="field-group" style="margin:0;">
+            <label class="field-label" data-i18n="vol1.form.density">Density (g/ml)</label>
+            <input type="number" id="new-density" placeholder="1.00" step="0.01" min="0" data-i18n-placeholder="vol1.placeholder.density">
+          </div>
+          <div class="field-group" style="margin:0;grid-column:1/-1;">
+            <label class="field-label" data-i18n="vol1.form.note">Codex Note / Practical Tip</label>
+            <input type="text" id="new-note" placeholder="Brief flavor or usage note…" data-i18n-placeholder="vol1.placeholder.note">
+          </div>
+          <div style="grid-column:1/-1;display:flex;gap:0.6rem;">
+            <button class="btn btn-primary" onclick="addCustomMaterial()" data-i18n="vol1.form.add">Add to Atlas</button>
+            <button class="btn btn-ghost" onclick="toggleAddForm()" data-i18n="vol1.form.cancel">Cancel</button>
+          </div>
+        </div>
+        <div id="add-error" style="color:#e05c5c;font-size:0.75rem;margin-top:0.6rem;display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="mat-search-bar reveal">
+      <div class="field-group" style="margin:0;">
+        <input type="text" id="search-q" placeholder="Search by name, flavor note, category…" oninput="filterTable()" data-i18n-placeholder="vol1.search.placeholder">
+      </div>
+      <div class="field-group" style="margin:0;">
+        <select id="search-cat" onchange="filterTable()">
+          <option value="" data-i18n="vol1.filter.all-categories">All Categories</option>
+        </select>
+      </div>
+      <button class="btn btn-ghost" onclick="clearSearch()" data-i18n="vol1.search.clear">Clear</button>
+    </div>
+
+    <!-- Stats row -->
+    <div class="metric-grid vol1-mat-stats vol1-reveal" style="margin-bottom:2rem;">
+      <div class="metric-card">
+        <span class="label" data-i18n="vol1.stat.total">Total Materials</span>
+        <span class="value" id="count-total">—</span>
+        <span class="delta" data-i18n="vol1.stat.in-db">in database</span>
+      </div>
+      <div class="metric-card">
+        <span class="label" data-i18n="vol1.stat.showing">Showing</span>
+        <span class="value" id="count-shown">—</span>
+        <span class="delta" data-i18n="vol1.stat.results">matching results</span>
+      </div>
+      <div class="metric-card">
+        <span class="label" data-i18n="vol1.stat.avg-ph">Avg pH</span>
+        <span class="value" id="avg-ph">—</span>
+        <span class="delta" data-i18n="vol1.stat.selection">current selection</span>
+      </div>
+      <div class="metric-card">
+        <span class="label" data-i18n="vol1.stat.avg-brix">Avg Brix</span>
+        <span class="value" id="avg-brix">—</span>
+        <span class="delta" data-i18n="vol1.stat.selection">current selection</span>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="panel vol1-reveal" id="vol1-mat-table" style="padding:0;overflow-x:auto;">
+      <table class="data-table" id="mat-table">
+        <thead>
+          <tr>
+            <th data-i18n="vol1.table.material">Material</th>
+            <th data-i18n="vol1.table.category">Category</th>
+            <th data-i18n="vol1.table.ph">pH</th>
+            <th>Brix</th>
+            <th>Density</th>
+            <th data-i18n="vol1.table.ta">TA %</th>
+            <th data-i18n="vol1.table.unit">Unit</th>
+            <th data-i18n="vol1.table.eu">EU Safety</th>
+            <th data-i18n="vol1.table.note">Codex Note</th>
+          </tr>
+        </thead>
+        <tbody id="mat-body">
+          <tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-dim);" data-i18n="vol1.table.loading">Loading materials…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Detail panel -->
+    <div id="detail-panel" style="display:none;margin-top:1.5rem;" class="reveal">
+      <div class="panel-gold">
+        <div class="eyebrow" id="detail-cat"></div>
+        <h3 id="detail-name" style="margin-bottom:0.3rem;"></h3>
+        <div id="detail-name-en" style="color:var(--text-muted);font-size:0.82rem;margin-bottom:1rem;"></div>
+        <div class="metric-grid" style="margin-bottom:1rem;">
+          <div class="metric-card"><span class="label" data-i18n="vol1.table.ph">pH</span><span class="value" id="d-ph"></span></div>
+          <div class="metric-card"><span class="label" data-i18n="vol1.table.brix">Brix</span><span class="value" id="d-brix"></span></div>
+          <div class="metric-card"><span class="label" data-i18n="vol1.detail.label.density">Density</span><span class="value" id="d-density"></span><span class="delta">g/ml</span></div>
+          <div class="metric-card"><span class="label" data-i18n="vol1.table.ta">TA %</span><span class="value" id="d-ta"></span></div>
+        </div>
+        <div style="margin-bottom:0.6rem;">
+          <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);" data-i18n="vol1.detail.note">Codex Note</span>
+          <p id="d-note" style="margin-top:0.3rem;font-size:0.85rem;color:var(--text-muted);line-height:1.7;font-style:italic;"></p>
+        </div>
+        <div>
+          <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);" data-i18n="vol1.detail.tip">Practical Tip</span>
+          <p id="d-tip" style="margin-top:0.3rem;font-size:0.85rem;color:var(--text-muted);line-height:1.7;"></p>
+        </div>
+        <div id="d-eu-block" style="margin-top:1rem;display:none;">
+          <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);">EU Safety · EFSA</span>
+          <div style="margin-top:0.45rem;display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;" id="d-eu-badges"></div>
+          <p id="d-eu-notes" style="margin-top:0.4rem;font-size:0.78rem;color:var(--text-muted);line-height:1.7;"></p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;"><span id="vol1-footer-count">Liquid Architect · Vol. I · Material Atlas · <span data-i18n="vol1.footer.loading">Loading…</span></span></div>
+  </div>
+
+
+  <!-- ── Per-vol QA Panel ── -->
+  <div style="border-top:1px solid var(--border);margin-top:3.5rem;padding-top:2.5rem;padding-bottom:2rem;" class="reveal">
+    <div class="page-container" style="max-width:820px;">
+      <div class="panel-gold">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">
+          <span data-i18n="qa.eyebrow.prefix">Volume Q&A ·</span> Vol. I · Material Atlas
+        </div>
+        <div class="section-label" style="margin-bottom:1rem;" data-i18n="qa.section.label">Ask the Codex</div>
+        <div style="display:flex;gap:0.6rem;align-items:flex-end;">
+          <textarea id="qa-input" rows="2"
+            data-i18n-placeholder="qa.placeholder"
+            placeholder="Ask anything about this volume — answers must include numeric evidence…"
+            style="flex:1;resize:none;"></textarea>
+          <button id="qa-btn" onclick="askCodex()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.7rem 1.2rem;" data-i18n="qa.btn.ask">Ask →</button>
+        </div>
+        <div id="qa-output" style="margin-top:1rem;min-height:0;"></div>
+        <div style="margin-top:0.8rem;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;" data-i18n="qa.disclaimer">
+          Answers generated by AI from the Codex — verify safety parameters before practical use.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js?v=14"></script>
+<script src="../js/auth.js?v=14"></script>
+<script src="../js/ui.js"></script>
+<script>
+requireAuth();
+
+let allMaterials = [];
+let filtered = [];
+
+// ── Custom materials (localStorage) ──
+function getCustomMaterials() {
+  return JSON.parse(localStorage.getItem('custom_materials') || '[]');
+}
+function saveCustomMaterials(list) {
+  localStorage.setItem('custom_materials', JSON.stringify(list));
+}
+
+function toggleAddForm() {
+  const form = document.getElementById('add-material-form');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function addCustomMaterial() {
+  const nameEn = document.getElementById('new-name-en').value.trim();
+  const errEl = document.getElementById('add-error');
+  if (!nameEn) {
+    errEl.textContent = t('vol1.error.name-required') || 'English name is required.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const custom = getCustomMaterials();
+  const id = 'custom_' + Date.now();
+  custom.push({
+    id,
+    name: document.getElementById('new-name').value.trim() || nameEn,
+    name_en: nameEn,
+    category: document.getElementById('new-category').value.trim() || 'Custom',
+    ph: parseFloat(document.getElementById('new-ph').value) || null,
+    brix: parseFloat(document.getElementById('new-brix').value) || null,
+    density: parseFloat(document.getElementById('new-density').value) || null,
+    ta_pct: null,
+    unit: null,
+    codex_note: document.getElementById('new-note').value.trim(),
+    tip: '',
+    _custom: true
+  });
+  saveCustomMaterials(custom);
+
+  // Clear form
+  ['new-name','new-name-en','new-category','new-ph','new-brix','new-density','new-note']
+    .forEach(id => { document.getElementById(id).value = ''; });
+  toggleAddForm();
+
+  // Reload merged list
+  mergeAndRender();
+}
+
+function deleteCustomMaterial(id) {
+  if (!confirm(t('vol1.confirm.remove') || 'Remove this custom material?')) return;
+  const custom = getCustomMaterials().filter(m => m.id !== id);
+  saveCustomMaterials(custom);
+  mergeAndRender();
+}
+
+function updateVol1Footer(n) {
+  const el = document.getElementById('vol1-footer-count');
+  if (!el) return;
+  const tpl = t('vol1.footer.tpl') || 'Liquid Architect · Vol. I · Material Atlas · {n} Entries · EU EFSA Data';
+  el.textContent = tpl.replace('{n}', n);
+}
+
+function mergeAndRender() {
+  const custom = getCustomMaterials();
+  const merged = [...allMaterials, ...custom];
+
+  // Refresh category select
+  const cats = [...new Set(merged.map(m => m.category))].sort();
+  const sel = document.getElementById('search-cat');
+  const currentVal = sel.value;
+  sel.innerHTML = '<option value="" data-i18n="vol1.filter.all-categories">All Categories</option>';
+  cats.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    sel.appendChild(opt);
+  });
+  sel.value = currentVal;
+
+  document.getElementById('count-total').textContent = merged.length;
+  flashResult(document.getElementById('count-total'));
+  updateVol1Footer(merged.length);
+  allMaterials = merged;
+  filtered = [...merged];
+  filterTable();
+}
+
+
+function renderEuBadge(m, verbose) {
+  if (!m.eu_status && !m.eu_e_number) return '<span style="color:var(--text-dim);font-size:0.7rem;">—</span>';
+  var parts = [];
+  // E-number badge (gold)
+  if (m.eu_e_number) {
+    parts.push('<span style="font-size:0.62rem;font-weight:700;letter-spacing:0.06em;padding:0.08rem 0.38rem;border-radius:2px;background:rgba(188,148,68,0.18);color:var(--gold);border:1px solid rgba(188,148,68,0.5);">' + m.eu_e_number + '</span>');
+  }
+  // Status badge
+  var statusMap = {
+    'natural':    ['NATURAL',     'color:var(--text-muted);border:1px solid var(--border);'],
+    'approved':   ['APPROVED',    'color:#5cba7d;border:1px solid rgba(92,186,125,0.5);'],
+    'restricted': ['⚠ RESTRICTED','color:#e09a3c;border:1px solid rgba(224,154,60,0.5);'],
+    'novel_food': ['NOVEL FOOD',  'color:#7ab4e0;border:1px solid rgba(122,180,224,0.5);'],
+    'banned':     ['⛔ BANNED',   'color:#c0392b;border:1px solid rgba(192,57,43,0.6);background:rgba(192,57,43,0.08);font-weight:700;letter-spacing:0.08em;'],
+  };
+  var s = statusMap[m.eu_status];
+  if (s) {
+    parts.push('<span style="font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.06rem 0.35rem;border-radius:2px;background:transparent;' + s[1] + '">' + s[0] + '</span>');
+  }
+  // ADI badge (only if set and numeric)
+  if (verbose && m.eu_adi && m.eu_adi !== 'no_limit') {
+    parts.push('<span style="font-size:0.58rem;letter-spacing:0.06em;padding:0.06rem 0.35rem;border-radius:2px;color:var(--text-muted);border:1px solid var(--border);">ADI ' + m.eu_adi + ' mg/kg bw/d</span>');
+  }
+  // Allergen flags
+  if (m.eu_allergens && m.eu_allergens.length) {
+    m.eu_allergens.forEach(function(a) {
+      parts.push('<span style="font-size:0.58rem;padding:0.06rem 0.35rem;border-radius:2px;color:#e05c5c;border:1px solid rgba(224,92,92,0.4);">⚠ ' + a + '</span>');
+    });
+  }
+  return parts.join(' ');
+}
+
+async function loadMaterials() {
+  try {
+    const res = await fetch(`${API_BASE}/api/materials?t=${Date.now()}`);
+    allMaterials = await res.json();
+  } catch {
+    document.getElementById('mat-body').innerHTML =
+      '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-dim);">' + (t('vol1.error.api-offline') || 'Could not reach API — check backend connection.') + '</td></tr>';
+    allMaterials = [];
+  }
+  mergeAndRender();
+}
+
+function filterTable() {
+  const q = document.getElementById('search-q').value.toLowerCase();
+  const cat = document.getElementById('search-cat').value;
+  filtered = allMaterials.filter(m => {
+    const matchCat = !cat || m.category === cat;
+    const matchQ = !q ||
+      (m.name || '').toLowerCase().includes(q) ||
+      (m.name_en || '').toLowerCase().includes(q) ||
+      (m.category || '').toLowerCase().includes(q) ||
+      (m.codex_note || '').toLowerCase().includes(q) ||
+      (m.tip || '').toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  renderTable();
+}
+
+function clearSearch() {
+  document.getElementById('search-q').value = '';
+  document.getElementById('search-cat').value = '';
+  filtered = [...allMaterials];
+  renderTable();
+}
+
+function renderTable() {
+  const tbody = document.getElementById('mat-body');
+  document.getElementById('count-shown').textContent = filtered.length;
+  flashResult(document.getElementById('count-shown'));
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-dim);">' + (t('vol1.table.no-results') || 'No materials match your query.') + '</td></tr>';
+    document.getElementById('avg-ph').textContent = '—';
+  flashResult(document.getElementById('avg-ph'));
+    document.getElementById('avg-brix').textContent = '—';
+  flashResult(document.getElementById('avg-brix'));
+    return;
+  }
+
+  // Stats
+  const avgPh = (filtered.reduce((s, m) => s + (m.ph || 0), 0) / filtered.length).toFixed(2);
+  const avgBrix = (filtered.reduce((s, m) => s + (m.brix || 0), 0) / filtered.length).toFixed(1);
+  document.getElementById('avg-ph').textContent = avgPh;
+  flashResult(document.getElementById('avg-ph'));
+  document.getElementById('avg-brix').textContent = avgBrix;
+  flashResult(document.getElementById('avg-brix'));
+
+  tbody.innerHTML = filtered.map(m => `
+    <tr onclick="showDetail('${m.id}')" style="cursor:pointer;">
+      <td>
+        <strong style="color:var(--text);">${m.name || m.name_en}</strong>
+        ${m._custom ? '<span style="font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--border-gold);border:1px solid var(--border-gold);padding:0.05rem 0.3rem;border-radius:2px;margin-left:0.4rem;">' + (t('vol1.badge.custom') || 'Custom') + '</span>' : ''}
+        <br><span style="font-size:0.72rem;color:var(--text-dim);">${m.name_en || ''}</span>
+      </td>
+      <td>${m.category || '—'}</td>
+      <td>${m.ph != null ? m.ph : '—'}</td>
+      <td>${m.brix != null ? m.brix : '—'}</td>
+      <td>${m.density != null ? m.density : '—'}</td>
+      <td>${m.ta_pct != null ? m.ta_pct + '%' : '—'}</td>
+      <td>${m.unit || '—'}</td>
+      <td style="white-space:nowrap;">${renderEuBadge(m)}</td>
+      <td style="max-width:260px;font-size:0.75rem;color:var(--text-dim);white-space:normal;">
+        ${(m.codex_note || '').slice(0, 80)}${(m.codex_note || '').length > 80 ? '…' : ''}
+        ${m._custom ? `<button onclick="event.stopPropagation();deleteCustomMaterial('${m.id}')" style="display:block;margin-top:0.3rem;font-size:0.6rem;padding:0.15rem 0.5rem;background:none;border:1px solid rgba(224,92,92,0.4);color:#e05c5c;border-radius:2px;cursor:pointer;letter-spacing:0.08em;">' + (t('vol1.btn.remove') || 'Remove') + '</button>` : ''}
+      </td>
+    </tr>
+  `).join('');
+}
+
+function showDetail(id) {
+  const m = allMaterials.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('detail-cat').textContent = m.category || '';
+  document.getElementById('detail-name').textContent = m.name || m.name_en;
+  document.getElementById('detail-name-en').textContent = m.name_en || '';
+  document.getElementById('d-ph').textContent = m.ph ?? '—';
+  flashResult(document.getElementById('d-ph'));
+  document.getElementById('d-brix').textContent = m.brix ?? '—';
+  flashResult(document.getElementById('d-brix'));
+  document.getElementById('d-density').textContent = m.density ?? '—';
+  flashResult(document.getElementById('d-density'));
+  document.getElementById('d-ta').textContent = m.ta_pct != null ? m.ta_pct + '%' : '—';
+  flashResult(document.getElementById('d-ta'));
+  document.getElementById('d-note').textContent = m.codex_note || '—';
+  document.getElementById('d-tip').textContent = m.tip || '—';
+  const panel = document.getElementById('detail-panel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // EU Safety block
+  const euBlock = document.getElementById('d-eu-block');
+  const euBadges = document.getElementById('d-eu-badges');
+  const euNotes = document.getElementById('d-eu-notes');
+  if (m.eu_status || m.eu_e_number || m.eu_notes) {
+    euBadges.innerHTML = renderEuBadge(m, true);
+    euNotes.textContent = m.eu_notes || '';
+    euBlock.style.display = 'block';
+  } else {
+    euBlock.style.display = 'none';
+  }
+}
+
+loadMaterials();
+
+function initVol1MaterialReveal() {
+  const els = document.querySelectorAll('.vol1-reveal');
+  if (!els.length) return;
+  const obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px 100px 0px' });
+  els.forEach(function (el) { obs.observe(el); });
+}
+initVol1MaterialReveal();
+
+document.addEventListener('langchange', () => { filterTable(); applyTranslations(); updateVol1Footer(allMaterials.length); });
+</script>
+<script src="../js/i18n.js?v=7"></script>
+<script>
+// ── QA Panel · vol1 ──
+(function () {
+  var _vol = 'vol1';
+
+  window.askCodex = function () {
+    var q = document.getElementById('qa-input').value.trim();
+    var out = document.getElementById('qa-output');
+    if (!q) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.empty') || 'Please enter a question.') + '</div>';
+      return;
+    }
+    var key = (localStorage.getItem('deepseek_api_key') || '').trim();
+    if (!key) {
+      out.innerHTML = '<div class="alert alert-error">' + (t('qa.error.no-key') || 'API Key not configured.') + '</div>';
+      return;
+    }
+    var btn = document.getElementById('qa-btn');
+    btn.disabled = true;
+    btn.textContent = t('qa.btn.asking') || 'Thinking…';
+    out.innerHTML = '<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">'
+      + '<span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>'
+      + (t('qa.btn.asking') || 'Thinking…') + '</div>';
+    var token = (typeof getToken === 'function') ? getToken() : '';
+    var lang = localStorage.getItem('lc_lang') || 'en';
+    fetch(STREAM_API_BASE + '/api/qa/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Api-Key': key },
+      body: JSON.stringify({ volume: _vol, question: q, language: lang })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (err) {
+          out.innerHTML = '<div class="alert alert-error">' + (err.detail || 'Error ' + res.status) + '</div>';
+          _resetQaBtn();
+        });
+      }
+      var reader = res.body.getReader(), decoder = new TextDecoder(), md = '';
+      out.innerHTML = '<div class="ai-stream-text" id="qa-stream"></div>';
+      (function read() {
+        reader.read().then(function (r) {
+          if (r.done) { _resetQaBtn(); return; }
+          decoder.decode(r.value, { stream: true }).split('\n').forEach(function (line) {
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6);
+            if (data === '[DONE]') { _resetQaBtn(); return; }
+            try {
+              var p = JSON.parse(data);
+              if (p.error) { out.innerHTML = '<div class="alert alert-error">' + p.error + '</div>'; _resetQaBtn(); return; }
+              if (p.text) { md += p.text; var el = document.getElementById('qa-stream'); if (el) el.innerHTML = _qaMd(md); }
+            } catch (e) {}
+          });
+          read();
+        });
+      })();
+    }).catch(function (err) {
+      out.innerHTML = '<div class="alert alert-error">Connection error: ' + err.message + '</div>';
+      _resetQaBtn();
+    });
+  };
+
+  function _resetQaBtn() {
+    var btn = document.getElementById('qa-btn');
+    if (!btn) return;
+    btn.disabled = false;
+    btn.textContent = t('qa.btn.ask') || 'Ask →';
+  }
+
+  function _qaMd(md) {
+    return md
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, function (m) { return '<ul>' + m + '</ul>'; })
+      .split(/\n{2,}/).map(function (b) {
+        if (b.startsWith('<h') || b.startsWith('<ul')) return b;
+        if (b.trim()) return '<p>' + b.replace(/\n/g, '<br>') + '</p>';
+        return '';
+      }).join('\n');
+  }
+
+  document.addEventListener('langchange', function () {
+    var btn = document.getElementById('qa-btn');
+    if (btn && !btn.disabled) btn.textContent = t('qa.btn.ask') || 'Ask →';
+    var inp = document.getElementById('qa-input');
+    if (inp) inp.placeholder = t('qa.placeholder') || inp.placeholder;
+  });
+})();
+</script>
+</body>
+</html>

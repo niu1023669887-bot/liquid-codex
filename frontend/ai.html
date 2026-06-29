@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Liquid Architect · Codex Intelligence</title>
+  <link rel="stylesheet" href="css/theme.css?v=5">
+  <style>
+    .flavor-section {
+      margin-bottom: 1.5rem;
+    }
+    .flavor-section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .ai-output-wrapper {
+      position: relative;
+    }
+    .ai-output-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      color: var(--text-dim);
+      text-align: center;
+      gap: 1rem;
+    }
+    .ai-output-empty .empty-icon {
+      font-size: 2.5rem;
+      opacity: 0.3;
+    }
+    .ai-output-empty p {
+      font-size: 0.82rem;
+      max-width: 360px;
+      line-height: 1.7;
+    }
+    .ai-generating {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .ai-generating-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse-dot 0.8s ease-in-out infinite;
+    }
+    .ai-disclaimer {
+      margin-bottom: 0.75rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: var(--r);
+      border: 1px solid rgba(224, 92, 92, 0.35);
+      background: rgba(224, 92, 92, 0.06);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .ai-invalid-input {
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--r);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      background: rgba(212, 175, 55, 0.07);
+      font-size: 0.82rem;
+      color: var(--gold);
+      line-height: 1.65;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .ai-invalid-input::before { content: "⚠"; flex-shrink: 0; }
+    .mode-btn, .eq-btn {
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-btn small {
+      display: block;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      opacity: 0.75;
+      margin-top: 0.15rem;
+      font-weight: normal;
+    }
+    .ai-stream-text {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+    }
+    .ai-stream-text h1, .ai-stream-text h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text);
+      margin: 1.4rem 0 0.5rem;
+    }
+    .ai-stream-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--gold);
+      margin: 1.2rem 0 0.4rem;
+      letter-spacing: 0.03em;
+    }
+    .ai-stream-text strong { color: var(--text); font-weight: 600; }
+    .ai-stream-text em { color: var(--gold); font-style: italic; }
+    .ai-stream-text p { margin: 0.5rem 0; }
+    .ai-stream-text ul, .ai-stream-text ol {
+      padding-left: 1.4rem;
+      margin: 0.5rem 0;
+    }
+    .ai-stream-text li { margin: 0.3rem 0; }
+    .ai-stream-text hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+    .ai-stream-text blockquote {
+      border-left: 2px solid var(--border-gold);
+      padding: 0.4rem 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .ai-stream-text table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.83rem;
+    }
+    .ai-stream-text th {
+      text-align: left;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .ai-stream-text td {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: var(--text-muted);
+    }
+    .history-item {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .history-item:hover { background: rgba(255,255,255,0.02); }
+    .history-item:last-child { border-bottom: none; }
+    .history-title {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .history-meta {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      margin-top: 0.2rem;
+      letter-spacing: 0.1em;
+    }
+    /* Button row above output */
+    #output-btn-row {
+      display: none;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    #output-btn-row.visible {
+      display: flex;
+    }
+    /* Codex Judge score badge */
+    #codex-score-badge {
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      margin-right: auto;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    #codex-score-badge .score-val {
+      font-weight: 700;
+      font-size: 0.72rem;
+    }
+    #codex-score-badge.score-high  .score-val { color: #5cb85c; }
+    #codex-score-badge.score-mid   .score-val { color: var(--gold); }
+    #codex-score-badge.score-low   .score-val { color: #e05c5c; }
+    .api-key-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.7rem 1rem;
+      border-radius: var(--r);
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+    }
+    .api-key-banner.missing {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: rgba(239,68,68,0.8);
+    }
+    .api-key-banner.present {
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.2);
+      color: rgba(74,222,128,0.8);
+    }
+    .api-key-banner a {
+      color: inherit;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-left">
+    <span class="status-dot"></span>
+    <a href="home.html" class="brand-link" style="text-decoration:none;" data-i18n="nav.brand">LIQUID ARCHITECT</a>
+    <span class="dim" data-i18n="status.ai-engine">CODEX INTELLIGENCE · AI ENGINE</span>
+  </div>
+  <div class="status-right">
+    <button class="lang-toggle" onclick="toggleLang()"
+      style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2rem;cursor:pointer;">
+      中文
+    </button>
+    <a href="settings.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.settings">Settings</a>
+    <span style="color:var(--border)">|</span>
+    <a href="home.html" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.codex">Codex</a>
+    <span style="color:var(--border)">|</span>
+    <a href="#" onclick="logout()" style="color:var(--text-muted);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;" data-i18n="nav.exit">Exit</a>
+    <span id="status-time" style="color:var(--text-dim)">--:--:--</span>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <!-- Hero -->
+  <div class="ai-hero-wrap" style="padding:3.5rem 2rem 2rem;max-width:1140px;margin:0 auto;border-bottom:1px solid var(--border);">
+    <div class="eyebrow" data-i18n="ai.eyebrow">Codex Intelligence · Powered by DeepSeek</div>
+    <h2 class="split-hero vol-split" style="margin-top:0.3rem;">
+        <span class="split-line"><span class="split-inner" data-i18n="ai.title">AI Liquid Architect</span></span>
+      </h2>
+    <p style="max-width:560px;color:var(--text-muted);margin-top:0.6rem;font-size:0.88rem;line-height:1.75;" data-i18n="ai.desc">
+      Describe your flavour vision, emotion, or available ingredients. The Codex engine draws from all eight volumes — material science, extraction theory, fermentation, molecular technique — to construct a complete, original recipe.
+    </p>
+    <div class="ai-disclaimer" style="margin-top:1rem;max-width:720px;" data-i18n="ai.disclaimer">⚠ AI-generated content — verify ingredients, quantities, and safety before use.</div>
+  </div>
+
+  <div class="page-container" style="display:grid;grid-template-columns:340px 1fr;gap:2rem;padding-top:2rem;">
+
+    <!-- ── Left panel: Input ── -->
+    <div>
+
+      <!-- API Key banner -->
+      <div id="api-key-banner" class="api-key-banner missing" style="display:none;">
+        <span id="api-key-banner-text" data-i18n="ai.key.banner">DeepSeek API Key required to generate recipes.</span>
+        <a href="settings.html" data-i18n="ai.key.link">Configure in Settings →</a>
+      </div>
+
+      <!-- Flavour intent -->
+      <div class="flavor-section">
+        <label class="field-label" id="ai-intent-label" data-i18n="ai.label.intent">Flavour Intent / Concept</label>
+        <textarea id="ai-prompt" rows="4"
+          data-i18n-placeholder="ai.placeholder.intent"
+          placeholder="e.g. A warm, smoky cocktail with forest floor notes and a bright citrus finish — influenced by Japanese sensibility…"
+          style="resize:vertical;"></textarea>
+      </div>
+
+      <!-- Flavour profile chips -->
+      <div id="creative-fields">
+      <div class="flavor-section">
+        <span class="flavor-section-label" data-i18n="ai.label.profiles">Flavour Preferences (optional)</span>
+        <div class="flavor-chips" id="flavor-chips">
+          <span class="flavor-chip" data-val="citrus" data-i18n="ai.flavor.citrus">Citrus</span>
+          <span class="flavor-chip" data-val="tropical" data-i18n="ai.flavor.tropical">Tropical</span>
+          <span class="flavor-chip" data-val="berry" data-i18n="ai.flavor.berry">Berry</span>
+          <span class="flavor-chip" data-val="floral" data-i18n="ai.flavor.floral">Floral</span>
+          <span class="flavor-chip" data-val="herbaceous" data-i18n="ai.flavor.herbaceous">Herbaceous</span>
+          <span class="flavor-chip" data-val="earthy" data-i18n="ai.flavor.earthy">Earthy</span>
+          <span class="flavor-chip" data-val="smoky" data-i18n="ai.flavor.smoky">Smoky</span>
+          <span class="flavor-chip" data-val="spicy" data-i18n="ai.flavor.spicy">Spicy</span>
+          <span class="flavor-chip" data-val="umami" data-i18n="ai.flavor.umami">Umami</span>
+          <span class="flavor-chip" data-val="bitter" data-i18n="ai.flavor.bitter">Bitter</span>
+          <span class="flavor-chip" data-val="sweet" data-i18n="ai.flavor.sweet">Sweet</span>
+          <span class="flavor-chip" data-val="sour" data-i18n="ai.flavor.sour">Sour</span>
+          <span class="flavor-chip" data-val="savoury" data-i18n="ai.flavor.savoury">Savoury</span>
+          <span class="flavor-chip" data-val="fermented" data-i18n="ai.flavor.fermented">Fermented</span>
+          <span class="flavor-chip" data-val="creamy" data-i18n="ai.flavor.creamy">Creamy</span>
+          <span class="flavor-chip" data-val="mineral" data-i18n="ai.flavor.mineral">Mineral</span>
+        </div>
+        <div style="margin-top:0.4rem;font-size:0.62rem;color:var(--text-dim);line-height:1.5;" data-i18n="ai.hint.flavors">Selected options serve as reference — AI may adapt based on creative direction.</div>
+      </div>
+
+      <!-- Technique preference -->
+      <div class="flavor-section">
+        <span class="flavor-section-label" data-i18n="ai.label.techniques">Technique Preferences (optional)</span>
+        <div class="flavor-chips" id="tech-chips">
+          <span class="flavor-chip" data-val="maceration" data-i18n="ai.tech.maceration">Maceration</span>
+          <span class="flavor-chip" data-val="fat-wash" data-i18n="ai.tech.fat-wash">Fat-Wash</span>
+          <span class="flavor-chip" data-val="clarification" data-i18n="ai.tech.clarification">Clarification</span>
+          <span class="flavor-chip" data-val="fermentation" data-i18n="ai.tech.fermentation">Fermentation</span>
+          <span class="flavor-chip" data-val="sous-vide" data-i18n="ai.tech.sous-vide">Sous-Vide</span>
+          <span class="flavor-chip" data-val="carbonation" data-i18n="ai.tech.carbonation">Carbonation</span>
+          <span class="flavor-chip" data-val="spherification" data-i18n="ai.tech.spherification">Spherification</span>
+          <span class="flavor-chip" data-val="foam" data-i18n="ai.tech.foam">Foam</span>
+          <span class="flavor-chip" data-val="dehydration" data-i18n="ai.tech.dehydration">Dehydration</span>
+          <span class="flavor-chip" data-val="rotovap" data-i18n="ai.tech.rotovap">Rotovap</span>
+        </div>
+        <div style="margin-top:0.4rem;font-size:0.62rem;color:var(--text-dim);line-height:1.5;" data-i18n="ai.hint.techniques">Selected techniques serve as reference — some may require professional equipment.</div>
+      </div>
+
+      <!-- Spirit base & constraints -->
+      <div class="field-group">
+        <label class="field-label" data-i18n="ai.label.spirit">Base Spirit (optional)</label>
+        <select id="ai-spirit">
+          <option value="" data-i18n="ai.spirit.default">Let the Codex decide</option>
+          <option value="whisky" data-i18n="ai.spirit.whisky">Whisky / Bourbon</option>
+          <option value="gin" data-i18n="ai.spirit.gin">Gin</option>
+          <option value="vodka" data-i18n="ai.spirit.vodka">Vodka</option>
+          <option value="rum" data-i18n="ai.spirit.rum">Rum</option>
+          <option value="tequila" data-i18n="ai.spirit.tequila">Tequila / Mezcal</option>
+          <option value="cognac" data-i18n="ai.spirit.cognac">Cognac / Armagnac</option>
+          <option value="sake" data-i18n="ai.spirit.sake">Sake / Shochu</option>
+          <option value="pisco" data-i18n="ai.spirit.pisco">Pisco</option>
+          <option value="none" data-i18n="ai.spirit.none">No spirit (zero-ABV)</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" data-i18n="ai.label.occasion">Occasion / Service</label>
+        <select id="ai-occasion">
+          <option value="" data-i18n="ai.occasion.default">No preference</option>
+          <option value="aperitivo" data-i18n="ai.occasion.aperitivo">Aperitivo / Pre-dinner</option>
+          <option value="digestif" data-i18n="ai.occasion.digestif">Digestif</option>
+          <option value="highball" data-i18n="ai.occasion.highball">Long drink / Highball</option>
+          <option value="sour" data-i18n="ai.occasion.sour">Sour / Citrus-forward</option>
+          <option value="stirred" data-i18n="ai.occasion.stirred">Stirred / Spirit-forward</option>
+          <option value="tiki" data-i18n="ai.occasion.tiki">Tiki / Complex tropical</option>
+          <option value="non-alcoholic" data-i18n="ai.occasion.non-alcoholic">Non-alcoholic</option>
+        </select>
+      </div>
+      </div><!-- /creative-fields -->
+
+      <div class="field-group">
+        <label class="field-label" data-i18n="ai.label.complexity">场景配置</label>
+
+        <!-- Generation mode: Fast / Precision -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;margin-top:0.3rem;">
+          <button id="gen-fast" onclick="setGenerationMode('fast')" class="eq-btn"
+            style="padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">
+            <div style="font-size:1.1rem;margin-bottom:0.2rem;">⚡</div>
+            <div data-i18n="ai.mode.fast">快速 / Fast</div>
+            <small style="display:block;font-size:0.58rem;opacity:0.65;margin-top:0.15rem;text-transform:none;" data-i18n="ai.mode.fast.desc">概念草稿 ~8s</small>
+          </button>
+          <button id="gen-precision" onclick="setGenerationMode('precision')" class="eq-btn eq-btn-active"
+            style="padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border-gold);background:rgba(var(--gold-rgb,212,175,55),0.08);color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">
+            <div style="font-size:1.1rem;margin-bottom:0.2rem;">◆</div>
+            <div data-i18n="ai.mode.precision">精确 / Precision</div>
+            <small style="display:block;font-size:0.58rem;opacity:0.65;margin-top:0.15rem;text-transform:none;" data-i18n="ai.mode.precision.desc">完整配方 ~40s</small>
+          </button>
+        </div>
+
+        <!-- Equipment: Home / Bar -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.3rem;">
+          <button id="eq-home" onclick="setEquipment('home')" class="eq-btn eq-btn-active"
+            style="padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border-gold);background:rgba(var(--gold-rgb,212,175,55),0.08);color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">
+            <div style="font-size:1.1rem;margin-bottom:0.2rem;">🏠</div>
+            <span data-i18n="ai.equipment.home">Home Kitchen</span>
+          </button>
+          <button id="eq-bar" onclick="setEquipment('bar')" class="eq-btn"
+            style="padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">
+            <div style="font-size:1.1rem;margin-bottom:0.2rem;">🍸</div>
+            <span data-i18n="ai.equipment.bar">Bar / Professional</span>
+          </button>
+        </div>
+        <!-- Classic Recipe mode — full width below -->
+        <button id="eq-classic" onclick="setClassicMode()" class="eq-btn"
+          style="width:100%;margin-top:0.5rem;padding:0.55rem 0.5rem;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;">
+          <span style="margin-right:0.4rem;">◈</span>
+          <span data-i18n="ai.equipment.classic">经典配方 / Classic Recipe</span>
+        </button>
+        <div id="eq-desc" style="margin-top:0.5rem;font-size:0.68rem;color:var(--text-dim);line-height:1.5;" data-i18n="ai.equipment.home.desc">
+          Shaker, jigger, mason jars — supermarket ingredients only.
+        </div>
+      </div>
+
+      <!-- Additional context -->
+      <div class="field-group">
+        <label class="field-label" data-i18n="ai.label.ingredients">Available Ingredients / Constraints</label>
+        <textarea id="ai-ingredients" rows="2"
+          data-i18n-placeholder="ai.placeholder.ingredients"
+          placeholder="e.g. I have yuzu, matcha, bourbon, and lychee on hand…"
+          style="resize:none;"></textarea>
+      </div>
+
+      <button class="btn btn-primary btn-full" id="generate-btn" onclick="generateRecipe()" data-i18n="ai.btn.generate">
+        Generate Recipe →
+      </button>
+      <button class="btn btn-ghost btn-full" style="margin-top:0.5rem;" onclick="clearAll()" data-i18n="ai.btn.clear">Clear</button>
+
+      <!-- History -->
+      <div style="margin-top:2rem;">
+        <div class="section-label" data-i18n="ai.section.history">Recent Sessions</div>
+        <div class="panel" style="padding:0;" id="history-panel">
+          <div style="padding:1.2rem;color:var(--text-dim);font-size:0.78rem;text-align:center;" data-i18n="ai.history.empty">No recent sessions.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Right panel: Output ── -->
+    <div>
+      <div class="ai-output-wrapper">
+        <div id="output-btn-row">
+          <span id="codex-score-badge">
+            <span style="color:var(--border)">◈</span>
+            <span data-i18n="ai.judge.label">Codex</span>
+            <span class="score-val" id="codex-score-val">—</span>
+          </span>
+          <button class="btn btn-ghost" id="copy-btn" onclick="copyRecipe()" style="font-size:0.68rem;padding:0.4rem 0.8rem;" data-i18n="ai.btn.copy">Copy</button>
+          <button class="btn btn-ghost" id="save-card-btn" onclick="saveAsCard()" style="font-size:0.68rem;padding:0.4rem 0.8rem;">Save Card</button>
+        </div>
+
+        <div id="ai-output-area" class="ai-output" style="min-height:480px;">
+          <div class="ai-output-empty" id="ai-empty">
+            <div class="empty-icon">◈</div>
+            <p data-i18n="ai.output.empty">Configure your parameters and click <strong style="color:var(--text)">Generate Recipe</strong> to summon the Codex Intelligence.</p>
+            <p style="font-size:0.72rem;color:var(--text-dim);" data-i18n="ai.output.empty.sub">The AI will draw from all 8 volumes to construct a scientifically grounded, emotionally resonant recipe.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demerara syrup note -->
+      <div id="demerara-note" style="margin-top:0.8rem;padding:0.7rem 1rem;border-radius:var(--r);background:rgba(212,175,55,0.05);border:1px solid rgba(212,175,55,0.18);display:flex;align-items:flex-start;gap:0.6rem;">
+        <span style="color:var(--gold);font-size:0.85rem;flex-shrink:0;margin-top:0.05rem;">◆</span>
+        <p style="margin:0;font-size:0.75rem;color:var(--text-muted);line-height:1.65;" data-i18n="ai.note.demerara">
+          <strong style="color:var(--text-dim);letter-spacing:0.05em;">Demerara Syrup</strong> — dissolve 2 parts Demerara sugar in 1 part hot water (2:1 ratio); direct substitute for simple syrup with richer caramel depth, same sweetness ratio.
+        </p>
+      </div>
+
+      <!-- Recipe Q&A -->
+      <div id="recipe-qa-panel" style="margin-top:1.2rem;display:none;">
+        <div class="section-label" style="margin-bottom:0.6rem;" data-i18n="ai.recipe-qa.label">Ask About This Recipe</div>
+        <div style="display:flex;gap:0.5rem;align-items:flex-end;">
+          <textarea id="recipe-qa-input" rows="2"
+            data-i18n-placeholder="ai.recipe-qa.placeholder"
+            placeholder="e.g. Can I substitute the Demerara syrup? What if I don't have an iSi siphon?…"
+            style="flex:1;resize:none;font-size:0.82rem;"></textarea>
+          <button id="recipe-qa-btn" onclick="askRecipe()" class="btn btn-primary"
+            style="white-space:nowrap;padding:0.65rem 1rem;font-size:0.75rem;" data-i18n="ai.recipe-qa.btn">Ask →</button>
+        </div>
+        <div id="recipe-qa-output" style="margin-top:0.8rem;min-height:0;"></div>
+      </div>
+
+      <!-- Codex principles teaser -->
+      <div class="panel-gold reveal" style="margin-top:1.5rem;">
+        <div class="eyebrow" style="margin-bottom:0.4rem;" data-i18n="ai.principles.eyebrow">Codex Principles</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;" data-i18n="ai.principles.desc">
+          The AI is instructed to follow Darien's eight-volume framework: every ingredient has a scientific rationale, every technique has a measurable parameter, and every recipe tells a sensory story. Recipes include precise gram weights, pH targets, temperatures, and technique specifications.
+        </p>
+      </div>
+
+      <!-- Quick prompts -->
+      <div style="margin-top:1.5rem;">
+        <div class="section-label" data-i18n="ai.section.templates">Quick Prompt Templates</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="setQuickPrompt('forest')" data-i18n="ai.template.forest">Forest Floor</button>
+          <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="setQuickPrompt('coastal')" data-i18n="ai.template.coastal">Coastal Breeze</button>
+          <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="setQuickPrompt('umami')" data-i18n="ai.template.umami">Umami Depth</button>
+          <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="setQuickPrompt('neon')" data-i18n="ai.template.neon">Neon Tropics</button>
+          <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="setQuickPrompt('winter')" data-i18n="ai.template.winter">Winter Solstice</button>
+          <button class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="setQuickPrompt('zero')" data-i18n="ai.template.zero">Zero-ABV Garden</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;padding:4rem 0 1rem;color:var(--text-dim);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;" data-i18n="ai.footer">
+    Liquid Architect · Codex Intelligence · Powered by DeepSeek
+  </div>
+
+</div>
+
+<script src="js/config.js?v=17"></script>
+<script src="js/auth.js?v=14"></script>
+<script src="js/ui.js"></script>
+<script src="js/i18n.js?v=8"></script>
+<script>
+requireAuth();
+
+// ── API Key banner ──
+function refreshKeyBanner() {
+  const key = localStorage.getItem('deepseek_api_key') || '';
+  const banner = document.getElementById('api-key-banner');
+  const bannerText = document.getElementById('api-key-banner-text');
+  if (key) {
+    banner.className = 'api-key-banner present';
+    bannerText.setAttribute('data-i18n', 'ai.key.set');
+    bannerText.textContent = t('ai.key.set');
+    banner.querySelector('a').style.display = 'none';
+    banner.style.display = 'flex';
+  } else {
+    banner.className = 'api-key-banner missing';
+    bannerText.setAttribute('data-i18n', 'ai.key.banner');
+    bannerText.textContent = t('ai.key.banner');
+    banner.querySelector('a').style.display = 'inline';
+    banner.style.display = 'flex';
+  }
+}
+
+// ── Chip interactions ──
+document.querySelectorAll('.flavor-chip').forEach(chip => {
+  chip.addEventListener('click', () => chip.classList.toggle('selected'));
+});
+
+function getSelectedChips(containerId) {
+  return [...document.querySelectorAll(`#${containerId} .flavor-chip.selected`)]
+    .map(c => c.dataset.val);
+}
+
+// ── Quick prompts ──
+const quickPrompts = {
+  classic: {
+    prompt: 'Craft a refined interpretation of a timeless classic — a Negroni, Old Fashioned, Daiquiri, or Sour of your choice. Honour the original architecture and ratios, then elevate one element with a single unexpected ingredient.',
+    flavors: ['bitter', 'sweet', 'citrus'],
+    techniques: []
+  },
+  forest: {
+    prompt: 'A contemplative cocktail evoking a rain-soaked forest floor — damp earth, pine resin, wild mushroom umami, with a bright burst of yuzu on the nose.',
+    flavors: ['earthy', 'umami', 'smoky', 'citrus'],
+    techniques: ['maceration', 'fermentation']
+  },
+  coastal: {
+    prompt: 'The feeling of sea spray on a warm summer morning — saline minerality, coastal herbs like samphire, with tropical stone fruit sweetness and effervescence.',
+    flavors: ['mineral', 'savoury', 'tropical', 'floral'],
+    techniques: ['carbonation', 'clarification']
+  },
+  umami: {
+    prompt: 'A deeply savoury cocktail inspired by Japanese dashi — kombu, bonito, mirin sweetness, with a whisky backbone and a dry, lingering finish.',
+    flavors: ['umami', 'savoury', 'smoky', 'bitter'],
+    techniques: ['fermentation', 'fat-wash', 'sous-vide']
+  },
+  neon: {
+    prompt: 'An electrifying tropical punch — hyper-vivid mango, passionfruit, calamansi, with a rum base and a molecular garnish that makes it look like a laboratory experiment.',
+    flavors: ['tropical', 'citrus', 'sweet', 'sour'],
+    techniques: ['spherification', 'foam', 'carbonation']
+  },
+  winter: {
+    prompt: 'A warming cocktail for winter — dark dried fruit, beeswax, cardamom, Scotch whisky, with a savoury umami backbone from miso or soy.',
+    flavors: ['spicy', 'smoky', 'earthy', 'sweet'],
+    techniques: ['maceration', 'fat-wash', 'dehydration']
+  },
+  zero: {
+    prompt: 'A sophisticated zero-ABV garden cocktail — elderflower, cucumber, green apple, and fresh pea, with complexity from fermentation and natural carbonation.',
+    flavors: ['floral', 'herbaceous', 'citrus', 'sweet'],
+    techniques: ['fermentation', 'carbonation', 'clarification']
+  }
+};
+
+function setQuickPrompt(key) {
+  const qp = quickPrompts[key];
+  const lang = localStorage.getItem('lc_lang') || 'en';
+  document.getElementById('ai-prompt').value = (lang === 'zh' ? t('ai.prompt.' + key) : null) || qp.prompt;
+  document.querySelectorAll('#flavor-chips .flavor-chip').forEach(c => {
+    c.classList.toggle('selected', qp.flavors.includes(c.dataset.val));
+  });
+  document.querySelectorAll('#tech-chips .flavor-chip').forEach(c => {
+    c.classList.toggle('selected', qp.techniques.includes(c.dataset.val));
+  });
+}
+
+// ── Session history ──
+const sessionHistory = JSON.parse(localStorage.getItem('ai_history') || '[]');
+
+function saveHistory(prompt, content) {
+  const entry = {
+    id: Date.now(),
+    prompt: prompt.slice(0, 80),
+    content,
+    time: new Date().toISOString()
+  };
+  sessionHistory.unshift(entry);
+  if (sessionHistory.length > 8) sessionHistory.pop();
+  localStorage.setItem('ai_history', JSON.stringify(sessionHistory));
+  renderHistory();
+}
+
+function renderHistory() {
+  const panel = document.getElementById('history-panel');
+  if (!sessionHistory.length) {
+    panel.innerHTML = `<div style="padding:1.2rem;color:var(--text-dim);font-size:0.78rem;text-align:center;">${t('ai.history.empty')}</div>`;
+    return;
+  }
+  panel.innerHTML = sessionHistory.map(e => `
+    <div class="history-item" onclick="loadHistory(${e.id})">
+      <div class="history-title">${e.prompt}…</div>
+      <div class="history-meta">${new Date(e.time).toLocaleString()}</div>
+    </div>
+  `).join('');
+}
+
+function loadHistory(id) {
+  const entry = sessionHistory.find(e => e.id === id);
+  if (!entry) return;
+  renderOutput(entry.content);
+}
+
+renderHistory();
+refreshKeyBanner();
+document.addEventListener('langchange', () => {
+  refreshKeyBanner();
+  renderHistory();
+  setEquipment(selectedEquipment);
+  const btn = document.getElementById('generate-btn');
+  if (btn && !btn.disabled) {
+    btn.setAttribute('data-i18n', 'ai.btn.generate');
+    btn.textContent = t('ai.btn.generate');
+  }
+  const qaBtn = document.getElementById('recipe-qa-btn');
+  if (qaBtn && !qaBtn.disabled) qaBtn.textContent = t('ai.recipe-qa.btn') || 'Ask →';
+  const qaInp = document.getElementById('recipe-qa-input');
+  if (qaInp) qaInp.placeholder = t('ai.recipe-qa.placeholder') || qaInp.placeholder;
+});
+
+
+// ── Generation mode + Equipment level toggle ──
+let selectedEquipment = localStorage.getItem('lc_equipment') || 'home';
+let recipeMode = 'creative';      // 'creative' | 'classic'
+let generationMode = 'precision'; // 'fast' | 'precision'
+
+function setGenerationMode(mode) {
+  generationMode = mode;
+  const fastBtn      = document.getElementById('gen-fast');
+  const precisionBtn = document.getElementById('gen-precision');
+  const activeStyle  = 'padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border-gold);background:rgba(var(--gold-rgb,212,175,55),0.08);color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;';
+  const inactiveStyle= 'padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;';
+  if (mode === 'fast') {
+    fastBtn.style.cssText      = activeStyle;
+    fastBtn.classList.add('eq-btn-active');
+    precisionBtn.style.cssText = inactiveStyle;
+    precisionBtn.classList.remove('eq-btn-active');
+  } else {
+    precisionBtn.style.cssText = activeStyle;
+    precisionBtn.classList.add('eq-btn-active');
+    fastBtn.style.cssText      = inactiveStyle;
+    fastBtn.classList.remove('eq-btn-active');
+  }
+}
+
+const EQ_CLASSIC_ACTIVE = 'width:100%;margin-top:0.5rem;padding:0.55rem 0.5rem;border-radius:var(--r);border:1px solid var(--border-gold);background:rgba(212,175,55,0.08);color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;';
+const EQ_CLASSIC_INACTIVE = 'width:100%;margin-top:0.5rem;padding:0.55rem 0.5rem;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;';
+
+function setClassicMode() {
+  recipeMode = 'classic';
+  // Style buttons
+  _styleEqBtn(document.getElementById('eq-home'), false);
+  _styleEqBtn(document.getElementById('eq-bar'), false);
+  const classicBtn = document.getElementById('eq-classic');
+  if (classicBtn) classicBtn.style.cssText = EQ_CLASSIC_ACTIVE;
+  // Hide creative fields
+  const creative = document.getElementById('creative-fields');
+  if (creative) creative.style.display = 'none';
+  const ingrField = document.querySelector('#ai-ingredients')?.closest('.field-group');
+  if (ingrField) ingrField.style.display = 'none';
+  // Change intent label + placeholder
+  const intentLabel = document.getElementById('ai-intent-label');
+  if (intentLabel) {
+    intentLabel.removeAttribute('data-i18n');
+    intentLabel.textContent = localStorage.getItem('lc_lang') === 'zh' ? '酒名 / 经典配方名称' : 'Cocktail Name';
+  }
+  const promptEl = document.getElementById('ai-prompt');
+  if (promptEl) {
+    promptEl.removeAttribute('data-i18n-placeholder');
+    promptEl.placeholder = localStorage.getItem('lc_lang') === 'zh'
+      ? '输入经典酒名称，如 Negroni · Daiquiri · Gimlet · Old Fashioned…'
+      : 'Enter a classic cocktail name, e.g. Negroni · Daiquiri · Gimlet · Old Fashioned…';
+    promptEl.rows = 2;
+  }
+  // Update desc
+  const desc = document.getElementById('eq-desc');
+  if (desc) {
+    desc.removeAttribute('data-i18n');
+    desc.textContent = localStorage.getItem('lc_lang') === 'zh'
+      ? '输出标准 IBA / Savoy 原始规格，严格按书，无创作变体。'
+      : 'Outputs the canonical IBA / Savoy spec — no variations, strictly by the book.';
+  }
+}
+
+const EQ_ACTIVE  = 'padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border-gold);background:rgba(212,175,55,0.08);color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;';
+const EQ_INACTIVE = 'padding:0.65rem 0.5rem;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;';
+
+function _styleEqBtn(btn, active) {
+  if (!btn) return;
+  btn.style.cssText = active ? EQ_ACTIVE : EQ_INACTIVE;
+}
+
+function setEquipment(level) {
+  selectedEquipment = level;
+  localStorage.setItem('lc_equipment', level);
+  recipeMode = 'creative';
+  const homeBtn = document.getElementById('eq-home');
+  const barBtn  = document.getElementById('eq-bar');
+  const desc    = document.getElementById('eq-desc');
+  const creative = document.getElementById('creative-fields');
+  const intentLabel = document.getElementById('ai-intent-label');
+  const promptEl = document.getElementById('ai-prompt');
+
+  _styleEqBtn(homeBtn, level === 'home');
+  _styleEqBtn(barBtn, level === 'bar');
+  // Reset classic button style
+  const classicBtn = document.getElementById('eq-classic');
+  if (classicBtn) classicBtn.style.cssText = EQ_CLASSIC_INACTIVE;
+  // Restore ingredients field
+  const ingrField = document.querySelector('#ai-ingredients')?.closest('.field-group');
+  if (ingrField) ingrField.style.display = '';
+  // Restore prompt rows
+  if (promptEl) promptEl.rows = 4;
+
+  if (creative) creative.style.display = '';
+  if (intentLabel) {
+    intentLabel.setAttribute('data-i18n', 'ai.label.intent');
+    intentLabel.textContent = t('ai.label.intent') || 'Flavour Intent / Concept';
+  }
+  if (promptEl) {
+    promptEl.setAttribute('data-i18n-placeholder', 'ai.placeholder.intent');
+    promptEl.placeholder = t('ai.placeholder.intent') || promptEl.placeholder;
+  }
+  if (level === 'home') {
+    desc.setAttribute('data-i18n', 'ai.equipment.home.desc');
+    desc.textContent = t('ai.equipment.home.desc') || 'Shaker, jigger, mason jars — supermarket ingredients only.';
+  } else {
+    desc.setAttribute('data-i18n', 'ai.equipment.bar.desc');
+    desc.textContent = t('ai.equipment.bar.desc') || 'Sous-vide, iSi siphon, pH pen, acid powders — bar-supply sourced.';
+  }
+}
+
+// ── Main generator ──
+let currentController = null;
+let accumulatedMarkdown = '';
+let lastJudgeScore = null;
+
+const MAX_RETRIES = 2;
+const READ_TIMEOUT_MS = 180000; // 3 minutes without any data = timeout → retry
+let _generateRetryCount = 0;
+
+async function generateRecipe() {
+  const prompt = document.getElementById('ai-prompt').value.trim();
+  const flavors = getSelectedChips('flavor-chips');
+  const techniques = getSelectedChips('tech-chips');
+  const spirit = document.getElementById('ai-spirit').value;
+  const occasion = document.getElementById('ai-occasion').value;
+  const ingredients = document.getElementById('ai-ingredients').value.trim();
+
+  if (!prompt && !flavors.length && !techniques.length) {
+    showError(t('ai.error.no-concept') || 'Please describe your flavour concept or select at least one flavour profile or technique.');
+    return;
+  }
+
+  const userApiKey = (localStorage.getItem('deepseek_api_key') || '').trim();
+  // Railway DEEPSEEK_API_KEY is used when header omitted (MVP shared-key mode)
+
+  // Build structured prompt
+  let fullPrompt = prompt || '';
+  if (flavors.length) fullPrompt += `\n\nFlavour profiles: ${flavors.join(', ')}.`;
+  if (techniques.length) fullPrompt += `\nPreferred techniques: ${techniques.join(', ')}.`;
+  if (spirit) fullPrompt += `\nBase spirit: ${spirit}.`;
+  if (occasion) fullPrompt += `\nOccasion: ${occasion}.`;
+  if (ingredients) fullPrompt += `\nAvailable ingredients / constraints: ${ingredients}.`;
+
+  // Cancel any existing stream
+  if (currentController) currentController.abort();
+  currentController = new AbortController();
+
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = true;
+  btn.removeAttribute('data-i18n');
+  btn.textContent = t('ai.btn.generating') || 'Generating…';
+  const row0 = document.getElementById('output-btn-row'); if(row0) row0.classList.remove('visible');
+  accumulatedMarkdown = '';
+  lastJudgeScore = null;
+  const scoreBadge0 = document.getElementById('codex-score-badge');
+  if (scoreBadge0) { scoreBadge0.style.display = 'none'; scoreBadge0.className = ''; }
+
+  // Show generating state
+  const outputArea = document.getElementById('ai-output-area');
+  outputArea.innerHTML = `
+    <div class="ai-generating">
+      <div class="ai-generating-dot"></div>
+      <span class="ai-generating-label">${t('ai.generating')}</span>
+    </div>
+    <div class="ai-stream-text typing-cursor" id="stream-content"></div>
+  `;
+
+  // After 30s, show a patience message
+  let _patienceTimer = setTimeout(() => {
+    const gl = outputArea.querySelector('.ai-generating-label');
+    if (gl) {
+      const zh = (localStorage.getItem('lc_lang') || 'en') === 'zh';
+      gl.textContent = zh ? '仍在生成中，请耐心等待…（复杂配方需 1-2 分钟）' : 'Still generating — complex recipes may take 1-2 min…';
+    }
+  }, 30000);
+
+  const token = getToken();
+
+  const equipmentLabel = selectedEquipment === 'bar' ? 'Bar / Professional' : 'Home Kitchen';
+
+  const requestBody = recipeMode === 'classic' ? {
+    flavors: [],
+    techniques: [],
+    equipment: equipmentLabel,
+    ingredients: '',
+    alcohol: '',
+    occasion: '',
+    language: localStorage.getItem('lc_lang') || 'en',
+    notes: prompt,
+    mode: 'precision',
+    recipe_mode: 'classic'
+  } : {
+    flavors: flavors,
+    techniques: techniques,
+    equipment: equipmentLabel,
+    ingredients: ingredients || '',
+    alcohol: spirit || '',
+    occasion: occasion || '',
+    language: localStorage.getItem('lc_lang') || 'en',
+    notes: prompt,
+    mode: generationMode,
+    recipe_mode: 'creative'
+  };
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  };
+  if (userApiKey) headers['X-Api-Key'] = userApiKey;
+
+  try {
+    const res = await fetch(`${STREAM_API_BASE}/api/ai/stream`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(requestBody),
+      signal: currentController.signal
+    });
+
+    if (!res.ok) {
+      clearTimeout(_patienceTimer);
+      const err = await res.json().catch(() => ({ detail: t('ai.error.unknown') || 'Unknown error' }));
+      showError(err.detail || `Error ${res.status}`);
+      resetBtn();
+      return;
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    const streamEl = document.getElementById('stream-content');
+    let streamError = null;
+    let streamDone = false;
+
+    // Read-level timeout: reset on each data chunk
+    let _readTimeout = setTimeout(() => {
+      currentController.abort();
+    }, READ_TIMEOUT_MS);
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        clearTimeout(_readTimeout);
+        break;
+      }
+      // Data arrived — reset the 3-minute timeout
+      clearTimeout(_readTimeout);
+      _readTimeout = setTimeout(() => {
+        currentController.abort();
+      }, READ_TIMEOUT_MS);
+
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split('\n');
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6);
+        if (data === '[DONE]') { streamDone = true; break; }
+        try {
+          const parsed = JSON.parse(data);
+          if (parsed.error) { streamError = parsed.error; streamDone = true; break; }
+          // Pipeline status updates
+          if (parsed.status) {
+            const statusMap = {
+              validating: 'ai.pipeline.validating',
+              generating: 'ai.pipeline.generating',
+              verifying:  'ai.pipeline.verifying',
+              correcting: 'ai.pipeline.correcting',
+              streaming:  'ai.pipeline.streaming',
+            };
+            // Invalid input: show amber guide message, stop generation
+            if (parsed.status === 'invalid_input') {
+              clearTimeout(_patienceTimer);
+              clearTimeout(_readTimeout);
+              const msg = parsed.message || (localStorage.getItem('lc_lang') === 'zh'
+                ? '请填写具体的风味描述或可用材料，以便生成配方。'
+                : 'Please specify a flavour concept or available ingredients to generate a recipe.');
+              outputArea.innerHTML = `<div class="ai-invalid-input">${msg}</div>`;
+              streamDone = true;
+              resetBtn();
+              break;
+            }
+            // Capture Codex Judge score from Stage 2.5
+            if (parsed.judge_score !== undefined) {
+              lastJudgeScore = parseFloat(parsed.judge_score);
+            }
+            const genEl = outputArea.querySelector('.ai-generating-label');
+            if (genEl) {
+              genEl.textContent = parsed.detail || (statusMap[parsed.status] ? t(statusMap[parsed.status]) : parsed.status);
+            }
+            if (parsed.status === 'streaming') {
+              const genDiv = outputArea.querySelector('.ai-generating');
+              if (genDiv) genDiv.style.display = 'none';
+              streamEl.classList.add('typing-cursor');
+            }
+          }
+          const text = parsed.text || '';
+          if (text) {
+            accumulatedMarkdown += text;
+            streamEl.innerHTML = markdownToHtml(accumulatedMarkdown, localStorage.getItem('lc_lang') || 'en');
+          }
+        } catch {}
+      }
+      if (streamDone) {
+        clearTimeout(_readTimeout);
+        break;
+      }
+    }
+
+    clearTimeout(_patienceTimer);
+
+    if (streamEl) streamEl.classList.remove('typing-cursor');
+    const row1 = document.getElementById('output-btn-row'); if(row1) row1.classList.add('visible');
+
+    // Show Codex Judge score badge
+    const scoreBadge = document.getElementById('codex-score-badge');
+    if (scoreBadge && lastJudgeScore !== null) {
+      const scoreEl = document.getElementById('codex-score-val');
+      if (scoreEl) scoreEl.textContent = lastJudgeScore.toFixed(1) + '/10';
+      scoreBadge.style.display = 'flex';
+      scoreBadge.classList.remove('score-high', 'score-mid', 'score-low');
+      if (lastJudgeScore >= 8) scoreBadge.classList.add('score-high');
+      else if (lastJudgeScore >= 6) scoreBadge.classList.add('score-mid');
+      else scoreBadge.classList.add('score-low');
+    }
+
+    const genIndicator = outputArea.querySelector('.ai-generating');
+    if (genIndicator) genIndicator.style.display = 'none';
+
+    if (streamError) {
+      showError(streamError);
+      resetBtn();
+      return;
+    }
+
+    if (!accumulatedMarkdown.trim()) {
+      if (_generateRetryCount < MAX_RETRIES) {
+        _generateRetryCount++;
+        clearTimeout(_patienceTimer);
+        generateRecipe();
+        return;
+      }
+      showError(t('ai.error.empty-result') || 'Generation ended without output. Please retry.');
+      resetBtn();
+      return;
+    }
+
+    if (accumulatedMarkdown.length > 50) {
+      saveHistory(fullPrompt, accumulatedMarkdown);
+      // Show recipe Q&A panel and reset its state
+      const qaPanel = document.getElementById('recipe-qa-panel');
+      if (qaPanel) {
+        qaPanel.style.display = 'block';
+        document.getElementById('recipe-qa-input').value = '';
+        document.getElementById('recipe-qa-output').innerHTML = '';
+      }
+    }
+
+  } catch (err) {
+    clearTimeout(_patienceTimer);
+    if (err.name === 'AbortError') {
+      // User-cancelled (generateRecipe called again) → no retry
+      if (_generateRetryCount < MAX_RETRIES && !accumulatedMarkdown.trim()) {
+        _generateRetryCount++;
+        generateRecipe();
+        return;
+      }
+      return;
+    }
+    // Network/connection error → auto-retry
+    if (_generateRetryCount < MAX_RETRIES) {
+      _generateRetryCount++;
+      generateRecipe();
+      return;
+    }
+    showError(t('ai.error.connection') || 'Connection error. Check that the backend is running and your API key is valid.');
+  }
+
+  resetBtn();
+  _generateRetryCount = 0; // reset on success
+}
+
+function resetBtn() {
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = false;
+  btn.setAttribute('data-i18n', 'ai.btn.generate');
+  btn.textContent = t('ai.btn.generate');
+}
+
+// ── Recipe Q&A ──
+async function askRecipe() {
+  const question = document.getElementById('recipe-qa-input').value.trim();
+  const out = document.getElementById('recipe-qa-output');
+  if (!question) {
+    out.innerHTML = `<div class="alert alert-error">${t('qa.error.empty') || 'Please enter a question.'}</div>`;
+    return;
+  }
+  if (!accumulatedMarkdown) {
+    out.innerHTML = `<div class="alert alert-error">${t('ai.recipe-qa.no-recipe') || 'Generate a recipe first.'}</div>`;
+    return;
+  }
+  const userApiKey = (localStorage.getItem('deepseek_api_key') || '').trim();
+  if (!userApiKey) {
+    out.innerHTML = `<div class="alert alert-error">${t('qa.error.no-key') || 'API Key not configured.'}</div>`;
+    return;
+  }
+
+  const btn = document.getElementById('recipe-qa-btn');
+  btn.disabled = true;
+  btn.textContent = t('qa.btn.asking') || 'Thinking…';
+  out.innerHTML = `<div style="color:var(--gold);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 0.8s ease-in-out infinite;display:inline-block;"></span>
+    ${t('qa.btn.asking') || 'Thinking…'}
+  </div>`;
+
+  const token = getToken();
+  const lang = localStorage.getItem('lc_lang') || 'en';
+
+  try {
+    const res = await fetch(`${STREAM_API_BASE}/api/qa/recipe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'X-Api-Key': userApiKey
+      },
+      body: JSON.stringify({ recipe_text: accumulatedMarkdown, question, language: lang })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      out.innerHTML = `<div class="alert alert-error">${err.detail || `Error ${res.status}`}</div>`;
+      resetRecipeQaBtn();
+      return;
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let md = '';
+    out.innerHTML = '<div class="ai-stream-text" id="recipe-qa-stream"></div>';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+      for (const line of chunk.split('\n')) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6);
+        if (data === '[DONE]') break;
+        try {
+          const p = JSON.parse(data);
+          if (p.error) { out.innerHTML = `<div class="alert alert-error">${p.error}</div>`; break; }
+          if (p.text) { md += p.text; const el = document.getElementById('recipe-qa-stream'); if (el) el.innerHTML = markdownToHtml(md, lang); }
+        } catch {}
+      }
+    }
+  } catch (err) {
+    out.innerHTML = `<div class="alert alert-error">Connection error: ${err.message}</div>`;
+  }
+  resetRecipeQaBtn();
+}
+
+function resetRecipeQaBtn() {
+  const btn = document.getElementById('recipe-qa-btn');
+  if (!btn) return;
+  btn.disabled = false;
+  btn.textContent = t('ai.recipe-qa.btn') || 'Ask →';
+}
+
+function showError(message) {
+  const outputArea = document.getElementById('ai-output-area');
+  const label = t('ai.error.label') || 'Error:';
+  outputArea.innerHTML = `<div class="alert alert-error" style="margin:2rem;"><strong>${label}</strong> ${message}</div>`;
+}
+
+function renderOutput(markdown) {
+  const outputArea = document.getElementById('ai-output-area');
+  outputArea.innerHTML = `<div class="ai-stream-text">${markdownToHtml(markdown, localStorage.getItem('lc_lang') || 'en')}</div>`;
+  const row2 = document.getElementById('output-btn-row'); if(row2) row2.classList.add('visible');
+  accumulatedMarkdown = markdown;
+  const qaPanel = document.getElementById('recipe-qa-panel');
+  if (qaPanel) {
+    qaPanel.style.display = 'block';
+    document.getElementById('recipe-qa-output').innerHTML = '';
+  }
+}
+
+function copyRecipe() {
+  navigator.clipboard.writeText(accumulatedMarkdown).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = t('ai.btn.copy.done');
+    setTimeout(() => { btn.textContent = t('ai.btn.copy'); }, 2000);
+  });
+}
+// ── Save as Card ──
+function saveAsCard() {
+  if (!accumulatedMarkdown) return;
+  const lang = localStorage.getItem('lc_lang') || 'en';
+
+  // Extract title from first heading
+  const titleMatch = accumulatedMarkdown.match(/^#+\s+(.+)$/m);
+  const recipeTitle = titleMatch ? titleMatch[1].replace(/\*+/g, '').trim() : (lang === 'zh' ? '鸡尾酒配方' : 'Cocktail Recipe');
+
+  // Render body
+  const bodyHtml = markdownToHtml(accumulatedMarkdown, lang);
+
+  // Date
+  const dateStr = new Date().toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  const brandLabel = lang === 'zh' ? 'LIQUID ARCHITECT · DARIEN · 风味实验室' : 'LIQUID ARCHITECT · DARIEN · FLAVOR LAB';
+  const footerLabel = lang === 'zh' ? '液态建筑师 · The Liquid Codex v2.0 · AI 配方引擎生成' : 'Liquid Architect · The Liquid Codex v2.0 · Generated by Codex Intelligence';
+
+  const cardHtml = `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${recipeTitle} · Liquid Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{
+  background:#080808;
+  color:#E8E0D4;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:15px;
+  line-height:1.75;
+  min-height:100vh;
+  padding:3rem 1.2rem;
+}
+a{color:#C9A962;text-decoration:none}
+.card{
+  max-width:780px;
+  margin:0 auto;
+  background:rgba(14,14,14,0.92);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.card-header{
+  padding:2.8rem 2.8rem 2.2rem;
+  border-bottom:1px solid rgba(201,169,98,0.15);
+  background:linear-gradient(135deg,rgba(201,169,98,0.04) 0%,transparent 60%);
+}
+.brand{
+  font-size:0.55rem;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:rgba(201,169,98,0.45);
+  margin-bottom:1.4rem;
+}
+.card-title{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(2.4rem,7vw,4rem);
+  font-weight:300;
+  font-style:italic;
+  line-height:1.0;
+  color:#E8E0D4;
+  margin-bottom:0.4rem;
+  letter-spacing:-0.01em;
+}
+.card-date{
+  font-size:0.58rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:rgba(232,224,212,0.22);
+  margin-top:1rem;
+}
+.gold-rule{
+  height:1px;
+  background:linear-gradient(90deg,rgba(201,169,98,0.5) 0%,rgba(201,169,98,0.1) 60%,transparent 100%);
+  margin:1.6rem 0 0;
+}
+.card-body{padding:2.5rem 2.8rem}
+.card-body h1,.card-body h2{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.55rem;
+  font-weight:400;
+  color:#E8E0D4;
+  margin:2rem 0 0.6rem;
+  padding-bottom:0.5rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  letter-spacing:0.01em;
+}
+.card-body h1:first-child,.card-body h2:first-child{margin-top:0}
+.card-body h3{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.2rem;
+  font-weight:400;
+  color:#C9A962;
+  margin:1.6rem 0 0.4rem;
+  letter-spacing:0.04em;
+}
+.card-body p{margin:0.55rem 0;color:rgba(232,224,212,0.7)}
+.card-body strong{color:#E8E0D4;font-weight:600}
+.card-body em{color:#C9A962;font-style:italic}
+.card-body ul,.card-body ol{padding-left:1.5rem;margin:0.6rem 0}
+.card-body li{margin:0.35rem 0;color:rgba(232,224,212,0.7)}
+.card-body hr{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:2rem 0}
+.card-body blockquote{
+  border-left:2px solid rgba(201,169,98,0.35);
+  padding:0.5rem 1.2rem;
+  margin:1rem 0;
+  font-style:italic;
+  color:rgba(232,224,212,0.5);
+}
+.card-body table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:0.85rem}
+.card-body th{
+  text-align:left;
+  padding:0.5rem 0.9rem;
+  font-size:0.56rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:rgba(232,224,212,0.38);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  font-family:'Inter',sans-serif;
+  font-weight:500;
+}
+.card-body td{
+  padding:0.6rem 0.9rem;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:rgba(232,224,212,0.65);
+}
+.card-body td:first-child{color:rgba(232,224,212,0.88)}
+.card-body tr:hover td{background:rgba(255,255,255,0.02)}
+.card-footer{
+  padding:1.4rem 2.8rem;
+  border-top:1px solid rgba(255,255,255,0.05);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:0.5rem;
+}
+.card-footer span{
+  font-size:0.55rem;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:rgba(232,224,212,0.18);
+}
+.footer-dot{color:rgba(201,169,98,0.3)}
+@media(max-width:600px){
+  body{padding:1rem 0.5rem}
+  .card-header,.card-body{padding:1.8rem 1.4rem}
+  .card-footer{padding:1rem 1.4rem}
+  .card-title{font-size:2.2rem}
+}
+@media print{
+  body{padding:0;background:#080808}
+  .card{border-radius:0;box-shadow:none;border:none;max-width:100%}
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <div class="brand">${brandLabel}</div>
+    <div class="card-title">${recipeTitle}</div>
+    <div class="card-date">${dateStr}</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="card-body">
+    ${bodyHtml}
+  </div>
+  <div class="card-footer">
+    <span>${footerLabel}</span>
+    <span class="footer-dot">◆</span>
+  </div>
+</div>
+</body>
+</html>`;
+
+  const blob = new Blob([cardHtml], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const filename = recipeTitle
+    .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .toLowerCase()
+    .slice(0, 50) || 'recipe';
+  a.download = filename + '-liquid-architect.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  // Flash the button
+  const btn = document.getElementById('save-card-btn');
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Saved';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  }
+}
+
+
+function clearAll() {
+  document.getElementById('ai-prompt').value = '';
+  document.getElementById('ai-ingredients').value = '';
+  document.querySelectorAll('.flavor-chip').forEach(c => c.classList.remove('selected'));
+  if (recipeMode === 'classic') setEquipment(selectedEquipment || 'home');
+  document.getElementById('ai-spirit').value = '';
+  document.getElementById('ai-occasion').value = '';
+  setEquipment('home');
+
+  document.getElementById('ai-output-area').innerHTML = `
+    <div class="ai-output-empty" id="ai-empty">
+      <div class="empty-icon">◈</div>
+      <p>${t('ai.output.empty')}</p>
+      <p style="font-size:0.72rem;color:var(--text-dim);">${t('ai.output.empty.sub')}</p>
+    </div>
+  `;
+  const row0 = document.getElementById('output-btn-row'); if(row0) row0.classList.remove('visible');
+  accumulatedMarkdown = '';
+  const qaPanel = document.getElementById('recipe-qa-panel');
+  if (qaPanel) {
+    qaPanel.style.display = 'none';
+    document.getElementById('recipe-qa-output').innerHTML = '';
+  }
+}
+
+// ── Simple Markdown renderer ──
+function markdownToHtml(md, lang) {
+  lang = lang || localStorage.getItem('lc_lang') || 'en';
+  let text = md;
+
+  // Fix AI misformat: "2. foo" → **Step 2 —** foo (common cause of missing Step 2)
+  text = text.replace(/^(\d+)\.\s+(?!\d)(.+)$/gm, (m, n, rest) => {
+    if (/^\*\*(?:Step|步骤)/i.test(rest.trim())) return m;
+    const hdr = lang === 'zh' ? `**步骤 ${n} —**` : `**Step ${n} —**`;
+    return `${hdr} ${rest}`;
+  });
+
+  // Clean trailing pipes from section headings (AI sometimes emits "### Foo |")
+  text = text.replace(/^(#{1,3}\s+.+?)\s*\|\s*$/gm, '$1');
+
+  // Markdown tables with separator row: | h | h | \n |---|---| \n | d | d |
+  // Note: trim leading/trailing pipe first, then split — preserves empty cells (e.g. "| — |")
+  text = text.replace(
+    /^\|(.+)\|\s*\n\|[-:\s|]+\|\s*\n((?:\|.+\|\s*(?:\n|$))+)/gm,
+    (_, header, body) => {
+      const parseCells = row => row.replace(/^\||\|$/g, '').split('|').map(c => c.trim() || '&nbsp;');
+      const ths = parseCells(header).map(c => `<th>${c}</th>`).join('');
+      const rows = body.trim().split('\n').map(row => {
+        const tds = parseCells(row).map(c => `<td>${c}</td>`).join('');
+        return `<tr>${tds}</tr>`;
+      }).join('');
+      return `<table><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table>`;
+    }
+  );
+
+  // Fallback: headerless pipe-tables (no separator row) — renders all rows as <td>
+  text = text.replace(
+    /(?:^\|.+\|\s*\n)+/gm,
+    match => {
+      if (match.includes('<table')) return match; // already rendered
+      const parseCells = row => row.replace(/^\||\|$/g, '').split('|').map(c => c.trim() || '&nbsp;');
+      const rows = match.trim().split('\n').map(row => {
+        const tds = parseCells(row).map(c => `<td>${c}</td>`).join('');
+        return `<tr>${tds}</tr>`;
+      }).join('');
+      return `<table><tbody>${rows}</tbody></table>`;
+    }
+  );
+
+  let html = text
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^---$/gm, '<hr>')
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(?<![<\w])\*([^*\n]+?)\*(?![>\w])/g, '<em>$1</em>')
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/^[\-•] (.+)$/gm, '<li>$1</li>')
+    .replace(/`([^`]+)`/g, '<code style="background:rgba(255,255,255,0.06);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em;">$1</code>')
+    .replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`)
+    .split(/\n{2,}/)
+    .map(block => {
+      if (block.startsWith('<h') || block.startsWith('<ul') || block.startsWith('<blockquote') ||
+          block.startsWith('<hr') || block.startsWith('<table')) return block;
+      if (block.trim()) return `<p>${block.replace(/\n/g, '<br>')}</p>`;
+      return '';
+    })
+    .join('\n');
+
+  if (lang === 'zh') {
+    const headingMap = {
+      'Ingredients': '原料', 'Equipment': '设备', 'Method': '制作方法',
+      'The Science': '科学原理', "Architect's Note": '建筑师笔记',
+      'Source': '来源', 'History': '历史', 'Glass & Garnish': '杯型与装饰',
+    };
+    for (const [en, zh] of Object.entries(headingMap)) {
+      html = html.replace(new RegExp(`(<h3>)${en.replace(/'/g, "['']")}(</h3>)`, 'g'), `$1${zh}$2`);
+    }
+    html = html.replace(/\*\*Step (\d+)/g, '**步骤 $1');
+    html = html.replace(/<strong>Step (\d+)/g, '<strong>步骤 $1');
+  }
+
+  return html;
+}
+
+// Responsive grid for small screens
+function updateGrid() {
+  const container = document.querySelector('.page-container');
+  if (!container) return;
+  if (window.innerWidth < 900) {
+    container.style.gridTemplateColumns = '1fr';
+  } else {
+    container.style.gridTemplateColumns = '340px 1fr';
+  }
+}
+window.addEventListener('resize', updateGrid);
+updateGrid();
+</script>
+</body>
+</html>
