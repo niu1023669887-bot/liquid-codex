@@ -1,17 +1,17 @@
 # Liquid Codex
 
-调酒配方平台，416种材料数据库。
+Cocktail recipe platform with 416 ingredients database.
 
-## 这是什么
+## What is this
 
-一个让AI生成的调酒配方至少在物理上可行的系统。不是那种随便让大模型瞎编配方的玩具。
+A system that makes AI-generated cocktail recipes actually work in real life. Not another toy that lets LLMs make up random recipes.
 
-核心功能：
-- 416种材料数据库（pH值、糖度、密度等客观数据）
-- 20条物理校验规则（稀释度、酸碱平衡、乳化安全等）
-- AI配方生成 + 物理验证
+Core features:
+- 416 ingredients database (pH, Brix, density, and other objective data)
+- 20 physics-based validation rules (dilution, acidity balance, emulsion safety, etc.)
+- AI recipe generation + physical verification
 
-## 本地运行
+## Local Setup
 
 ```bash
 git clone https://github.com/niu1023669887-bot/liquid-codex.git
@@ -22,43 +22,43 @@ pip install -r requirements.txt
 cd backend
 uvicorn main:app --reload --port 8000
 
-# 另开终端
+# Open another terminal
 cd frontend
 python -m http.server 3000
 ```
 
-打开 http://localhost:3000
+Open http://localhost:3000
 
-## 环境变量
+## Environment Variables
 
-在 `backend/.env` 里配置：
+Configure in `backend/.env`:
 
 ```
-JWT_SECRET=随便写个长字符串
-PASSWORD=你的管理员密码
-DEEPSEEK_API_KEY=可选，用于AI功能
-PERPLEXITY_API_KEY=可选，用于成分验证
+JWT_SECRET=your-secret-key-here
+PASSWORD=your-admin-password
+DEEPSEEK_API_KEY=your-deepseek-key
+PERPLEXITY_API_KEY=your-perplexity-key
 ```
 
-## 部署
+## Deployment
 
-后端：Railway  
-前端：Vercel
+Backend: Railway  
+Frontend: Vercel
 
 ```bash
 railway up
 vercel deploy
 ```
 
-## 致谢
+## Acknowledgments
 
-- FastAPI - 后端框架
-- DeepSeek - AI推理
-- Perplexity - 成分数据验证
-- Railway & Vercel - 部署平台
-- Dave Arnold《Liquid Intelligence》- 稀释热力学理论
-- Jim Meehan《Meehan's Bartender Manual》- 空间配比学
+- FastAPI - Backend framework
+- DeepSeek - AI reasoning
+- Perplexity - Ingredient data verification
+- Railway & Vercel - Deployment platforms
+- Dave Arnold "Liquid Intelligence" - Dilution thermodynamics theory
+- Jim Meehan "Meehan's Bartender Manual" - Spatial proportion theory
 
-## 协议
+## License
 
 MIT License
